@@ -2,6 +2,8 @@ import Commingsoon from "@/app/model/Commingsoon";
 import { sendCoomingsoomEmail } from "./EmailSender";
 
 export const createRecord = async (data) => {
+  console.log(data,"conteo");
+  
   try {
     const data = await Commingsoon.create(data);
     // sendCoomingsoomEmail(data).

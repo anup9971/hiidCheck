@@ -57,8 +57,8 @@ let [show,setShow]=useState(false)
       toast.success("Query Submitted Successfully");
       console.log(data);
       
-      setForm({ name: "", email: "", phone: "", message: "" }); // optional reset
-      //  router.push("/")
+       // optional reset
+       router.push("/")
     } else {
       alert("Internal Server Error");
     }
@@ -95,7 +95,7 @@ Leave your details and unlock priority access before anyone else.
             name="name"
             placeholder="Your Name"
             required
-            value={form.name}
+           
             onChange={handleChange}
             className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
@@ -107,7 +107,7 @@ Leave your details and unlock priority access before anyone else.
             name="email"
             placeholder="Email Address"
             required
-            value={form.email}
+           
             onChange={handleChange}
             className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
@@ -120,7 +120,7 @@ Leave your details and unlock priority access before anyone else.
             name="phone"
             placeholder="Phone Number"
             required
-            value={form.phone}
+            
             onChange={handleChange}
             className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
@@ -132,7 +132,7 @@ Leave your details and unlock priority access before anyone else.
             name="message"
             placeholder="Your Message"
             
-            value={form.message}
+      
             onChange={handleChange}
             rows={4}
             className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"

@@ -33,7 +33,7 @@ const Navbar = () => {
             <Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">
               Corporate
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">
+            <Link href="https://hotelinkarolbagh.com/" className="text-white hover:text-gray-300 hover:border-b-1">
               Booking
             </Link>
             <Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">
@@ -58,18 +58,18 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white shadow-md px-4 pb-4 pt-2 space-y-3">
-          <Link href="/corporate" className="block text-black hover:text-gray-300 hover:border-b-1">
+          <Link href="#" className="block text-black hover:text-gray-300 hover:border-b-1">
             Corporate
           </Link>
-          <Link href="/booking" className="block text-black hover:text-gray-300 hover:border-b-1">
+          <Link href="https://hotelinkarolbagh.com/" className="block text-black hover:text-gray-300 hover:border-b-1">
             Booking
           </Link>
-          <Link href="/contact" className="block text-black hover:text-gray-300 hover:border-b-1">
+          <Link href="#" className="block text-black hover:text-gray-300 hover:border-b-1">
             Contact Us
           </Link>
 
           
-              <div  className="block w-22 text-center px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-blue-700 ">
+              <div  className="block w-22 text-center px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-[#477562] ">
                <Link href="#"> Login</Link>
           </div>
         </div>

@@ -10,7 +10,8 @@ const transporter = nodemailer.createTransport({
 
 export const sendCoomingsoomEmail = async (data) => {
   try {
-    console.log("Sending email to", data.email);
+     console.log("📨 Sending email to customer:", data.email);
+ 
 
     // Mail to customer
     await transporter.sendMail({
