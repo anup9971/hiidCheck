@@ -37,7 +37,7 @@ export default function Home() {
 
 
 
-     <section className="bg-[#FFBFOO] py-16 px-4">
+     <section className="md:bg-[#ffbfoo] bg-gray-50 py-16 px-4">
       <div className="max-w-7xl mx-auto  flex flex-col md:flex-row items-center gap-10">
         {/* Text Content */}
        

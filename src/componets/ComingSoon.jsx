@@ -72,7 +72,7 @@ let [show,setShow]=useState(false)
   };
 
   return (
-    <div className="min-h-screen  bg-[#FFBFOO] flex flex-col justify-center items-center text-center px-4">
+    <div className="min-h-screen bg-gray-50 md:bg-[#FFBFOO] flex flex-col justify-center items-center text-center px-4">
       {/* Header Text */}
       <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 mb-4">
          Curious About Launch Perks? 
@@ -97,7 +97,7 @@ Leave your details and unlock priority access before anyone else.
             required
             value={form.name}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
+            className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
           {show && errorMessage.name? <p className="text-red-600">{errorMessage.name}</p>:""}
         </div>
@@ -109,7 +109,7 @@ Leave your details and unlock priority access before anyone else.
             required
             value={form.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
+            className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
           {show && errorMessage.email? <p className="text-red-600">{errorMessage.email}</p>:""}
 
@@ -122,7 +122,7 @@ Leave your details and unlock priority access before anyone else.
             required
             value={form.phone}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
+            className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
           {show && errorMessage.phone? <p className="text-red-600">{errorMessage.name}</p>:""}
 
@@ -135,7 +135,7 @@ Leave your details and unlock priority access before anyone else.
             value={form.message}
             onChange={handleChange}
             rows={4}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
+            className="w-full px-4 py-2 text-gray-600 border rounded focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           ></textarea>
         </div>
         <button
