@@ -39,11 +39,12 @@ let [show,setShow]=useState(false)
        let error = Object.values(errorMessage).find((x)=>x !=="");
        if(error){
         setShow(true)
+        log
       
         return;
        }
        else{
-        let response = await fetch("http://localhost:3000/api/commingsoon",{
+        let response = await fetch("/api/contact",{
           method:"POST",
           headers:{
             "Content-Type": "application/json",
@@ -52,16 +53,11 @@ let [show,setShow]=useState(false)
         })
         let data = await response.json()
         console.log(data);
-        
-       if (data.success) {
-      toast.success("Query Submitted Successfully");
-      console.log(data);
       
+      toast.success("Query Submitted Successfully");
        // optional reset
        router.push("/")
-    } else {
-      alert("Internal Server Error");
-    }
+    
        }
         
     } catch (error) {
