@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.hotelindelhi.in
+
+# Sitemaps
+Sitemap: https://www.hotelindelhi.in/sitemap.xml

@@ -1,6 +1,6 @@
-import { createRecord } from "@/app/controller/commingsoon";
+import { createRecord } from "@/app/controller/commingsoonController";
 import { NextResponse } from "next/server";
-import Commingsoon from "@/app/model/commingsoon";
+import Commingsoon from "@/app/model/Commingsoon";
 import db_connect from "@/app/lib/db_connect";
 
 

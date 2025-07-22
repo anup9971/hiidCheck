@@ -20,7 +20,7 @@ const Footer = () => {
           </Link>
           </h2>
           <p className="mt-2 text-sm text-gray-100">
-            Your legal solution partner — simple, fast and reliable.
+           Big things are coming, right where Delhi does business best — stay tuned.
           </p>
         </div>
 
