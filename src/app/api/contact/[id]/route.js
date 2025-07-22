@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/dbConnect';
+import db_connect from '@/app/lib/db_connect';
 import {
   deleteContact,
   updateContact,
-} from "@/controllers/contactController";
+} from "@/app/controller/contactController";
 
 
 
 export async function DELETE(req, { params }) {
-  await dbConnect();
+  await db_connect();
 
   const { id } = params; // ✅ ये dynamic route से id उठाता है
 
@@ -25,7 +25,7 @@ export async function DELETE(req, { params }) {
   return NextResponse.json({ message: 'Contact deleted', contact: deleted }, { status: 200 });
 }
 export async function PUT(req) {
-  await dbConnect();
+  await db_connect();
   const body = await req.json();
   const id = body.id;
   if (!id) return NextResponse.json({ error: 'ID required' }, { status: 400 });
