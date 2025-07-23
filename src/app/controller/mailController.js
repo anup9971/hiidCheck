@@ -82,7 +82,7 @@ export const sendContactCreatedMail = async (contact) => {
   try {
     // 1. Mail to customer
     await resend.emails.send({
-      from: 'Hotel In Delhi <onboarding@resend.dev>', // use verified sender later
+      from: 'Hotel In Delhi <contact@hotelindelhi.in>', // use verified sender later
       to:contact.email,
       subject: 'Thank You for Contacting Hotel In Delhi',
       html: `
@@ -99,7 +99,7 @@ export const sendContactCreatedMail = async (contact) => {
 
     // 2. Mail to Admin
     await resend.emails.send({
-      from: 'Hotel In Delhi <onboarding@resend.dev>',
+      from: 'Hotel In Delhi <contact@hotelindelhi.in>',
       to: process.env.ADMIN_EMAIL,
       subject: 'New Contact Query Received – Hotel In Delhi',
       html: `
