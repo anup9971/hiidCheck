@@ -72,7 +72,7 @@ let [show,setShow]=useState(false)
     <div className="min-h-screen mt-[80px] bg-gray-50 md:bg-[#FFBFOO] flex flex-col justify-center items-center text-center px-4">
       {/* Header Text */}
       <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 mb-4">
-         Curious About Launch Perks? 
+         Curious About Launch Perks.
         
         
       </h1>
