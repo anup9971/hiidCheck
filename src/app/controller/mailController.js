@@ -5,8 +5,8 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user:"queryhiid@gmail.com",
-    pass:"frfpuzksnafmowoo",
+    user:process.env.EMAIL_USER,
+    pass:process.env.EMAIL_PASS,
   },
 });
 
@@ -114,3 +114,6 @@ export const sendContactCreatedMail = async (contact) => {
 //     console.error("❌ Booking Mail Error:", error);
 //   }
 // };
+export const config = {
+  runtime: "nodejs",  // important!
+};
