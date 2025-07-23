@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const ComingSoon = () => {
+  let [loading, setLoading]= useState(false)
   let router = useRouter()
   const [form, setForm] = useState({ name: "", email: "", phone:"", message: "" });
 let [show,setShow]=useState(false)
@@ -32,41 +33,41 @@ let [show,setShow]=useState(false)
       })
   };
 
-  const handleSubmit = async(e) => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      
-       let error = Object.values(errorMessage).find((x)=>x !=="");
-       if(error){
-        setShow(true)
-        log
-      
+      let error = Object.values(errorMessage).find((x) => x !== "");
+      if (error) {
+        setShow(true);
         return;
-       }
-       else{
-        let response = await fetch("/api/contact",{
-          method:"POST",
-          headers:{
+      } else {
+           setLoading(true); // ✅ Start loading
+
+        let response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(form)
-        })
-        let data = await response.json()
-        console.log(data);
-      
-      toast.success("Query Submitted Successfully");
-       // optional reset
-       router.push("/")
-    
-       }
-        
-    } catch (error) {
-      //  console.log({error:"Internal Error.."});
-       
-    }
-     
-  };
+          body: JSON.stringify(form),
+        });
 
+        let data = await response.json();
+        console.log(data);
+
+        toast.success("Query Submitted Successfully");
+
+        router.push("/"); // redirect
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false); // ✅ Stop loading
+    }
+  
+
+
+};
   return (
     <div className="min-h-screen mt-[80px] bg-gray-50 md:bg-[#FFBFOO] flex flex-col justify-center items-center text-center px-4">
       {/* Header Text */}
@@ -79,7 +80,12 @@ let [show,setShow]=useState(false)
        
 Leave your details and unlock priority access before anyone else.
       </p>
-
+       {loading && (
+        <div className="fixed inset-0 bg-[#111111d5] bg-opacity-50 z-50 flex flex-col items-center justify-center space-y-4">
+          <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-white text-lg">Submitting...</p>
+        </div>
+      )}
       {/* Form Box */}
       <form
         onSubmit={handleSubmit}
@@ -141,7 +147,7 @@ Leave your details and unlock priority access before anyone else.
           Send Message
         </button>
       </form>
-
+ 
       {/* Footer Note */}
        {/* <p className="text-sm text-gray-500 mt-6">© {new Date().getFullYear()} YourHotelName. All rights reserved.</p> */}
     </div>
