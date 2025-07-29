@@ -3,6 +3,9 @@ import CommingHome from "@/componets/CommingHome";
 import HotelCards from "@/componets/HotelCard";
 import BodyPage from "@/componets/BodyPage"
 import { Toaster } from "react-hot-toast";
+import Hero from "@/componets/home/Hero";
+import SearchBox from "@/componets/home/SearchBox";
+import HotelSlider from "@/componets/home/HotelSlider";
 export const metadata = {
   title: "Unlock Premium Corporate Stays and Meeting Spaces in Delhi — Arriving Soon",
   description:
@@ -46,10 +49,12 @@ export const metadata = {
 export default function Home() {
   return (
    <>
-   
-  <CommingHome/>
+    <Hero/>
+    <SearchBox/>
+    <HotelSlider/>
+  {/* <CommingHome/>
   <BodyPage/>
-  <Toaster />
+  <Toaster /> */}
  
    </>
   );
