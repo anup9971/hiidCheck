@@ -5,84 +5,77 @@ import { useRef } from "react";
 const hotels = [
   {
     id: 1,
-    name: "Hotel Paradise",
-    price: "₹3,499/night",
+    name: "V Hotel The Grand Shoba",
+    price: "₹6,499/night",
     rating: 4.5,
-    location: "New Delhi",
-    image: "https://picsum.photos/id/1018/600/400",
+    location: "Mahipalpur, Near IGI New Delhi",
+    image: "/hotel/vhotel.jpg",
   },
   {
     id: 2,
-    name: "Luxury Stay",
+    name: "Hotel Delhi Airport ",
     price: "₹5,200/night",
     rating: 4.8,
-    location: "Mumbai",
-    image: "https://picsum.photos/id/1015/600/400",
+    location: "Mahipalpur, Near IGI New Delhi",
+    image: "/hotel/hotel1.jpg",
   },
   {
     id: 3,
-    name: "Budget Inn",
+    name: "Hotel TSSG ",
     price: "₹2,100/night",
     rating: 4.2,
-    location: "Goa",
-    image: "https://picsum.photos/id/1025/600/400",
+    location: "Mahipalpur, Near IGI New Delhi",
+    image: "/hotel/hotel2.jpg",
   },
   {
     id: 4,
-    name: "Seaside Resort",
+    name: "Hotel PortView",
     price: "₹6,000/night",
     rating: 4.9,
     location: "Kerala",
-    image: "https://picsum.photos/id/1020/600/400",
+    image: "/hotel/hotel3.jpg",
   },
   {
     id: 5,
-    name: "Himalaya View",
+    name: "Hotel YashoBhoomi ",
     price: "₹4,300/night",
     rating: 4.7,
-    location: "Shimla",
-    image: "https://picsum.photos/id/1024/600/400",
+    location: "Mahipalpur, Near IGI New Delhi",
+    image:"/hotel/hotel4.jpg",
   },
     {
-    id: 1,
-    name: "Hotel Paradise",
+    id: 6,
+    name: "Hotel Tomar Hospitality",
     price: "₹3,499/night",
     rating: 4.5,
-    location: "New Delhi",
-    image: "https://picsum.photos/id/1018/600/400",
+    location: "Karol bagh, New Delhi",
+    image: "/hotel/hotel5.jpg",
   },
   {
-    id: 2,
-    name: "Luxury Stay",
+    id: 7,
+    name: "Luxury Stay In Karol Bagh",
     price: "₹5,200/night",
     rating: 4.8,
-    location: "Mumbai",
-    image: "https://picsum.photos/id/1015/600/400",
+    location: "Karol Bagh, New Delhi",
+    image: "/hotel/hotel6.jpg",
   },
   {
-    id: 3,
-    name: "Budget Inn",
-    price: "₹2,100/night",
+    id: 8,
+    name: "Stay Budget Inn",
+    price: "₹1,999/night",
     rating: 4.2,
-    location: "Goa",
-    image: "https://picsum.photos/id/1025/600/400",
+    location: "Karol Bagh , New Delhi",
+    image: "/hotel/hotel7.jpg",
   },
   {
-    id: 4,
-    name: "Seaside Resort",
+    id: 9,
+    name: "Hotel O Delhi",
     price: "₹6,000/night",
     rating: 4.9,
-    location: "Kerala",
-    image: "https://picsum.photos/id/1020/600/400",
+    location: "Karol Bagh, New Delhi",
+    image: "/hotel/hotel8.jpg",
   },
-  {
-    id: 5,
-    name: "Himalaya View",
-    price: "₹4,300/night",
-    rating: 4.7,
-    location: "Shimla",
-    image: "https://picsum.photos/id/1024/600/400",
-  },
+ 
 ];
 
 export default function HotelSlider() {
@@ -101,8 +94,8 @@ export default function HotelSlider() {
   return (
     <section className="px-4 py-10 bg-white">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">🏨 Recommended Hotels</h2>
-        <div className="space-x-2 hidden md:flex">
+        <h2 className="text-2xl font-bold text-black"> Recommended Hotels</h2>
+        <div className="space-x-2 gap-5 hidden md:flex">
           <button
             onClick={() => slide("left")}
             className="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full"
@@ -122,9 +115,9 @@ export default function HotelSlider() {
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing"
       >
-        {hotels.map((hotel) => (
+        {hotels.map((hotel,index) => (
           <div
-            key={hotel.id}
+            key={index}
             className="min-w-[280px] sm:min-w-[300px] md:min-w-[320px] bg-white border rounded-xl shadow-md overflow-hidden snap-start shrink-0"
           >
             <img
@@ -133,10 +126,10 @@ export default function HotelSlider() {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{hotel.name}</h3>
+              <h3 className="text-lg text-gray-800 font-semibold">{hotel.name}</h3>
               <p className="text-gray-500 text-sm">{hotel.location}</p>
               <div className="flex justify-between items-center mt-2">
-                <span className="text-yellow-500 text-sm">⭐ {hotel.rating}</span>
+                <span className="text-green-700 text-sm">⭐ {hotel.rating}</span>
                 <span className="text-sm font-semibold text-gray-800">
                   {hotel.price}
                 </span>
