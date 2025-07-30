@@ -1,84 +1,89 @@
 "use client";
 
 import { useRef } from "react";
+import data from "@/data";
+import Link from "next/link";
 
-const hotels = [
-  {
-    id: 1,
-    name: "V Hotel The Grand Shoba",
-    price: "₹6,499/night",
-    rating: 4.5,
-    location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/vhotel.jpg",
-  },
-  {
-    id: 2,
-    name: "Hotel Delhi Airport ",
-    price: "₹5,200/night",
-    rating: 4.8,
-    location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel1.jpg",
-  },
-  {
-    id: 3,
-    name: "Hotel TSSG ",
-    price: "₹2,100/night",
-    rating: 4.2,
-    location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel2.jpg",
-  },
-  {
-    id: 4,
-    name: "Hotel PortView",
-    price: "₹6,000/night",
-    rating: 4.9,
-    location: "Kerala",
-    image: "/hotel/hotel3.jpg",
-  },
-  {
-    id: 5,
-    name: "Hotel YashoBhoomi ",
-    price: "₹4,300/night",
-    rating: 4.7,
-    location: "Mahipalpur, Near IGI New Delhi",
-    image:"/hotel/hotel4.jpg",
-  },
-    {
-    id: 6,
-    name: "Hotel Tomar Hospitality",
-    price: "₹3,499/night",
-    rating: 4.5,
-    location: "Karol bagh, New Delhi",
-    image: "/hotel/hotel5.jpg",
-  },
-  {
-    id: 7,
-    name: "Luxury Stay In Karol Bagh",
-    price: "₹5,200/night",
-    rating: 4.8,
-    location: "Karol Bagh, New Delhi",
-    image: "/hotel/hotel6.jpg",
-  },
-  {
-    id: 8,
-    name: "Stay Budget Inn",
-    price: "₹1,999/night",
-    rating: 4.2,
-    location: "Karol Bagh , New Delhi",
-    image: "/hotel/hotel7.jpg",
-  },
-  {
-    id: 9,
-    name: "Hotel O Delhi",
-    price: "₹6,000/night",
-    rating: 4.9,
-    location: "Karol Bagh, New Delhi",
-    image: "/hotel/hotel8.jpg",
-  },
+// const hotels = [
+//   {
+//     id: 1,
+//     name: "V Hotel The Grand Shoba",
+//     price: "₹6,499/night",
+//     rating: 4.5,
+//     location: "Mahipalpur, Near IGI New Delhi",
+//     image: "/hotel/vhotel.jpg",
+//   },
+//   {
+//     id: 2,
+//     name: "Hotel Delhi Airport ",
+//     price: "₹5,200/night",
+//     rating: 4.8,
+//     location: "Mahipalpur, Near IGI New Delhi",
+//     image: "/hotel/hotel1.jpg",
+//   },
+//   {
+//     id: 3,
+//     name: "Hotel TSSG ",
+//     price: "₹2,100/night",
+//     rating: 4.2,
+//     location: "Mahipalpur, Near IGI New Delhi",
+//     image: "/hotel/hotel2.jpg",
+//   },
+//   {
+//     id: 4,
+//     name: "Hotel PortView",
+//     price: "₹6,000/night",
+//     rating: 4.9,
+//     location: "Kerala",
+//     image: "/hotel/hotel3.jpg",
+//   },
+//   {
+//     id: 5,
+//     name: "Hotel YashoBhoomi ",
+//     price: "₹4,300/night",
+//     rating: 4.7,
+//     location: "Mahipalpur, Near IGI New Delhi",
+//     image:"/hotel/hotel4.jpg",
+//   },
+//     {
+//     id: 6,
+//     name: "Hotel Tomar Hospitality",
+//     price: "₹3,499/night",
+//     rating: 4.5,
+//     location: "Karol bagh, New Delhi",
+//     image: "/hotel/hotel5.jpg",
+//   },
+//   {
+//     id: 7,
+//     name: "Luxury Stay In Karol Bagh",
+//     price: "₹5,200/night",
+//     rating: 4.8,
+//     location: "Karol Bagh, New Delhi",
+//     image: "/hotel/hotel6.jpg",
+//   },
+//   {
+//     id: 8,
+//     name: "Stay Budget Inn",
+//     price: "₹1,999/night",
+//     rating: 4.2,
+//     location: "Karol Bagh , New Delhi",
+//     image: "/hotel/hotel7.jpg",
+//   },
+//   {
+//     id: 9,
+//     name: "Hotel O Delhi",
+//     price: "₹6,000/night",
+//     rating: 4.9,
+//     location: "Karol Bagh, New Delhi",
+//     image: "/hotel/hotel8.jpg",
+//   },
  
-];
+// ];
 
 export default function HotelSlider() {
+
+  console.log(`/hotel/${data?._id}`);
+  
   const scrollRef = useRef();
 
   const slide = (direction) => {
@@ -115,9 +120,10 @@ export default function HotelSlider() {
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing"
       >
-        {hotels.map((hotel,index) => (
-          <div
+        {data?.map((hotel, index) => (
+          <Link
             key={index}
+            href={`/hotel/${ hotel.id}`} 
             className="min-w-[280px] sm:min-w-[300px] md:min-w-[320px] bg-white border rounded-xl shadow-md overflow-hidden snap-start shrink-0"
           >
             <img
@@ -135,7 +141,7 @@ export default function HotelSlider() {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
