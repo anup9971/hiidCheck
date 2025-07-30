@@ -8,6 +8,8 @@ import SearchBox from "@/componets/home/SearchBox";
 import HotelSlider from "@/componets/home/HotelSlider";
 import CorporatePage from "@/componets/home/CorporatePage";
 import VirtualTour from "@/componets/VirtualTaur";
+import BenefitsSection from "@/componets/home/BenefitsSection";
+import ConferenceSection from "@/componets/home/ConferenceSection";
 export const metadata = {
   title: "Unlock Premium Corporate Stays and Meeting Spaces in Delhi — Arriving Soon",
   description:
@@ -55,6 +57,8 @@ export default function Home() {
     <SearchBox/>
     <HotelSlider/>
     <CorporatePage/>
+    <BenefitsSection/>
+    <ConferenceSection/>
 
 
     {/* ------------------ Comming Soon ------------------------ */}
