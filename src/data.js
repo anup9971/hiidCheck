@@ -3,7 +3,7 @@ const data = [
     id:1,
     name: "V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/vhotel.jpg",
     roomProperty:[
@@ -11,7 +11,7 @@ const data = [
     id: 101,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -32,7 +32,7 @@ const data = [
     id: 102,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -47,7 +47,7 @@ const data = [
     id: 103,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 4499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -67,7 +67,7 @@ const data = [
     id: 104,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 3499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -88,7 +88,7 @@ const data = [
     id: 105,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 1499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -111,7 +111,7 @@ const data = [
     id: 2,
     name: "Hotel Delhi Airport",
     price: 5499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel1.jpg",
     roomProperty:[
@@ -119,7 +119,7 @@ const data = [
     id: 201,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 2499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -139,7 +139,7 @@ const data = [
     id: 202,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -159,7 +159,7 @@ const data = [
     id: 203,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 1499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -179,7 +179,7 @@ const data = [
     id: 204,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 7499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -199,7 +199,7 @@ const data = [
     id: 205,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 5499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -222,7 +222,7 @@ const data = [
     id: 3,
     name: "Hotel TSSG",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel2.jpg",
     roomProperty:[
@@ -230,7 +230,7 @@ const data = [
     id: 301,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 2499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -250,7 +250,7 @@ const data = [
     id: 302,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 3499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -270,7 +270,7 @@ const data = [
     id: 303,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 1499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -290,7 +290,7 @@ const data = [
     id: 304,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 9499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -310,7 +310,7 @@ const data = [
     id: 305,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -333,7 +333,7 @@ const data = [
     id: 4,
     name: "Hotel PortView",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel3.jpg",
     roomProperty:[
@@ -341,7 +341,7 @@ const data = [
     id: 401,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -361,7 +361,7 @@ const data = [
     id: 402,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -381,7 +381,7 @@ const data = [
     id: 403,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -401,7 +401,7 @@ const data = [
     id: 404,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -421,7 +421,7 @@ const data = [
     id: 405,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -444,7 +444,7 @@ const data = [
     id: 5,
     name: "Hotel YashoBhoomi",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel4.jpg",
     roomProperty:[
@@ -452,7 +452,7 @@ const data = [
     id: 501,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -472,7 +472,7 @@ const data = [
     id: 502,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -492,7 +492,7 @@ const data = [
     id: 503,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -512,7 +512,7 @@ const data = [
     id: 504,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -532,7 +532,7 @@ const data = [
     id: 505,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -555,7 +555,7 @@ const data = [
     id: 6,
     name: "Hotel Tomar Hospitality",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel5.jpg",
     roomProperty:[
@@ -563,7 +563,7 @@ const data = [
     id: 601,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -583,7 +583,7 @@ const data = [
     id: 602,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -603,7 +603,7 @@ const data = [
     id: 603,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -623,7 +623,7 @@ const data = [
     id: 604,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -643,7 +643,7 @@ const data = [
     id: 605,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -666,7 +666,7 @@ const data = [
     id: 7,
     name: "Luxury Stay In Karol Bagh",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel6.jpg",
     roomProperty:[
@@ -674,7 +674,7 @@ const data = [
     id: 701,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -694,7 +694,7 @@ const data = [
     id: 702,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -714,7 +714,7 @@ const data = [
     id: 703,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -734,7 +734,7 @@ const data = [
     id: 704,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -754,7 +754,7 @@ const data = [
     id: 705,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -777,7 +777,7 @@ const data = [
     id: 8,
     name: "Stay Budget Inn",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel7.jpg",
     roomProperty:[
@@ -785,7 +785,7 @@ const data = [
     id: 801,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -805,7 +805,7 @@ const data = [
     id: 802,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -825,7 +825,7 @@ const data = [
     id: 803,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -845,7 +845,7 @@ const data = [
     id: 804,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -865,7 +865,7 @@ const data = [
     id: 805,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
@@ -888,7 +888,7 @@ const data = [
     id: 9,
     name: "Hotel O Delhi",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image: "/hotel/hotel8.jpg",
     roomProperty:[
@@ -896,7 +896,7 @@ const data = [
     id: 901,
     name: "Classic Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room1.jpg",
@@ -916,7 +916,7 @@ const data = [
     id: 902,
     name: "Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room7.jpg",
@@ -936,7 +936,7 @@ const data = [
     id: 903,
     name: "Super Deluxe Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room13.jpg",
@@ -956,7 +956,7 @@ const data = [
     id: 904,
     name: " Family Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room19.jpg",
@@ -976,7 +976,7 @@ const data = [
     id: 905,
     name: "  Suite Room - V Hotel The Grand Shoba",
     price: 6499,
-    rating: 4.5,
+    rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
     image:[
          "/room/room25.jpg",
