@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { IoLocationSharp } from "react-icons/io5";
+import Link from "next/link";
 
 
 
@@ -77,12 +78,17 @@ export default function RoomImageGrid(roomData) {
       </div>
 
       {/* Right: Hotel Info */}
-      <div className="space-y-4  ">
+      <div className="space-y-4  "> 
+         <p className="flex gap-2 text-gray-500 mb-[0px]"> ⭐️⭐️⭐️  👍</p>
         <h2 className="text-2xl text-gray-800 font-bold">{roomData.data.name}</h2>
-         <p className="flex gap-2"> <IoLocationSharp /> G 66 kalkaji, 110019 New Delhi</p>
+         <p className="flex gap-2 text-gray-500"> <IoLocationSharp /> G 66 kalkaji, 110019 New Delhi</p>
         <p className="text-gray-700 text-justify">
          {roomData?.data?.description}
         </p>
+        <p className="text-gray-700 text-justify">
+         <span className="text-gray-600 font-semibold">Essential Facilities: </span>{roomData?.data?.description}
+        </p>
+        
 
           {/* Amenities  */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
@@ -102,8 +108,11 @@ export default function RoomImageGrid(roomData) {
        </div>
 
 
-        <div className="text-lg font-semibold text-green-600">
-          Starting ₹2,499 / night
+        <div className="text-lg font-semibold text-green-600  ">
+           <span>Starting ₹2,499 / night</span>
+          <Link href="#">
+          <span className="bg-green-700 hover:bg-green-900 float-end text-white p-2 rounded">Reserve</span>
+          </Link>
         </div>
       </div>
 

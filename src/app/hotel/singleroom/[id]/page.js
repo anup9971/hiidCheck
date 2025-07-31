@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import React from 'react'
 import data from '@/data'
 import RoomImageGrid from '@/componets/singleroom/RoomImageGrid'
+import HotelMap from '@/componets/singleroom/HotelMap'
 
 export default function page() {
   let params = useParams()
@@ -14,6 +15,7 @@ export default function page() {
     <>
      <div className="md:p-10 p-3 bg-gray-100">
     <RoomImageGrid data={roomData}  />
+    <HotelMap/>
      
     </div>
     
