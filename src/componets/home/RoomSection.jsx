@@ -117,8 +117,7 @@ export default function RoomSection() {
         className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing"
       >
         {hotels.map((hotel,index) => (
-         <>
-          <div
+       <div
             key={index}
             className="min-w-[280px] w-[180px] sm:min-w-[300px] md:min-w-[320px]  border rounded-xl shadow-md overflow-hidden snap-start shrink-0"
           >
@@ -140,7 +139,6 @@ export default function RoomSection() {
 
         
           </div>
-         </>
         ))}
       </div>
     </section>

@@ -36,7 +36,7 @@ export default function HotelCard({ hotel }) {
 
           {/* ✅ Book Now Button */}
           <Link
-            href={`/hotel/${hotel.id}`}
+            href={`/hotel/singleroom/${hotel.id}`}
             className="ml-auto rounded "
           >
             <span className="bg-[#487c66] px-4 py-[9px]   w-full rounded  text-white text-sm hover:bg-[#5faf8e] transition  "> Book Now</span>

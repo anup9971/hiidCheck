@@ -1,0 +1,148 @@
+
+
+import React, { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { IoLocationSharp } from "react-icons/io5";
+
+
+
+export default function RoomImageGrid(roomData) {
+  console.log(roomData.data);
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const openSlider = (index) => {
+    setCurrentIndex(index);
+    setIsOpen(true);
+  };
+
+  const closeSlider = () => {
+    setIsOpen(false);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev === 0 ? roomData?.data?.image.length - 1 : prev - 1));
+  };
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % roomData?.data?.image.length);
+  };
+
+  return (
+    <div className="grid md:grid-cols-2 gap-6">
+      {/* Left: Image Grid */}
+      <div className="grid grid-cols-3 grid-rows-2 gap-2">
+        <div
+          className="col-span-3 row-span-2 cursor-pointer"
+          onClick={() => openSlider(0)}
+        >
+          <img
+            src={roomData?.data?.image[0]}
+            alt="Main Room"
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
+
+        {roomData?.data?.image.slice(1, 3).map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Room ${index + 1}`}
+            onClick={() => openSlider(index + 1)}
+            className="cursor-pointer w-full h-full object-cover rounded-md"
+          />
+        ))}
+        
+        {roomData?.data?.image.slice(5, 6).map((img, index) => (
+  <div
+    key={index}
+    className="relative cursor-pointer w-full h-full"
+    onClick={() => openSlider(index + 5)}
+  >
+    <img
+      src={img}
+      alt={`Room ${index + 6}`}
+      className="w-full h-full object-cover rounded-md"
+    />
+    <div className="absolute inset-0 bg-[#11111185] bg-opacity-10 rounded-md flex items-center justify-center">
+      <span className="text-white font-semibold text-lg">
+        +{roomData?.data?.image.length} Photos
+      </span>
+    </div>
+  </div>
+))}
+
+      </div>
+
+      {/* Right: Hotel Info */}
+      <div className="space-y-4  ">
+        <h2 className="text-2xl text-gray-800 font-bold">{roomData.data.name}</h2>
+         <p className="flex gap-2"> <IoLocationSharp /> G 66 kalkaji, 110019 New Delhi</p>
+        <p className="text-gray-700 text-justify">
+         {roomData?.data?.description}
+        </p>
+
+          {/* Amenities  */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+        {roomData.data.image.map((facility, index) => (
+        <div
+          key={index}
+          className="flex items-center gap-2 border border-gray-600 rounded-lg px-3 py-2 hover:shadow hover:bg-gray-50 transition"
+        >
+          <img
+            src={facility}
+            alt={facility.name}
+            className="w-5 h-5 object-contain"
+          />
+          <span className="text-sm text-gray-700">parking </span>
+        </div>
+      ))}
+       </div>
+
+
+        <div className="text-lg font-semibold text-green-600">
+          Starting ₹2,499 / night
+        </div>
+      </div>
+
+      {/* Modal Slider */}
+      <Dialog open={isOpen} onClose={closeSlider} className="relative z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-80" aria-hidden="true" />
+        <div className="fixed inset-0  md:ml-[0px]  w-[17rem] md:w-full flex items-center md:justify-center ">
+          <div className="relative w-full max-w-4xl">
+            <button
+              onClick={closeSlider}
+              className="absolute top-0 right-[-40px] md:right-22 text-red-600 z-10"
+            >
+              <X size={28} />
+            </button>
+
+            <div className="flex items-center justify-between">
+              <button
+                onClick={prevImage}
+                className="text-white bg-black bg-opacity-40 p-2 rounded-full"
+              >
+                <ChevronLeft size={32} />
+              </button>
+
+              <img
+                src={roomData?.data?.image[currentIndex]}
+                alt="Room"
+                className="max-h-[80vh] w-auto object-contain mx-auto rounded"
+              />
+
+              <button
+                onClick={nextImage}
+                className="text-white bg-black bg-opacity-40 p-2 rounded-full"
+              >
+                <ChevronRight size={32} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+    </div>
+  );
+}
