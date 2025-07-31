@@ -1,5 +1,7 @@
 "use client";
 import { Star, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const keywords = [
   { text: "courteous staff", count: 266, color: "green" },
@@ -24,23 +26,31 @@ export default function HotelRating(roomData) {
   const maxCount = ratings[0].count;
 
   return (
-    <div className="max-w-7xl mt-5 md:mt-10 mx-auto px-4 py-8">
+    <>
+    <div className="max-w-7xl bg-gray-50  rounded mt-5 md:mt-10 mx-auto px-4 py-8">
       {/* Heading + Sort */}
-      <div className="flex justify-between items-start md:items-center mb-4">
+      <div className=" md:flex justify-between items-start md:items-center mb-4">
+        {/* for  Mobile scree */}
+         {/* <div className="text-sm text-gray-700 flex items-center gap-1 cursor-pointer">
+          Sort By: <span className="font-medium text-black">Latest first</span>
+          <ChevronDown size={16} />
+        </div> */}
         <h2 className="text-xl font-semibold text-gray-800">
           Guest Reviews & Rating for {roomData.data.name}
         </h2>
+        
+        {/* for desktop  */}
         {/* <div className="text-sm text-gray-700 flex items-center gap-1 cursor-pointer">
           Sort By: <span className="font-medium text-black">Latest first</span>
           <ChevronDown size={16} />
         </div> */}
       </div>
 
-      <div className="flex flex-col md:flex-row bg-gray-50 shadow-md rounded-lg p-6 gap-8">
+      <div className="flex flex-col md:flex-row bg-gray-50   rounded-lg p-6 gap-8">
         {/* Left: Rating + Bars */}
         <div className="md:w-1/2 flex flex-col gap-6">
           {/* Green Rating Box */}
-          <div className="bg-green-600 text-white p-5 rounded-lg w-40 text-center">
+          <div className="bg-green-600 text-white p-5 rounded-lg md:w-40 text-center">
             <div className="text-sm font-medium">HiDRating</div>
             <div className="text-3xl font-bold">4.1<span className="text-base">/5</span></div>
             <div className="text-xs mt-1">{totalRatings} Ratings</div>
@@ -96,6 +106,68 @@ export default function HotelRating(roomData) {
           </div>
         </div>
       </div>
+
+
+
+
+{/* ------------------------------------------ Review Section ---------------------------------------- */}
+<div className="text-sm float-end rounded  hover:bg-green-700 bg-green-600 text-gray-100 flex items-center gap-1 cursor-pointer">
+         <Link href="/review" className="p-3">
+            Review 
+         </Link>
+        </div>
+      {/* review section  */}
+   <div className="  rounded p-4 mt-15 shadow-sm  max-w-6xl mx-auto">
+      {/* Top Section: Avatar + Name + Rating */}
+      <div className="flex justify-between items-start">
+        <div className="flex items-start gap-3">
+          {/* Profile image */}
+          <Image
+            src="/user.jpg" // Replace with your public/profile image path
+            alt="User"
+            width={40}
+            height={40}
+            className="rounded-full object-cover"
+          />
+
+          <div>
+            <p className="font-semibold text-sm text-gray-800">
+              Monica Mishra{" "}
+              <span className="text-gray-500 font-normal text-xs">(Stayed 26 Dec, 2024)</span>
+            </p>
+            <p className="text-xs text-gray-500">Solo Traveller | 5 Reviews Written</p>
+          </div>
+        </div>
+
+        {/* Rating */}
+        <div className="bg-teal-600 text-white text-sm px-2 py-1 rounded font-bold h-fit">
+          5/5
+        </div>
+      </div>
+
+      {/* Review Text */}
+      <p className="mt-4 text-sm text-gray-700">
+        the hotel <strong>staff is courteous</strong> and were available at all times. the breakfast
+        spread was also well made. finally the <strong>room was very comfortable</strong> and luxurious.
+      </p>
+
+      {/* Review Images */}
+      <div className="flex gap-3 mt-4">
+        {["/room1.jpg", "/room2.jpg", "/room3.jpg"].map((img, i) => (
+          <Image
+            key={i}
+            src={img}
+            alt={`room-${i}`}
+            width={120}
+            height={90}
+            className="rounded-md object-cover border"
+          />
+        ))}
+      </div>
     </div>
+    </div>
+
+  
+    </>
   );
 }
