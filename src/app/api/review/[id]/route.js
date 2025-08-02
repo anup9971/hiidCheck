@@ -139,10 +139,21 @@ export async function GET(req, { params }) {
   return getReviewById(params.id);
 }
 
-export async function PUT(req, { params }) {
-  await db_connect();
-  const formData = await req.formData();
-  return updateReview(formData, params.id);
+export async function PUT(req, context) {
+  try {
+    const id = context.params.id;
+    console.log("Review ID:", id);
+
+    await db_connect();
+    const formData = await req.formData();
+
+    const result = await updateReview(formData, id);
+
+    return result; // assuming updateReview returns a NextResponse
+  } catch (error) {
+    console.error("❌ PUT /api/review/[id] error:", error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
 }
 
 export async function DELETE(req, { params }) {
