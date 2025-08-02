@@ -1,24 +1,48 @@
 "use client"
+import Formvalidators from "@/componets/Formvalidators";
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 
 export default function ReviewForm() {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     group: "",
     message: "",
     profileImage: null,
-    images: [],
+    reviewImages: [],
+    rating:""
   });
+ const [show,SetShow] = useState(false)
+
+ let [errorMessage, setErrorMessage]=useState({
+  name:"Name Field Is Required",
+  group:"Group Field Is Required",
+  message:"message Field Is Required",
+  profileImage:"ProfileImage Field Is Required",
+  reviewImages:"ReviewImages Field Is Required",
+  rating:"rating Field Is Required",
+ }) 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    setErrorMessage((x)=>{
+      return{
+        ...x,
+        [name]:Formvalidators(e)
+      }
+    })
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
   };
 
   const handleProfileImage = (e) => {
@@ -31,25 +55,64 @@ export default function ReviewForm() {
   const handleMultipleImages = (e) => {
     setFormData((prev) => ({
       ...prev,
-      images: Array.from(e.target.files),
+      reviewImages: Array.from(e.target.files),
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const completeData = { ...formData, rating };
-    console.log(completeData);
-    alert("Review submitted successfully!");
+  const handleSubmit = async(e) => {
+    try {
+      let item = Object.values(errorMessage).find((a)=>a!=="")
+      if(item){
+        SetShow(true)
+        console.log(item);
+        
+      }
+      else{
+       let form = new FormData();
+       form.append("name", formData.name);
+       from.append("group", formData.group)
+       from.append("message", formData.message)
+       from.append("group", rating)
+       form.append("profileImage", formData.profileImage);
+      for (let img of formData.reviewImages) {
+      form.append("reviewImages", img); // key should match backend .getAll()
+    }
+
+        let response = await fetch("/api/review",{
+          method:"POST",
+          headers:{
+             "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form)
+        })
+       let  res = await response.json()
+        console.log(res);
+        
+         if(res){
+          toast.success("Review Successfully Submit")
+          // router.push("/review")
+         }
+         else{
+          console.log(res);
+         }
+
+      }
+    } catch (error) {
+       console.log(error);
+       
+    }
+    
+   
   };
 
   return (
     <div className="max-w-2xl pb-25 md:bg-white bg-gray-100 mx-auto px-4 py-6">
       <div className="bg-white p-6 rounded-lg shadow-xl">
         <h2 className="text-2xl font-bold text-gray-700 mb-4 text-center">Write a Review</h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onClick={handleSubmit} className="space-y-5">
           {/* Name */}
             <div>
-                 <input
+          <input
             type="text"
             name="name"
             placeholder="Your Name"
@@ -59,21 +122,10 @@ export default function ReviewForm() {
             className="w-full px-4 py-2  text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
           />
             </div>
-             <div>
-                 <input
-            type="number"
-            name="phone"
-            placeholder="Your Number"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full px-4 text-gray-900  py-2  border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5f8575]"
-          />
-            </div>
+             
 
           {/* Select Group */}
           <div>
-
             <select
             name="group"
             value={formData.group}
@@ -92,9 +144,10 @@ export default function ReviewForm() {
           {/* Profile Image */}
           <div>
             <label className="block  text-gray-700  text-sm mb-1 font-medium">Profile Image</label>
-            <input
+              <input
               type="file"
               accept="image/*"
+              name="profileImage"
               onChange={handleProfileImage}
               className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
                          file:rounded-lg  file:border-0
@@ -110,6 +163,7 @@ export default function ReviewForm() {
             <input
               type="file"
               accept="image/*"
+              name="reviewImages"
               multiple
               onChange={handleMultipleImages}
               className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
