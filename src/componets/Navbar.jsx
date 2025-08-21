@@ -30,13 +30,13 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex space-x-8 items-center">
-            <Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">
+            <Link href="/corporate" className="text-white hover:text-gray-300 hover:border-b-1">
               Corporate
             </Link>
             <Link href="https://hotelinkarolbagh.com/" className="text-white hover:text-gray-300 hover:border-b-1">
               Booking
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">
+            <Link href="/contact" className="text-white hover:text-gray-300 hover:border-b-1">
               Contact 
             </Link>
 
@@ -58,14 +58,14 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white shadow-md px-4 pb-4 pt-2 space-y-3">
-          <Link href="#" className="block text-black hover:text-gray-300 hover:border-b-1">
+          <Link href="/corporate" className="block text-black hover:text-gray-300 hover:border-b-1">
             Corporate
           </Link>
           <Link href="https://hotelinkarolbagh.com/" className="block text-black hover:text-gray-300 hover:border-b-1">
             Booking
           </Link>
-          <Link href="#" className="block text-black hover:text-gray-300 hover:border-b-1">
-            Contact Us
+          <Link href="/contact" className="block text-black hover:text-gray-300 hover:border-b-1">
+            Contact 
           </Link>
 
           

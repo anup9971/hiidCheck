@@ -70,8 +70,8 @@ export default function CorporatePage() {
       <section className="py-16 px-4 bg-gray-900 text-white text-center">
         <h2 className="text-3xl font-semibold mb-4">Ready to Partner With Us?</h2>
         <p className="mb-6 text-gray-300">Connect with our corporate team for exclusive deals and long-term plans.</p>
-        <a href="/contact" className="bg-white text-black border-white border md:text-white  px-6 py-3 rounded-md hover:bg-gray-200 transition">
-        <span className="hover:text-gray-500 transition">Contact Us</span>
+        <a href="/contact" className="bg-white  text-black  border-white border md:text-white  px-6 py-3 rounded-md hover:bg-gray-200 transition">
+        <span className="hover:text-gray-500 text-black transition">Contact Us</span>
         
         </a>
       </section>
