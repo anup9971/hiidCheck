@@ -77,7 +77,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Main send function
 export const sendContactCreatedMail = async (contact) => {
-  console.log(contact.email);
+  // console.log(contact.email);
   
   try {
     // 1. Mail to customer

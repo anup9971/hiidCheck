@@ -142,7 +142,7 @@ export async function GET(req, { params }) {
 export async function PUT(req, context) {
   try {
     const id = context.params.id;
-    console.log("Review ID:", id);
+    // console.log("Review ID:", id);
 
     await db_connect();
     const formData = await req.formData();

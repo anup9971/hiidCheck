@@ -99,7 +99,7 @@ export const createReview = async (formData) => {
 // };
 
 export const updateReview = async (formData, id) => {
-  console.log("Updating review ID:", id);
+  // console.log("Updating review ID:", id);
 
   try {
     const review = await Reviews.findById(id);
@@ -112,9 +112,9 @@ export const updateReview = async (formData, id) => {
     const pFile = formData.get("profileImage");
     const files = formData.getAll("reviewImages");
 
-    console.log("Incoming fields:", { name, message, group, rating });
-    console.log("Profile image file:", pFile);
-    console.log("Review image files:", files);
+    // console.log("Incoming fields:", { name, message, group, rating });
+    // console.log("Profile image file:", pFile);
+    // console.log("Review image files:", files);
 
     review.name = name;
     review.message = message;
@@ -122,7 +122,7 @@ export const updateReview = async (formData, id) => {
     review.rating = rating;
 
     if (pFile && pFile.name) {
-      console.log("Deleting old profile image:", review.profileImage);
+      // console.log("Deleting old profile image:", review.profileImage);
       if (review.profileImage && typeof deleteFile === "function") {
         deleteFile(review.profileImage);
       }
@@ -134,7 +134,7 @@ export const updateReview = async (formData, id) => {
     }
 
     if (Array.isArray(files) && files.length > 0) {
-      console.log("Deleting old review images:", review.reviewImages);
+      // console.log("Deleting old review images:", review.reviewImages);
       review.reviewImages.forEach(img => {
         if (typeof deleteFile === "function") {
           deleteFile(img);
@@ -152,7 +152,7 @@ export const updateReview = async (formData, id) => {
     }
 
     await review.save();
-    console.log("✅ Review updated:", review);
+    // console.log("✅ Review updated:", review);
 
     return NextResponse.json({ success: true, data: review }, { status: 200 });
   } catch (err) {

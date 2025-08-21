@@ -82,7 +82,7 @@ import Link from "next/link";
 
 export default function HotelSlider() {
 
-  console.log(`/hotel/${data?._id}`);
+  // console.log(`/hotel/${data?._id}`);
   
   const scrollRef = useRef();
 

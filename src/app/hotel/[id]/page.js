@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 export default function HotelPage() {
    let param = useParams()
    let hotels = data?.find((x)=>x?.id ==param?.id)
-   console.log(hotels?.roomProperty);
+  //  console.log(hotels?.roomProperty);
    
   const [filters, setFilters] = useState({
     type: "",
@@ -43,7 +43,7 @@ const filtered = hotels?.roomProperty?.filter((hotel) => {
   return typeMatch && priceMatch && ratingMatch && parkingMatch && restaurantMatch;
 });
 
-  console.log(filtered);
+  // console.log(filtered);
   
 
   return (

@@ -53,7 +53,7 @@ let [show,setShow]=useState(false)
         });
 
         let data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         toast.success("Query Submitted Successfully");
 

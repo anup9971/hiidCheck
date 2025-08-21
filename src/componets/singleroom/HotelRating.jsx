@@ -2,6 +2,7 @@
 import { Star, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ReviewCard from "./ReviewCard";
 
 const keywords = [
   { text: "courteous staff", count: 266, color: "green" },
@@ -111,60 +112,10 @@ export default function HotelRating(roomData) {
 
 
 {/* ------------------------------------------ Review Section ---------------------------------------- */}
-<div className="text-sm float-end rounded  hover:bg-green-700 bg-green-600 text-gray-100 flex items-center gap-1 cursor-pointer">
-         <Link href="/review" className="p-3">
-            Review 
-         </Link>
-        </div>
-      {/* review section  */}
-   <div className="  rounded p-4 mt-15 shadow-sm  max-w-6xl mx-auto">
-      {/* Top Section: Avatar + Name + Rating */}
-      <div className="flex justify-between items-start">
-        <div className="flex items-start gap-3">
-          {/* Profile image */}
-          <Image
-            src="/user.jpg" // Replace with your public/profile image path
-            alt="User"
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
-          />
 
-          <div>
-            <p className="font-semibold text-sm text-gray-800">
-              Monica Mishra{" "}
-              <span className="text-gray-500 font-normal text-xs">(Stayed 26 Dec, 2024)</span>
-            </p>
-            <p className="text-xs text-gray-500">Solo Traveller | 5 Reviews Written</p>
-          </div>
-        </div>
+<ReviewCard/>
 
-        {/* Rating */}
-        <div className="bg-teal-600 text-white text-sm px-2 py-1 rounded font-bold h-fit">
-          5/5
-        </div>
-      </div>
 
-      {/* Review Text */}
-      <p className="mt-4 text-sm text-gray-700">
-        the hotel <strong>staff is courteous</strong> and were available at all times. the breakfast
-        spread was also well made. finally the <strong>room was very comfortable</strong> and luxurious.
-      </p>
-
-      {/* Review Images */}
-      <div className="flex gap-3 mt-4">
-        {["/room1.jpg", "/room2.jpg", "/room3.jpg"].map((img, i) => (
-          <Image
-            key={i}
-            src={img}
-            alt={`room-${i}`}
-            width={120}
-            height={90}
-            className="rounded-md object-cover border"
-          />
-        ))}
-      </div>
-    </div>
     </div>
 
   

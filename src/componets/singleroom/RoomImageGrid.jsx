@@ -9,7 +9,7 @@ import Link from "next/link";
 
 
 export default function RoomImageGrid(roomData) {
-  console.log(roomData.data);
+  // console.log(roomData.data);
   
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);

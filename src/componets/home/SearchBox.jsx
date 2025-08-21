@@ -9,7 +9,7 @@ export default function SearchBox() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log({ destination, checkIn, checkOut });
+    // console.log({ destination, checkIn, checkOut });
   };
 
   return (
