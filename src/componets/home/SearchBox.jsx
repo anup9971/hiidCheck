@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
@@ -117,12 +118,14 @@ export default function SearchBox() {
     </div>
 
     {/* Search Button (just 1 col on desktop) */}
+    <Link href="/search">
     <button
       type="submit"
       className="w-full border border-gray-700 text-gray-700 py-3 px-4 rounded-md hover:bg-black hover:text-white transition col-span-1"
     >
       Search
     </button>
+    </Link>
   </form>
 </section>
 

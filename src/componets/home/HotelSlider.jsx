@@ -118,16 +118,16 @@ export default function HotelSlider() {
 
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing"
+        className="flex gap-6  overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing"
       >
         {data?.map((hotel, index) => (
           <Link
             key={index}
             href={`/hotel/${ hotel.id}`} 
-            className="min-w-[280px] sm:min-w-[300px] md:min-w-[320px] bg-white border rounded-xl shadow-md overflow-hidden snap-start shrink-0"
+            className="w-[330px] sm:min-w-[300px] md:w-[320px] bg-white border rounded-xl shadow-md overflow-hidden snap-start shrink-0"
           >
             <img
-              src={hotel.image}
+              src={hotel?.image}
               alt={hotel.name}
               className="w-full h-48 object-cover"
             />
@@ -135,9 +135,9 @@ export default function HotelSlider() {
               <h3 className="text-lg text-gray-800 font-semibold">{hotel.name}</h3>
               <p className="text-gray-500 text-sm">{hotel.location}</p>
               <div className="flex justify-between items-center mt-2">
-                <span className="text-green-700 text-sm">⭐ {hotel.rating}</span>
-                <span className="text-sm font-semibold text-gray-800">
-                  {hotel.price}
+                <span className="text-green-700 text-sm">⭐4/5</span>
+                <span className="text-sm font-semibold text-green-700">
+                 Staring ₹ {hotel.price} /-
                 </span>
               </div>
             </div>

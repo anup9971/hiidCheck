@@ -9,6 +9,8 @@ import HotelRating from '@/componets/singleroom/HotelRating'
 
 export default function page() {
   let params = useParams()
+ 
+  
   let roomData = data?.flatMap(x=>x.roomProperty)
                 .find(x=>String(x?.id) === String(params?.id))
  
@@ -16,7 +18,7 @@ export default function page() {
     <>
      <div className="md:p-10 p-3 bg-gray-100">
     <RoomImageGrid data={roomData}  />
-    <HotelMap/> 
+    <HotelMap data={roomData}/> 
     <HotelRating data={roomData}/>
      
     </div>

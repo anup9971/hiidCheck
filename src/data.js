@@ -107,6 +107,126 @@ const data = [
     ],
   
   },
+
+//  tomar hotel
+  {
+    id:10,
+    name: "Hotel Siam International ",
+    price: 1800,
+    rating:[5,4,1,2,3.5,4.5,4],
+    location: "17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    image: "/hotelTomer/room/all-room/room2.webp",
+    roomProperty:[
+     {
+    id: 10101,
+    name: "Classic Room - Hotel Siam International",
+    price: 1800,
+    rating:[5,4,1,2,3.5,4.5,4],
+    image:[
+         "/hotelTomer/room/classic/classic1.jpg",
+         "/hotelTomer/room/classic/classic2.jpg",
+      
+         "/hotelTomer/room/classic/classic3.jpg",
+
+         "/hotelTomer/room/classic/classic-washroom.jpg",
+         
+    ],
+      propertyType: "Hotel",
+      roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+      roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+      roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+      facilities:"Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+      description:"Our Classic Room offers a cozy and inviting stay, ideal for solo travelers or couples seeking comfort and convenience in Karol Bagh, New Delhi. Designed with simplicity and functionality in mind, this room features all essential amenities to make your stay hassle-free.",
+      features: {
+        parking: true,
+      restaurant: true,
+    },
+     },
+     {
+    id: 10102,
+    name: "Deluxe Room - Hotel Siam International",
+    price: 1900,
+    roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+    rating:[5,4,1,2,3.5,4.5,4],
+    description:"Our Deluxe Room at Tomar Hospitality offers the perfect blend of style, space, and comfort. Ideal for both business and leisure travelers, this room is thoughtfully designed with elegant interiors and modern amenities to enhance your stay.",
+    facilities:" Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+    roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    image:[
+         "/hotelTomer/room/deluxe/deluxe1.jpg",
+         "/hotelTomer/room/deluxe/deluxe2.jpg",
+         "/hotelTomer/room/deluxe/deluxe3.jpg",
+         "/hotelTomer/room/deluxe/deluxe4.jpg",
+         "/hotelTomer/room/deluxe/deluxe-washroom.jpg",
+      
+    ],
+     },
+       {
+    id: 103,
+    name: "Super Deluxe Room - Hotel Siam International",
+    price: 4499,
+    rating:[5,4,1,2,3.5,4.5,4],
+    location: "Mahipalpur, Near IGI New Delhi",
+    image:[
+         "/room/room13.jpg",
+         "/room/room14.jpg",
+         "/room/room15.jpg",
+         "/room/room16.jpg",
+         "/room/room17.jpg",
+         "/room/room18.jpg",
+    ],   propertyType: "Hotel",
+    description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    features: {
+      parking: false,
+      restaurant: true,
+    },
+     },
+    {
+    id: 104,
+    name: " Family Suite Room - Hotel Siam International",
+    price: 3499,
+    rating:[5,4,1,2,3.5,4.5,4],
+    location: "Mahipalpur, Near IGI New Delhi",
+    image:[
+         "/room/room19.jpg",
+         "/room/room20.jpg",
+         "/room/room21.jpg",
+         "/room/room22.jpg",
+         "/room/room23.jpg",
+         "/room/room24.jpg",
+    ]
+    ,   propertyType: "Hotel",
+    description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    features: {
+      parking: true,
+      restaurant: false,
+    },
+     },
+     {
+    id: 105,
+    name: "  Suite Room - Hotel Siam International",
+    price: 1499,
+    rating:[5,4,1,2,3.5,4.5,4],
+    location: "Mahipalpur, Near IGI New Delhi",
+    image:[
+         "/room/room25.jpg",
+         "/room/room26.jpg",
+         "/room/room27.jpg",
+         "/room/room28.jpg",
+         
+    ],   propertyType: "Hotel",
+    description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    features: {
+      parking: false,
+      restaurant: false,
+    },
+     },
+
+    ],
+  
+  },
+
+
   {
     id: 2,
     name: "Hotel Delhi Airport",
@@ -553,7 +673,7 @@ const data = [
   },
   {
     id: 6,
-    name: "Hotel Tomar Hospitality",
+    name: "Hotel Hotel Siam International",
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",

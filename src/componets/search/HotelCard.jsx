@@ -2,6 +2,8 @@ import Link from "next/link";
 import React from "react";
 
 export default function HotelCard({ hotel }) {
+  // console.log("hotel card ", hotel);
+  
   return (
     <div className="border rounded shadow hover:shadow-lg transition p-3 bg-white flex flex-col md:flex-row gap-4">
       <img
@@ -23,12 +25,12 @@ export default function HotelCard({ hotel }) {
         </div>
 
         <div className="flex gap-2 mt-3 flex-wrap items-center text-xs">
-          {hotel.features.parking && (
+          {hotel.features?.parking && (
             <span className="bg-green-200 px-2 py-1 text-gray-500 rounded">
               Parking
             </span>
           )}
-          {hotel.features.restaurant && (
+          {hotel.features?.restaurant && (
             <span className="bg-green-200 px-2 py-1 text-gray-500 rounded">
               Restaurant
             </span>

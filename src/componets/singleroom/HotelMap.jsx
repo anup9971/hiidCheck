@@ -1,21 +1,22 @@
-"use client";
-import { useState } from "react";
+
 import { MapPin, Search } from "lucide-react";
 
-export default function HotelMap() {
-  const [search, setSearch] = useState("");
+export default function HotelMap(roomData) {
+ console.log("map", roomData);
+ 
+ 
 
   return (
     <div className="max-w-8xl md:mt-15 mt-10 mx-auto p-4 space-y-4">
       {/* Hotel Title */}
       <h2 className="text-xl text-gray-600 md:text-3xl font-semibold">
-        Location of Pride Plaza Hotel Aerocity New Delhi
+        Location of {roomData?.data?.roomLocation}
       </h2>
 
       {/* Address */}
       <p className="text-sm text-gray-600 flex items-center gap-2">
         <MapPin size={16} className="text-blue-600" />
-        Asset 5-A, Hospitality District, Aerocity, Indra Gandhi International Airport, New Delhi 110037
+        {roomData.data.roomLocation}
       </p>
 
       {/* Search Box */}
@@ -33,7 +34,7 @@ export default function HotelMap() {
       {/* Google Map */}
       <div className="w-full h-[300px] md:h-[400px] rounded-md overflow-hidden shadow">
         <iframe
-          src="https://www.google.com/maps?q=Radisson+Blu+Plaza+Delhi+Airport&output=embed"
+          src={roomData.data.roomMap}
           width="100%"
           height="100%"
           allowFullScreen
