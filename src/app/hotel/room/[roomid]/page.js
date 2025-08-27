@@ -1,18 +1,18 @@
 "use client"
 
-import { useParams } from 'next/navigation'
+// import { useParams } from 'next/navigation'
 import React from 'react'
 import data from '@/data'
 import RoomImageGrid from '@/componets/singleroom/RoomImageGrid'
 import HotelMap from '@/componets/singleroom/HotelMap'
 import HotelRating from '@/componets/singleroom/HotelRating'
 
-export default function page() {
-  let params = useParams()
- 
+
+export default function page({ params }) {
+const { roomid } = React.use(params); // 👈 params ko unwrap karte hai
   
   let roomData = data?.flatMap(x=>x.roomProperty)
-                .find(x=>String(x?.id) === String(params?.id))
+                .find(x=>String(x?.id) === String(roomid))
  
   return (
     <>

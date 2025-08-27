@@ -56,23 +56,19 @@ const filteredHotels1 = filterHotels(hotels?.roomProperty, filters);
 const filteredHotels2 = filterHotels(otherRelatedHotels, filters);
 
 
-
-
-  
-
   return (
     <div className="flex flex-col bg-gray-100 md:flex-row gap-6 px-4 py-6">
       <FilterSidebar filters={filters} setFilters={setFilters} />
       <div className="flex-1 space-y-4">
-        {filteredHotels1?.map((hotel) => (
-          <HotelCard hotel={hotel} key={hotel.id} />
+        {filteredHotels1?.map((rooms) => (
+          <HotelCard rooms={rooms} key={rooms.id} />
         ))}
 
 
 
         {/* otherRealated hotels */}
-        {filteredHotels2?.map((hotel) => (
-          <HotelCard hotel={hotel} key={hotel.id} />
+        {filteredHotels2?.map((rooms) => (
+          <HotelCard rooms={rooms} key={rooms.id} />
         ))}
         
        

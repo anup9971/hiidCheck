@@ -16,7 +16,7 @@ export default function HotelMap(roomData) {
       {/* Address */}
       <p className="text-sm text-gray-600 flex items-center gap-2">
         <MapPin size={16} className="text-blue-600" />
-        {roomData.data.roomLocation}
+        {roomData?.data?.roomLocation}
       </p>
 
       {/* Search Box */}
@@ -34,7 +34,7 @@ export default function HotelMap(roomData) {
       {/* Google Map */}
       <div className="w-full h-[300px] md:h-[400px] rounded-md overflow-hidden shadow">
         <iframe
-          src={roomData.data.roomMap}
+          src={roomData?.data?.roomMap}
           width="100%"
           height="100%"
           allowFullScreen

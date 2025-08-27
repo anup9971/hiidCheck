@@ -37,7 +37,7 @@ export default function HotelRating(roomData) {
           <ChevronDown size={16} />
         </div> */}
         <h2 className="text-xl font-semibold text-gray-800">
-          Guest Reviews & Rating for {roomData.data.name}
+          Guest Reviews & Rating for {roomData?.data?.name}
         </h2>
         
         {/* for desktop  */}

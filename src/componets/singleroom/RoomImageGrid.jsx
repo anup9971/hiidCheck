@@ -80,7 +80,7 @@ export default function RoomImageGrid(roomData) {
       {/* Right: Hotel Info */}
       <div className="space-y-4  "> 
          <p className="flex gap-2 text-gray-500 mb-[0px]"> ⭐️⭐️⭐️  👍</p>
-        <h2 className="text-2xl text-gray-800 font-bold">{roomData.data.name}</h2>
+        <h2 className="text-2xl text-gray-800 font-bold">{roomData?.data?.name}</h2>
          <p className="flex gap-2 text-gray-500"> <IoLocationSharp /> {roomData?.data?.roomLocation}</p>
         <p className="text-gray-700 text-justify">
          {roomData?.data?.description}
@@ -109,8 +109,8 @@ export default function RoomImageGrid(roomData) {
 
 
         <div className="text-lg font-semibold text-green-600  ">
-           <span>   &#8377; {roomData.data.price} / night</span>
-          <Link href="#">
+           <span>   &#8377; {roomData?.data?.price} / night</span>
+          <Link href="/booking">
           <span className="bg-green-700 hover:bg-green-900 float-end text-white p-2 rounded">Reserve</span>
           </Link>
         </div>
