@@ -44,7 +44,9 @@ export default function SearchBox() {
   };
 
   return (
-   <section className="w-full bg-white py-10 px-4 md:px-12 lg:px-24">
+<>
+<div className="">
+     <section className="w-full bg-white  py-10 px-4 md:px-12 lg:px-24">
   <form
     onSubmit={handleSearch}
     className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-gray-100 p-6 rounded-xl shadow-lg"
@@ -129,5 +131,7 @@ export default function SearchBox() {
   </form>
 </section>
 
+</div>
+</>
   );
 }

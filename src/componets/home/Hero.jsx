@@ -5,7 +5,9 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="w-full bg-gray-100 py-16 px-6 md:px-12 lg:px-24">
+  <>
+  <div >
+      <section className="w-full bg-gray-100 py-16 px-6  lg:px-24">
       <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
         {/* Text Content */}
         <div className="text-center lg:text-left flex-1">
@@ -16,11 +18,11 @@ export default function Hero() {
             Create blazing-fast, SEO-friendly web apps using the power of server-side rendering and modern React features.
           </p> */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link href="/search">
+            {/* <Link href="/search">
             <button className="bg-white hover:bg-black hover:text-white text-black border   px-6 py-3 rounded-xl font-medium transition">
               Get Started
             </button>
-            </Link>
+            </Link> */}
             
           </div>
         </div>
@@ -38,5 +40,7 @@ export default function Hero() {
         </div>
       </div>
     </section>
+  </div>
+  </>
   );
 }

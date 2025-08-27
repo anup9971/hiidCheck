@@ -26,7 +26,7 @@ export default function FilterSidebar({ filters, setFilters }) {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:block w-full md:w-64 p-4 border rounded bg-white shadow-sm">
+      <aside className="hidden md:block w-full h-[450px] md:w-64 p-4 border rounded bg-white shadow-sm">
         <SidebarContent filters={filters} setFilters={setFilters} />
       </aside>
 
