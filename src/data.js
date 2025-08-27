@@ -108,7 +108,7 @@ const data = [
   
   },
 
-//  tomar hotel
+//  tomar hotel- ( hotel Siam International)
   {
     id:10,
     name: "Hotel Siam International ",
@@ -195,7 +195,8 @@ const data = [
          "/hotelTomer/room/all-room/room5.webp",
          "/hotelTomer/room/all-room/room1.webp",
          "/hotelTomer/room/all-room/room3.webp",
-         "/hotelTomer/room/all-room/room4.webp",
+          "/hotelTomer/room/classic/classic-washroom.jpg",
+
         
     ]
     ,
@@ -212,19 +213,162 @@ const data = [
     },
      },
      {
-    id: 105,
-    name: "  Suite Room - Hotel Siam International",
-    price: 1499,
+    id: 10105,
+    name: "  Family Suite Room - Hotel Siam International",
+    price: 3000,
     rating:[5,4,1,2,3.5,4.5,4],
-    location: "Mahipalpur, Near IGI New Delhi",
+    
     image:[
-         "/room/room25.jpg",
-         "/room/room26.jpg",
-         "/room/room27.jpg",
-         "/room/room28.jpg",
+      "/hotelTomer/room/all-room/room7.webp",
+         "/hotelTomer/room/all-room/room1.webp",
+         "/hotelTomer/room/all-room/room3.webp",
+         "/hotelTomer/room/all-room/room4.webp",
+      "/hotelTomer/room/classic/classic-washroom.jpg",
+
+        
+    ],
+    propertyType: "Hotel",
+    roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+    facilities:" Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+    roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    description:"Our Family Suite Room at Tomar Hospitality is specially designed to offer a spacious and comfortable stay for families or small groups visiting New Delhi. Located near Karol Bagh Metro Station, this suite combines convenience, privacy, and homely comfort — making it ideal for both short and extended stays.",
+    features: {
+      parking: false,
+      restaurant: false,
+    },
+     },
+
+    ],
+  
+  },
+
+
+  //  tomar hotel- ( hotel Marble King)
+  {
+    id:11,
+    name: "Hotel Marble King ",
+    price: 1800,
+    rating:[5,4,1,2,3.5,4.5,4],
+    location: "17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    image: "/hotelTomer/hotel-87/hotel-871.jpg",
+    roomProperty:[
+     {
+    id: 11101,
+    name: "Classic Room - Hotel Marble King",
+    price: 1800,
+    rating:[5,4,1,2,3.5,4.5,4],
+    image:[
+         "/hotelTomer/room/classic/classic1.jpg",
+         "/hotelTomer/room/classic/classic2.jpg",
+      
+         "/hotelTomer/room/classic/classic3.jpg",
+
+         "/hotelTomer/room/classic/classic-washroom.jpg",
          
-    ],   propertyType: "Hotel",
-    description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    ],
+      propertyType: "Hotel",
+      roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+      roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+      roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+      facilities:"Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+      description:"Our Classic Room offers a cozy and inviting stay, ideal for solo travelers or couples seeking comfort and convenience in Karol Bagh, New Delhi. Designed with simplicity and functionality in mind, this room features all essential amenities to make your stay hassle-free.",
+      features: {
+        parking: true,
+      restaurant: true,
+    },
+     },
+     {
+    id: 11102,
+    name: "Deluxe Room - Hotel Marble King",
+    price: 1700,
+    roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+    rating:[5,4,1,2,3.5,4.5,4],
+    description:"Our Deluxe Room at Tomar Hospitality offers the perfect blend of style, space, and comfort. Ideal for both business and leisure travelers, this room is thoughtfully designed with elegant interiors and modern amenities to enhance your stay.",
+    facilities:" Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+    roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    image:[
+      "/hotelTomer/room/deluxe/deluxe2.jpg",
+         "/hotelTomer/room/deluxe/deluxe1.jpg",
+         "/hotelTomer/room/deluxe/deluxe3.jpg",
+         "/hotelTomer/room/deluxe/deluxe4.jpg",
+         "/hotelTomer/room/deluxe/deluxe-washroom.jpg",
+      
+    ],
+     },
+      {
+    id: 11103,
+    name: "Super Deluxe Room - Hotel Marble King",
+    price: 1900,
+    rating:[5,4,1,2,3.5,4.5,4],
+    image:[
+      "/hotelTomer/room/super/Super-room2.jpg",
+         "/hotelTomer/room/super/Super-room1.jpg",
+         "/hotelTomer/room/super/Super-room3.jpg",
+         "/hotelTomer/room/super/Super-room4.jpg",
+         "/hotelTomer/room/super/washrrom.jpg",
+         
+    ],  
+    roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+    roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    propertyType: "Hotel",
+    description:"Step into refined elegance with our Super Deluxe Room at Tomar Hospitality, designed for guests who appreciate extra space and added luxury. Perfect for couples, business travelers, or small families, this room offers enhanced features and a premium stay experience in the heart of Karol Bagh, New Delhi.",
+    facilities:" Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+    features: {
+      parking: false,
+      restaurant: true,
+    },
+     },
+    {
+    id: 11104,
+    name: " Executive Room - Hotel Marble King",
+    price: 1999,
+    rating:[5,4,1,2,3.5,4.5,4],
+    image:[
+      "/hotelTomer/room/all-room/room5.webp",
+      "/hotelTomer/room/all-room/room6.webp",
+         "/hotelTomer/room/all-room/room1.webp",
+         "/hotelTomer/room/all-room/room3.webp",
+          "/hotelTomer/room/classic/classic-washroom.jpg",
+
+        
+    ]
+    ,
+    roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+   propertyType: "Hotel",
+    facilities:" Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+    roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    propertyType: "Hotel",
+    description:"The Executive Room at Tomar Hospitality is designed for discerning guests seeking a higher level of comfort, privacy, and productivity. Perfect for business travelers and couples, this room offers a blend of modern design and thoughtful amenities in the heart of Karol Bagh, New Delhi.",
+    features: {
+      parking: true,
+      restaurant: false,
+    },
+     },
+     {
+    id: 11105,
+    name: "  Family Suite Room - Hotel Marble King",
+    price: 3000,
+    rating:[5,4,1,2,3.5,4.5,4],
+    
+    image:[
+      "/hotelTomer/room/all-room/room1.webp",
+      "/hotelTomer/room/all-room/room7.webp",
+         "/hotelTomer/room/all-room/room3.webp",
+         "/hotelTomer/room/all-room/room4.webp",
+      "/hotelTomer/room/classic/classic-washroom.jpg",
+
+        
+    ],
+    propertyType: "Hotel",
+    roomAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
+    facilities:" Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
+    roomLocation:"17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
+    roomMap:"https://maps.google.com/maps?q=TOMAR+HOSPITALITY++17A%2C+Block+7%2C+Block+8A%2C+WEA%2C+Karol+Bagh%2C+New+Delhi%2C+Delhi%2C+110005%2C+India&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    description:"Our Family Suite Room at Tomar Hospitality is specially designed to offer a spacious and comfortable stay for families or small groups visiting New Delhi. Located near Karol Bagh Metro Station, this suite combines convenience, privacy, and homely comfort — making it ideal for both short and extended stays.",
     features: {
       parking: false,
       restaurant: false,
