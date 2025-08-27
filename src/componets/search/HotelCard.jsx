@@ -19,7 +19,7 @@ export default function HotelCard({ hotel }) {
             Property Type: {hotel.propertyType}
           </p>
           <div className="flex items-center gap-4 mt-2 text-sm">
-            <span className="text-gray-700">⭐ {hotel.rating}</span>
+            <span className="text-gray-700">⭐ 4/5</span>
             <span className="text-green-700">₹ {hotel.price}/Night</span>
           </div>
         </div>
