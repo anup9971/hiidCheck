@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { SearchProvider } from "@/app/context/SearchContext";
 import "./globals.css";
 import Navbar from "@/componets/Navbar";
 import Footer from "@/componets/Footer";
@@ -64,7 +65,10 @@ export default function RootLayout({ children }) {
 </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased pt-17`}>
         <Navbar />
+        <SearchProvider>
+
         {children}
+        </SearchProvider>
         <Footer />
       </body>
     </html>

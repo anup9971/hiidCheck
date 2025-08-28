@@ -5,11 +5,13 @@ import { Dialog } from "@headlessui/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { IoLocationSharp } from "react-icons/io5";
 import Link from "next/link";
+import SearchBox from "../home/SearchBox";
+
 
 
 
 export default function RoomImageGrid(roomData) {
-  console.log(roomData.data);
+  
   
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,7 +33,10 @@ export default function RoomImageGrid(roomData) {
     setCurrentIndex((prev) => (prev + 1) % roomData?.data?.image.length);
   };
 
+
+
   return (
+   <>
     <div className="grid md:grid-cols-2 gap-6">
       {/* Left: Image Grid */}
       <div className="grid grid-cols-3 grid-rows-2 gap-2">
@@ -104,6 +109,8 @@ export default function RoomImageGrid(roomData) {
           /> */}
           <span className="text-sm text-gray-700">{facility} </span>
         </div>
+
+
       ))}
        </div>
 
@@ -113,6 +120,10 @@ export default function RoomImageGrid(roomData) {
           <Link href={`/hotel/room/${roomData?.data?.id}/booking`}>
           <span className="bg-green-700 hover:bg-green-900 float-end text-white p-2 rounded">Reserve</span>
           </Link>
+
+        {/* <CheckAvailbilty/> */}
+        
+
         </div>
       </div>
 
@@ -152,6 +163,11 @@ export default function RoomImageGrid(roomData) {
           </div>
         </div>
       </Dialog>
+
+
+      
     </div>
+      <SearchBox/>
+   </>
   );
 }

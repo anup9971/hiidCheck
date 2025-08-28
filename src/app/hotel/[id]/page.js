@@ -7,6 +7,10 @@ import data from "@/data";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { IoLocationSharp } from "react-icons/io5";
+import ReviewCard from "@/componets/singleroom/ReviewCard";
+import HotelRating from "@/componets/singleroom/HotelRating";
+import FoodAmenities from "@/componets/hotel/FoodAmenities";
+import FAQSecton from "@/componets/singleroom/FAQSecton";
 
 export default function HotelPage() {
    let param = useParams()
@@ -14,9 +18,9 @@ export default function HotelPage() {
   //   Related Hotel  ---------------------
   let hotels = data?.find((x)=>x?.id ==param?.id)
    
-  let OtherHotels = data.flat().filter((item)=> String(item.id) !== String(param.id))
+  // let OtherHotels = data.flat().filter((item)=> String(item.id) !== String(param.id))
 
-   let otherRelatedHotels = OtherHotels.flatMap((hotel)=>hotel.roomProperty)
+  //  let otherRelatedHotels = OtherHotels.flatMap((hotel)=>hotel.roomProperty)
    
   const [filters, setFilters] = useState({
     type: "",
@@ -55,14 +59,14 @@ const filterHotels = (hotelsArray, filters) => {
 
 // Example usage
 const filteredHotels1 = filterHotels(hotels?.roomProperty, filters);
-const filteredHotels2 = filterHotels(otherRelatedHotels, filters);
+// const filteredHotels2 = filterHotels(otherRelatedHotels, filters);
 
 
   return (
     <>
      <div className=" bg-white md:grid grid-cols-2 h-auto px-4 py-6">
         <div >
-             <Image src={hotels.image}
+             <Image src={hotels.image} alt="sing hotel img"
               width={100}
               height={150}
               className="w-full rounded  md:h-[400px]"
@@ -122,17 +126,20 @@ const filteredHotels2 = filterHotels(otherRelatedHotels, filters);
         ))}
 
 
-
-        {/* otherRealated hotels */}
-        {filteredHotels2?.map((rooms) => (
-          <HotelCard rooms={rooms} key={rooms.id} />
-        ))}
-        
+       
        
         
         {filteredHotels1 === 0 && <p>No hotels match your filters.</p>}
       </div>
     </div>
+
+
+    {/* another componets called */}
+
+       <FoodAmenities hotels={hotels}/>
+       <HotelRating hotels={hotels}/>
+      <FAQSecton/>
+       
     </>
   );
 }

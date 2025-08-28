@@ -1,14 +1,14 @@
 import Link from "next/link";
 import React from "react";
 
-export default function HotelCard({ rooms }) {
-  console.log("hotel id ", rooms);
+export default function HotelCardSearchPage({ rooms }) {
+  console.log("hotel id ", rooms.id);
   
   
   return (
     <div className="border rounded shadow hover:shadow-lg transition p-3 bg-white flex flex-col md:flex-row gap-4">
       <img
-        src={rooms?.image[0]}
+        src={rooms?.image}
         alt={rooms?.name}
         className="w-full md:w-60 h-40 object-cover rounded"
       />
@@ -39,7 +39,7 @@ export default function HotelCard({ rooms }) {
 
           {/* ✅ Book Now Button */}
           <Link
-            href={`/hotel/room/${rooms?.id}`}
+            href={`/hotel/${rooms?.id}`}
             className="ml-auto rounded "
           >
             <span className="bg-[#487c66] px-4 py-[9px]   w-full rounded  text-white text-sm hover:bg-[#5faf8e] transition  "> Book Now</span>

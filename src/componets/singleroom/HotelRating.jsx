@@ -1,8 +1,9 @@
 "use client";
 import { Star, ChevronDown } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+
 import ReviewCard from "./ReviewCard";
+import { useEffect, useState } from "react";
+
 
 const keywords = [
   { text: "courteous staff", count: 266, color: "green" },
@@ -21,10 +22,15 @@ const ratings = [
   { stars: 1, count: 274 },
 ];
 
-export default function HotelRating(roomData) {
+export default function HotelRating({hotels}) {
   const totalRatings = 3275;
   const totalReviews = 1071;
   const maxCount = ratings[0].count;
+
+
+
+ 
+  
 
   return (
     <>
@@ -37,7 +43,7 @@ export default function HotelRating(roomData) {
           <ChevronDown size={16} />
         </div> */}
         <h2 className="text-xl font-semibold text-gray-800">
-          Guest Reviews & Rating for {roomData?.data?.name}
+          Guest Reviews for  {hotels?.name}
         </h2>
         
         {/* for desktop  */}
