@@ -62,13 +62,13 @@ export default function FilterSidebar({ filters, setFilters }) {
 function SidebarContent({ filters, setFilters }) {
   return (
     <>
-      <h3 className="font-bold mb-4">Filter by:</h3>
+      <h3 className="font-bold text-black mb-4">Filter by:</h3>
 
       <div className="mb-3">
-        <label className="block font-medium">Property Type</label>
+        <label className="block text-black font-medium">Property Type</label>
         <select
           onChange={(e) => setFilters({ ...filters, type: e.target.value })}
-          className="w-full border px-2 py-1"
+          className="w-full text-black border px-2 py-1"
         >
           <option value="">All</option>
           <option value="Hotel">Hotel</option>
@@ -77,7 +77,7 @@ function SidebarContent({ filters, setFilters }) {
         </select>
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 text-black" >
         <label className="block font-medium">Price Range</label>
         <input
           type="range"
@@ -92,7 +92,7 @@ function SidebarContent({ filters, setFilters }) {
         <p className="text-sm text-gray-600">Max ₹{filters.maxPrice}</p>
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 text-black">
         <label className="block font-medium">Rating</label>
         <input 
           type="range"
@@ -107,7 +107,7 @@ function SidebarContent({ filters, setFilters }) {
         <p className="text-sm text-gray-600">Min ⭐ {filters.minRating}</p>
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 text-black">
         <label>
           <input
             type="checkbox"
@@ -120,7 +120,7 @@ function SidebarContent({ filters, setFilters }) {
         </label>
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 text-black">
         <label>
           <input
             type="checkbox"

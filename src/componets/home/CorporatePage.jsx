@@ -20,7 +20,7 @@ export default function CorporatePage() {
       </section>
 
       {/* Services */}
-      <section className="py-16 px-4 bg-gray-100 bg-[url(/hotel/service.jpg)]">
+      <section className="py-16 px-4 bg-cover bg-centern bg-gray-600 bg-[url(/hotel/service.jpg)]" >
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-semibold mb-10 text-center">Our Corporate Services</h2>
           <div className="grid md:grid-cols-3 gap-8">

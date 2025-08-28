@@ -6,6 +6,7 @@ import data from '@/data'
 import RoomImageGrid from '@/componets/singleroom/RoomImageGrid'
 import HotelMap from '@/componets/singleroom/HotelMap'
 import HotelRating from '@/componets/singleroom/HotelRating'
+import FAQSecton from '@/componets/singleroom/FAQSecton'
 
 
 export default function page({ params }) {
@@ -18,8 +19,9 @@ const { roomid } = React.use(params); // 👈 params ko unwrap karte hai
     <>
      <div className="md:p-10 p-3 bg-gray-100">
     <RoomImageGrid data={roomData}  />
-    <HotelMap data={roomData}/> 
     <HotelRating data={roomData}/>
+    <FAQSecton/>
+    <HotelMap data={roomData}/> 
      
     </div>
     

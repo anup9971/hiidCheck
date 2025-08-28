@@ -12,8 +12,8 @@ export default function SearchBox() {
   const [child, setChild]= useState(0);
    
   const LIMITS = {
-    adult: { min: 1, max: 3 },
-    child: { min: 0, max: 3 },
+    adult: { min: 1, max: 2 },
+    child: { min: 0, max: 1 },
   };
    
 
@@ -24,11 +24,11 @@ export default function SearchBox() {
     let newValue = action ==="minus"? current-1 :current+1
    
     if(newValue <min){
-      alert(`${type} Can not be minumum ${1}`)
+      alert(`${type} Can not be minumum ${min}`)
       return;
     }
     if(newValue>max){
-      alert(`${type} Can not be maximun ${3}`)
+      alert(`${type} Can not be maximun ${max}`)
       return;
     }
 

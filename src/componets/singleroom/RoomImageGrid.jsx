@@ -9,7 +9,7 @@ import Link from "next/link";
 
 
 export default function RoomImageGrid(roomData) {
-  // console.log(roomData.data);
+  console.log(roomData.data);
   
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -109,8 +109,8 @@ export default function RoomImageGrid(roomData) {
 
 
         <div className="text-lg font-semibold text-green-600  ">
-           <span>   &#8377; {roomData?.data?.price} / night</span>
-          <Link href="/booking">
+         <span>   &#8377; {roomData?.data?.price} / night</span>
+          <Link href={`/hotel/room/${roomData?.data?.id}/booking`}>
           <span className="bg-green-700 hover:bg-green-900 float-end text-white p-2 rounded">Reserve</span>
           </Link>
         </div>

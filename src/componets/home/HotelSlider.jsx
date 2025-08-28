@@ -103,13 +103,13 @@ export default function HotelSlider() {
         <div className="space-x-2 gap-5 hidden md:flex">
           <button
             onClick={() => slide("left")}
-            className="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full"
+            className="bg-gray-200 text-black hover:bg-gray-300 px-3 py-1 rounded-full"
           >
             ◀
           </button>
           <button
             onClick={() => slide("right")}
-            className="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full"
+            className="bg-gray-200 text-black hover:bg-gray-300 px-3 py-1 rounded-full"
           >
             ▶
           </button>
