@@ -11,6 +11,7 @@ import ReviewCard from "@/componets/singleroom/ReviewCard";
 import HotelRating from "@/componets/singleroom/HotelRating";
 import FoodAmenities from "@/componets/hotel/FoodAmenities";
 import FAQSecton from "@/componets/singleroom/FAQSecton";
+import HotelPropertyPolicies from "@/componets/hotel/HotelPropertyPolicies";
 
 export default function HotelPage() {
    let param = useParams()
@@ -64,7 +65,9 @@ const filteredHotels1 = filterHotels(hotels?.roomProperty, filters);
 
   return (
     <>
-     <div className=" bg-white md:grid grid-cols-2 h-auto px-4 py-6">
+     <div className="bg-white">
+
+      <div className=" bg-white md:grid grid-cols-2 h-auto px-4 py-6">
         <div >
              <Image src={hotels.image} alt="sing hotel img"
               width={100}
@@ -138,8 +141,10 @@ const filteredHotels1 = filterHotels(hotels?.roomProperty, filters);
 
        <FoodAmenities hotels={hotels}/>
        <HotelRating hotels={hotels}/>
+       <HotelPropertyPolicies/>
       <FAQSecton/>
        
+     </div>
     </>
   );
 }

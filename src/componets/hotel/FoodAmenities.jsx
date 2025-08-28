@@ -4,7 +4,7 @@ import { CheckCircle, Dumbbell, Utensils } from "lucide-react";
 
 export default function FoodAmenities({hotels}) {
   return (
-    <section className="max-w-7xl mt-9 mx-auto p-6 bg-gray-50 rounded-xl shadow">
+    <section className="max-w-7xl mt-9 text-gray-800 mx-auto p-6 bg-gray-50 rounded-xl shadow">
       {/* Heading */}
       <h2 className="text-xl font-semibold mb-4">
         Amenities at <span className="text-gray-800">{hotels.name}</span>
