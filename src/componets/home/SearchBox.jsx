@@ -10,10 +10,12 @@ export default function SearchBox() {
   const [checkOut, setCheckOut] = useState("");
   const [adult, setAdult]= useState(1);
   const [child, setChild]= useState(0);
+  const [room, setRoom]= useState(1);
    
   const LIMITS = {
     adult: { min: 1, max: 2 },
     child: { min: 0, max: 1 },
+    
   };
    
 
@@ -49,7 +51,7 @@ export default function SearchBox() {
      <section className="w-full bg-white  py-10 px-4 md:px-12 lg:px-24">
   <form
     onSubmit={handleSearch}
-    className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-gray-100 p-6 rounded-xl shadow-lg"
+    className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4 items-end bg-gray-100 p-6 rounded-xl shadow-lg"
   >
     {/* Check-in */}
     <div className="flex flex-col relative w-full col-span-1">
@@ -90,40 +92,79 @@ export default function SearchBox() {
 
     {/* Adult + Child */}
     <div className="flex flex-col md:flex-row gap-4 w-full col-span-1">
-      {/* Adult */}
-      <div className="flex flex-col w-full md:mt-5">
-        <label className="text-gray-700 mb-1 font-medium">Adult</label>
-        <div className="p-3 flex justify-around md:justify-between  md:h-[50px] items-center rounded-md border  text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full">
-          <button type="button" onClick={() => updateValue("adult", "minus")} className="p-2 hover:bg-gray-200 rounded">
-            <FaMinus />
-          </button>
-          <span className="font-medium">{adult}</span>
-          <button type="button" onClick={() => updateValue("adult", "plus")} className="p-2 hover:bg-gray-200 rounded">
-            <FaPlus />
-          </button>
-        </div>
-      </div>
-
-      {/* Child */}
-      <div className="flex flex-col w-full md:mt-5">
-        <label className="text-gray-700 mb-1 font-medium">Child</label>
-        <div className="p-3 flex justify-around md:justify-between items-center rounded-md border md:h-[50px] text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full">
-          <button type="button" onClick={() => updateValue("child", "minus")} className="p-2 hover:bg-gray-200 rounded">
-            <FaMinus />
-          </button>
-          <span className="font-medium">{child}</span>
-          <button type="button" onClick={() => updateValue("child", "plus")} className="p-2 hover:bg-gray-200 rounded">
-            <FaPlus />
-          </button>
-        </div>
-      </div>
+  {/* Adult */}
+  <div className="flex flex-col w-full md:mt-5">
+    <label className="text-gray-700 mb-1 font-medium">Adult</label>
+    <div className="p-3 flex justify-around md:justify-between md:h-[50px] items-center rounded-md border text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full">
+      <button
+        type="button"
+        onClick={() => updateValue("adult", "minus")}
+        className="p-2 hover:bg-gray-200 rounded"
+      >
+        <FaMinus />
+      </button>
+      <span className="font-medium">{adult}</span>
+      <button
+        type="button"
+        onClick={() => updateValue("adult", "plus")}
+        className="p-2 hover:bg-gray-200 rounded"
+      >
+        <FaPlus />
+      </button>
     </div>
+  </div>
+
+  {/* Child */}
+  <div className="flex flex-col w-full md:mt-5">
+    <label className="text-gray-700 mb-1 font-medium">Child</label>
+    <div className="p-3 flex justify-around md:justify-between items-center rounded-md border md:h-[50px] text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full">
+      <button
+        type="button"
+        onClick={() => updateValue("child", "minus")}
+        className="p-2 hover:bg-gray-200 rounded"
+      >
+        <FaMinus />
+      </button>
+      <span className="font-medium">{child}</span>
+      <button
+        type="button"
+        onClick={() => updateValue("child", "plus")}
+        className="p-2 hover:bg-gray-200 rounded"
+      >
+        <FaPlus />
+      </button>
+    </div>
+  </div>
+
+  {/* Room */}
+  <div className="flex flex-col w-full md:mt-5">
+    <label className="text-gray-700 mb-1 font-medium">Room</label>
+    <div className="p-3 flex justify-around md:justify-between items-center rounded-md border md:h-[50px] text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full">
+      <button
+        type="button"
+        onClick={() => updateValue("room", "minus")}
+        className="p-2 hover:bg-gray-200 rounded"
+      >
+        <FaMinus />
+      </button>
+      <span className="font-medium">{room}</span>
+      <button
+        type="button"
+        onClick={() => updateValue("room", "plus")}
+        className="p-2 hover:bg-gray-200 rounded"
+      >
+        <FaPlus />
+      </button>
+    </div>
+  </div>
+    </div>
+
 
     {/* Search Button (just 1 col on desktop) */}
     <Link href="/search">
     <button
       type="submit"
-      className="w-full border border-gray-700 text-gray-700 py-3 px-4 rounded-md hover:bg-black hover:text-white transition col-span-1"
+      className=" w-full border border-gray-700 text-gray-700 py-3 px-4 rounded-md hover:bg-black hover:text-white transition col-span-1"
     >
       Search
     </button>

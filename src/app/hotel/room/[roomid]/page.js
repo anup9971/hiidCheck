@@ -17,6 +17,7 @@ const { roomid } = React.use(params); // 👈 params ko unwrap karte hai
  
   return (
     <>
+    
      <div className="md:p-10 p-3 bg-gray-100">
     <RoomImageGrid data={roomData}  />
     <HotelRating data={roomData}/>

@@ -5,7 +5,10 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
+    hotelAmenities:[" Wi-fi"," Parking","AC","Break-fast",],
     image: "/hotel/vhotel.jpg",
+    hotelDescription:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    
     roomProperty:[
      {
     id: 101,
@@ -261,9 +264,7 @@ const data = [
     image:[
          "/hotelTomer/room/classic/classic1.jpg",
          "/hotelTomer/room/classic/classic2.jpg",
-      
          "/hotelTomer/room/classic/classic3.jpg",
-
          "/hotelTomer/room/classic/classic-washroom.jpg",
          
     ],
@@ -274,7 +275,7 @@ const data = [
       facilities:"Rooms feature air-conditioning, private bathrooms, bathrobes, and city views. Additional amenities include free WiFi, flat-screen TVs, and work desks.",
       description:"Our Classic Room offers a cozy and inviting stay, ideal for solo travelers or couples seeking comfort and convenience in Karol Bagh, New Delhi. Designed with simplicity and functionality in mind, this room features all essential amenities to make your stay hassle-free.",
       features: {
-        parking: true,
+      parking: true,
       restaurant: true,
     },
      },
