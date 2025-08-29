@@ -42,7 +42,7 @@ const Navbar = () => {
 
             {/* Login Button */}
                <div  className="block w-full text-center px-4 py-2 bg-[#5f8575]  hover:bg-white hover:text-black  border-1  text-white rounded   ">
-               <Link href="#"> Login</Link>
+               <Link href="/login"> Login</Link>
           </div>
           </div>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
 
           
               <div  className="block w-22 text-center px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-[#477562] ">
-               <Link href="#"> Login</Link>
+               <Link href="/login"> Login</Link>
           </div>
         </div>
       )}
