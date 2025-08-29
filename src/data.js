@@ -160,6 +160,7 @@ const data = [
          "/hotelTomer/room/deluxe/deluxe2.jpg",
          "/hotelTomer/room/deluxe/deluxe3.jpg",
          "/hotelTomer/room/deluxe/deluxe4.jpg",
+        
          "/hotelTomer/room/deluxe/deluxe-washroom.jpg",
       
     ],

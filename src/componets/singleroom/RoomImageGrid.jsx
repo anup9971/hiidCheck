@@ -39,48 +39,50 @@ export default function RoomImageGrid(roomData) {
    <>
     <div className="grid md:grid-cols-2 gap-6">
       {/* Left: Image Grid */}
-      <div className="grid grid-cols-3 grid-rows-2 gap-2">
-        <div
-          className="col-span-3 row-span-2 cursor-pointer"
-          onClick={() => openSlider(0)}
-        >
-          <img
-            src={roomData?.data?.image[0]}
-            alt="Main Room"
-            className="w-full h-full object-cover rounded-md"
-          />
-        </div>
-       
-        {roomData?.data?.image?.slice(1,3).map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`Room ${index + 1}`}
-            onClick={() => openSlider(index + 1)}
-            className="cursor-pointer w-full h-full object-cover rounded-md"
-          />
-        ))}
-        
-{roomData?.data?.image.slice(4).map((img, index) => (
+  <div className="grid grid-cols-3 grid-rows-2 gap-2">
+  {/* Main image big */}
   <div
-    key={index}
-    className="relative cursor-pointer w-full h-full"
-    onClick={() => openSlider(index + 5)}
+    className="col-span-3 row-span-2 cursor-pointer"
+    onClick={() => openSlider(0)}
   >
     <img
-      src={img}
-      alt={`Room ${index + 6}`}
+      src={roomData?.data?.image[0]}
+      alt="Main Room"
       className="w-full h-full object-cover rounded-md"
     />
-    <div className="absolute inset-0 bg-[#11111185] bg-opacity-10 rounded-md flex items-center justify-center">
-      <span className="text-white font-semibold text-lg">
-        +{roomData?.data?.image.length} Photos
-      </span>
-    </div>
   </div>
-))}
 
+  {/* Next 2 small images */}
+  {roomData?.data?.image?.slice(1, 3).map((img, index) => (
+    <img
+      key={index + 1}
+      src={img}
+      alt={`Room ${index + 1}`}
+      onClick={() => openSlider(index + 1)}
+      className="cursor-pointer w-full h-full object-cover rounded-md"
+    />
+  ))}
+
+  {/* Last grid cell with overlay */}
+  {roomData?.data?.image?.length > 3 && (
+    <div
+      className="relative cursor-pointer w-full h-full"
+      onClick={() => openSlider(3)}
+    >
+      <img
+        src={roomData?.data?.image[3]} // show the 4th image
+        alt="More Photos"
+        className="w-full h-full object-cover rounded-md"
+      />
+      <div className="absolute inset-0 bg-black/50 rounded-md flex items-center justify-center">
+        <span className="text-white font-semibold text-lg">
+          +{roomData?.data?.image.length - 4} Photos
+        </span>
       </div>
+    </div>
+  )}
+</div>
+
 
       {/* Right: Hotel Info */}
       <div className="space-y-4  "> 
@@ -150,7 +152,7 @@ export default function RoomImageGrid(roomData) {
               <img
                 src={roomData?.data?.image[currentIndex]}
                 alt="Room"
-                className="max-h-[80vh] w-auto object-contain mx-auto rounded"
+                className="max-h-[100vh] w-full  object-contain mx-auto rounded"
               />
 
               <button
