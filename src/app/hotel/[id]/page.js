@@ -12,6 +12,7 @@ import HotelRating from "@/componets/singleroom/HotelRating";
 import FoodAmenities from "@/componets/hotel/FoodAmenities";
 import FAQSecton from "@/componets/singleroom/FAQSecton";
 import HotelPropertyPolicies from "@/componets/hotel/HotelPropertyPolicies";
+import ImageSlider from "@/componets/hotel/ImageSlider";
 
 export default function HotelPage() {
    let param = useParams()
@@ -67,13 +68,15 @@ const filteredHotels1 = filterHotels(hotels?.roomProperty, filters);
     <>
      <div className="bg-white">
 
-      <div className=" bg-white md:grid grid-cols-2 h-auto px-4 py-6">
+      <div className=" bg-white md:grid grid-cols-2 h-auto px-4 ">
         <div >
-             <Image src={hotels.image} alt="sing hotel img"
+             {/* <Image src={hotels.image} alt="sing hotel img"
               width={100}
               height={150}
               className="w-full rounded  md:h-[400px]"
-             />
+             /> */}
+
+             <ImageSlider hotels={hotels}/>
         </div>  
 
         {/* ------------------right section------------------------ */}
