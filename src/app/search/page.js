@@ -4,7 +4,7 @@ import { useState } from "react";
 import HotelCardSearchPage from "@/componets/search/HotelCardSearchPage";
 import FilterSidebar from "@/componets/search/FilterSidebar";
 import data from "@/data";
-import { useParams } from "next/navigation";
+
 import SearchBox from "@/componets/home/SearchBox";
 
 

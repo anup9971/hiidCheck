@@ -80,7 +80,7 @@ const filteredHotels1 = filterHotels(hotels?.roomProperty, filters);
         </div>  
 
         {/* ------------------right section------------------------ */}
-        <div className="p-8">
+        <div className="md:p-8 p-1">
         <div className="space-y-4  "> 
          <p className="flex gap-2 text-gray-500 mb-[0px]"> ⭐️⭐️⭐️  👍</p>
         <h2 className="text-2xl text-gray-800 font-bold">{hotels.name}</h2>

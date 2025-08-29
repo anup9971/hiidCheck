@@ -19,10 +19,15 @@ export default function HotelCard({ rooms }) {
           <p className="text-sm text-gray-600 mt-1">
             Property Type: {rooms?.propertyType}
           </p>
-          <div className="flex items-center gap-4 mt-2 text-sm">
-            <span className="text-gray-700">⭐ 4/5</span>
-            <span className="text-green-700">₹ {rooms?.price}/Night</span>
-          </div>
+         <div className="flex items-center justify-between mt-2 text-sm">
+  {/* Rating */}
+  <span className="text-gray-700">⭐ 4/5</span>
+  
+     <div className="text-right">
+       <p className="text-green-700 font-semibold">₹ {rooms?.price} / Night</p>
+       <p className="text-gray-500 text-xs">+ 12% GST & Taxes</p>
+     </div>
+</div>
         </div>
 
         <div className="flex gap-2 mt-3 flex-wrap items-center text-xs">
