@@ -61,7 +61,7 @@ export default function SearchBox() {
   const checkOutMin = searchData.checkIn || todayStr;
 
   return (
-    <section className="w-full text-black py-10 px-4 md:px-12 lg:px-24">
+    <section className="w-full text-black py-10  px-4 md:px-12 lg:px-24">
       <form
         onSubmit={handleSubmit}
         className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-6 gap-4 items-end bg-gray-100 p-6 rounded-xl shadow-lg"

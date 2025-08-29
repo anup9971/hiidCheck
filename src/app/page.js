@@ -54,13 +54,16 @@ export const metadata = {
 export default function Home() {
   return (
    <>
-    <Hero/>
+    <div className="bg-white">
+
+      <Hero/>
     <SearchBox/>
     <HotelSlider/>
     <RoomSection/>
     <CorporatePage/>
     <BenefitsSection/>
     <ConferenceSection/>
+    </div>
 
 
     {/* ------------------ Comming Soon ------------------------ */}
