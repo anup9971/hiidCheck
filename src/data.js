@@ -118,7 +118,7 @@ const data = [
     price: 1800,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
-    image: "/hotelTomer/room/all-room/room2.webp",
+    hotelImage: ["/hotelTomer/room/all-room/room2.webp","/hotelTomer/room/all-room/room2.webp",],
     roomProperty:[
      {
     id: 10101,
@@ -256,7 +256,7 @@ const data = [
     price: 1800,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
-    image: "/hotelTomer/hotel-87/hotel-871.jpg",
+    hotelImage: ["/hotelTomer/hotel-87/hotel-871.jpg"],
     roomProperty:[
     //  {
     // id: 11101,
@@ -395,7 +395,7 @@ const data = [
     price: 1800,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "17A, Block 7, Block 8A, WEA, Karol Bagh, New Delhi, Delhi, 110005, India",
-    image: "/hotelTomer/banquet/banquet.jpg",
+    hotelImage: ["/hotelTomer/banquet/banquet.jpg"],
     roomProperty:[
      {
     id: 12101,
@@ -541,7 +541,7 @@ const data = [
     price: 5499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel1.jpg",
+    hotelImage: ["/hotel/hotel1.jpg"],
     roomProperty:[
      {
     id: 201,
@@ -652,7 +652,7 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel2.jpg",
+    hotelImage: ["/hotel/hotel2.jpg"],
     roomProperty:[
      {
     id: 301,
@@ -763,7 +763,7 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel3.jpg",
+    hotelImage: ["/hotel/hotel3.jpg"],
     roomProperty:[
      {
     id: 401,
@@ -874,7 +874,7 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel4.jpg",
+    hotelImage: ["/hotel/hotel4.jpg"],
     roomProperty:[
      {
     id: 501,
@@ -986,7 +986,7 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel6.jpg",
+    hotelImage: "/hotel/hotel6.jpg",
     roomProperty:[
      {
     id: 701,
@@ -1097,7 +1097,7 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel7.jpg",
+    hotelImage: ["/hotel/hotel7.jpg"],
     roomProperty:[
      {
     id: 801,
@@ -1208,7 +1208,7 @@ const data = [
     price: 6499,
     rating:[5,4,1,2,3.5,4.5,4],
     location: "Mahipalpur, Near IGI New Delhi",
-    image: "/hotel/hotel8.jpg",
+    hotelImage: ["/hotel/hotel8.jpg"],
     roomProperty:[
      {
     id: 901,

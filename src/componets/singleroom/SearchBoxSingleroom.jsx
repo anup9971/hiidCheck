@@ -5,11 +5,12 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SearchBoxSingleroom({bookingData, roomData,  }) {
+export default function SearchBoxSingleroom({bookingData, }) {
   const router = useRouter();
   const { searchData, setSearchData } = useSearch();
   const [error, setError] = useState("");
-
+ 
+ 
  
   // Date defaults
 

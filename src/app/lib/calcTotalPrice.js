@@ -1,4 +1,4 @@
-export function calcTotalPrice({ roomData, searchData, meals, nights }) {
+export function calcTotalPrice({ roomData, searchData, meals, nights}) {
   if (!nights) return 0;
 
   // Room price
@@ -27,5 +27,6 @@ export function calcTotalPrice({ roomData, searchData, meals, nights }) {
   const gst = Math.round(subTotal * 0.12);
 
   // Final total (whole number)
-  return Math.round(subTotal + gst);
+    const totalPrice = Math.round(subTotal + gst);
+     return { totalPrice, gst, subTotal };
 }

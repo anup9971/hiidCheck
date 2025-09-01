@@ -3,12 +3,13 @@ import React from "react";
 
 export default function HotelCardSearchPage({ rooms }) {
   // console.log("hotel id ", rooms.id);
+ 
   
   
   return (
     <div className="border rounded shadow hover:shadow-lg transition p-3 bg-white flex flex-col md:flex-row gap-4">
       <img
-        src={rooms?.image}
+        src={rooms?.hotelImage[0]}
         alt={rooms?.name}
         className="w-full md:w-60 h-40 object-cover rounded"
       />

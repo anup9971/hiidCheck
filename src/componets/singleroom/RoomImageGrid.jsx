@@ -12,7 +12,7 @@ import SearchBoxSingleroom from "./SearchBoxSingleroom";
 export default function RoomImageGrid(roomData) {
   const router = useRouter();
   const { searchData } = useSearch();
-
+  
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [meals, setMeals] = useState({
@@ -42,6 +42,7 @@ export default function RoomImageGrid(roomData) {
         searchData,
         meals,
         nights,
+      
       }),
     [nights, meals, searchData, roomData]
   );
@@ -57,8 +58,12 @@ export default function RoomImageGrid(roomData) {
     adults: searchData?.adult || 1,
     child: searchData?.child || 0,
     meals: meals,
-    totalPrice: totalPrice.toFixed(2),
+    gst :totalPrice.gst,
+    subTotal : totalPrice.subTotal,
+   
+    totalPrice: totalPrice.totalPrice?.toFixed(2),
   };
+  // console.log(totalPrice.gst);
 
   // Image slider functions
   const openSlider = (index) => {
@@ -179,7 +184,7 @@ export default function RoomImageGrid(roomData) {
             {nights > 0 && (
               <p className="text-gray-800">
                 <span className="font-semibold">Total Price: </span>₹{" "}
-                {totalPrice.toFixed(2)}
+                {totalPrice.totalPrice?.toFixed(2)}
               </p>
             )}
           </div>
@@ -225,7 +230,7 @@ export default function RoomImageGrid(roomData) {
 
 
       {/* Send bookingData as props to SearchBoxSingleroom */}
-      <SearchBoxSingleroom bookingData={bookingData} totalPrice={totalPrice}  meals= {meals} />
+      <SearchBoxSingleroom bookingData={bookingData}    meals= {meals} />
     </>
   );
 }

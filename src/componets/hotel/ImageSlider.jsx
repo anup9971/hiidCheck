@@ -3,7 +3,9 @@ import { useState } from "react";
 import Image from "next/image";
 
 export default function ImageSlider({ hotels }) {
-  const images = hotels?.roomProperty[0].image || [];
+  const images = hotels?.hotelImage || [];
+ 
+  
   const [current, setCurrent] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 

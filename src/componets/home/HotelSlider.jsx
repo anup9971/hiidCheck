@@ -82,7 +82,7 @@ import Link from "next/link";
 
 export default function HotelSlider() {
 
-  // console.log(`/hotel/${data?._id}`);
+  // console.log(`${data.hotel}`);
   
   const scrollRef = useRef();
 
@@ -127,10 +127,11 @@ export default function HotelSlider() {
             className="w-[330px] sm:min-w-[300px] md:w-[320px] bg-white border rounded-xl shadow-md overflow-hidden snap-start shrink-0"
           >
             <img
-              src={hotel?.image}
+              src={hotel?.hotelImage[0]}
               alt={hotel.name}
               className="w-full h-48 object-cover"
             />
+         
             <div className="p-4">
               <h3 className="text-lg text-gray-800 font-semibold">{hotel.name}</h3>
               <p className="text-gray-500 text-sm">{hotel.location}</p>
