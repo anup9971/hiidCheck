@@ -11,7 +11,7 @@ export default function ForgotPasswordForm() {
   const handleForgotPassword = (e) => {
     e.preventDefault();
     // Handle forgot password API call here
-    console.log("Reset link sent to:", email);
+    // console.log("Reset link sent to:", email);
     alert(`If an account exists for ${email}, a reset link has been sent.`);
   };
 

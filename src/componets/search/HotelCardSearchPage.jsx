@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function HotelCardSearchPage({ rooms }) {
-  console.log("hotel id ", rooms.id);
+  // console.log("hotel id ", rooms.id);
   
   
   return (

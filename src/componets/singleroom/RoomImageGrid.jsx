@@ -3,16 +3,16 @@ import React, { useState, useMemo } from "react";
 import { Dialog } from "@headlessui/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { IoLocationSharp } from "react-icons/io5";
-import Link from "next/link";
-import SearchBox from "../home/SearchBox";
+import { calcTotalPrice } from "@/app/lib/calcTotalPrice";
+
 import { useSearch } from "@/app/context/SearchContext";
 import { useRouter } from "next/navigation";
+import SearchBoxSingleroom from "./SearchBoxSingleroom";
 
 export default function RoomImageGrid(roomData) {
-  let router = useRouter();
+  const router = useRouter();
   const { searchData } = useSearch();
-  console.log(searchData,"dfdf");
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [meals, setMeals] = useState({
@@ -20,13 +20,11 @@ export default function RoomImageGrid(roomData) {
     dinner: false,
   });
 
-  // Meal handler
   const handleMealChange = (e) => {
     const { name, checked } = e.target;
     setMeals((prev) => ({ ...prev, [name]: checked }));
   };
 
-  // Nights calculation
   const getNights = () => {
     if (!searchData?.checkIn || !searchData?.checkOut) return 0;
     const inDate = new Date(searchData.checkIn);
@@ -37,29 +35,29 @@ export default function RoomImageGrid(roomData) {
 
   const nights = getNights();
 
-  // ✅ Total price calculation
-  const totalPrice = useMemo(() => {
-    if (!nights) return 0;
+  const totalPrice = useMemo(
+    () =>
+      calcTotalPrice({
+        roomData,
+        searchData,
+        meals,
+        nights,
+      }),
+    [nights, meals, searchData, roomData]
+  );
 
-    const roomPrice =
-      (roomData?.data?.price || 0) * nights * (searchData?.rooms || 1);
-
-    let mealPrice = 0;
-    if (meals.breakfast)
-      mealPrice += (roomData?.data?.breakfast || 200) * (searchData?.adults || 1) * nights;
-    if (meals.dinner)
-      mealPrice += (roomData?.data?.dinner || 200) * (searchData?.adults || 1) * nights;
-
-    const subTotal = roomPrice + mealPrice + searchData.room;
-    const gst = subTotal * 0.12; // 12% GST
-    return subTotal + gst;
-  }, [nights, meals, searchData, roomData]);
-
-  const handelBooking = () => {
-    if (!searchData.checkIn || !searchData.checkOut) {
-      return alert("Check-In Or Check-Out Date Is Required!");
-    }
-    router.push(`/hotel/room/${roomData?.data?.id}/booking`);
+  // ✅ Prepare booking data object
+  const bookingData = {
+    roomId: roomData?.data?.id,
+    roomName: roomData?.data?.name,
+    checkIn: searchData?.checkIn,
+    checkOut: searchData?.checkOut,
+    nights: nights,
+    rooms: searchData?.room || 1,
+    adults: searchData?.adult || 1,
+    child: searchData?.child || 0,
+    meals: meals,
+    totalPrice: totalPrice.toFixed(2),
   };
 
   // Image slider functions
@@ -184,13 +182,6 @@ export default function RoomImageGrid(roomData) {
                 {totalPrice.toFixed(2)}
               </p>
             )}
-
-            <button
-              onClick={handelBooking}
-              className="bg-green-700 hover:bg-green-900 float-end text-white p-2 rounded"
-            >
-              Reserve
-            </button>
           </div>
         </div>
 
@@ -232,8 +223,9 @@ export default function RoomImageGrid(roomData) {
         </Dialog>
       </div>
 
-      {/* SearchBox */}
-      <SearchBox />
+
+      {/* Send bookingData as props to SearchBoxSingleroom */}
+      <SearchBoxSingleroom bookingData={bookingData} totalPrice={totalPrice}  meals= {meals} />
     </>
   );
 }

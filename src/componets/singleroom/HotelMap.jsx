@@ -2,7 +2,7 @@
 import { MapPin, Search } from "lucide-react";
 
 export default function HotelMap(roomData) {
- console.log("map", roomData);
+//  console.log("map", roomData);
  
  
 

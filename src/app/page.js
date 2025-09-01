@@ -56,7 +56,7 @@ export default function Home() {
    <>
     <div className="bg-white">
 
-      <Hero/>
+    <Hero/>
     <SearchBox/>
     <HotelSlider/>
     <RoomSection/>

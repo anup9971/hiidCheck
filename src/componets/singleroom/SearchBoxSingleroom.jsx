@@ -5,12 +5,14 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SearchBox() {
+export default function SearchBoxSingleroom({bookingData, roomData,  }) {
   const router = useRouter();
   const { searchData, setSearchData } = useSearch();
   const [error, setError] = useState("");
 
+ 
   // Date defaults
+
   useEffect(() => {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -19,13 +21,13 @@ export default function SearchBox() {
     if (!searchData.checkIn)
       setSearchData((prev) => ({
         ...prev,
-        checkIn: today.toISOString().split("T")[0],
+        checkIn : today.toISOString().split("T")[0],
       }));
 
     if (!searchData.checkOut)
       setSearchData((prev) => ({
         ...prev,
-        checkOut: tomorrow.toISOString().split("T")[0],
+        checkOut : tomorrow.toISOString().split("T")[0],
       }));
   }, []);
 
@@ -40,22 +42,18 @@ export default function SearchBox() {
     let { min, max } = LIMITS[type] || {};
     let newValue = action === "minus" ? current - 1 : current + 1;
 
+
     if (newValue < min) return alert(`${type} cannot be less than ${min}`);
     if (newValue > max) return alert(`${type} cannot be more than ${max}`);
 
     setSearchData({ ...searchData, [type]: newValue });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!searchData.checkIn || !searchData.checkOut) {
-      setError("Please select both Check-in and Check-out dates!");
-      return;
-    }
-    setError("");
-    router.push("/search");
-  };
-
+const handleSubmit = (e) => {
+  e.preventDefault();
+  localStorage.setItem("bookingData", JSON.stringify(bookingData));
+  router.push(`/hotel/room/${bookingData.roomId}/booking`);
+};
   // Disable past dates
   const todayStr = new Date().toISOString().split("T")[0];
   const checkOutMin = searchData.checkIn || todayStr;
@@ -175,11 +173,12 @@ export default function SearchBox() {
         </div>
 
         {/* Search Button */}
+
+
         <button
           type="submit"
-          className="w-full md:col-span-1 border border-gray-700 text-gray-700 py-3 px-4 rounded-md hover:bg-black hover:text-white transition"
-        >
-          Search
+          className="w-full md:col-span-1 border bg-green-700 border-gray-700 text-gray-100 py-3 px-4 rounded-md hover:bg-green-800 hover:text-white transition">
+          Reserve
         </button>
 
         {/* Error Message */}

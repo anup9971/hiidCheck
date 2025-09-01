@@ -7,7 +7,7 @@ export const deleteFile = (relativePath) => {
     const fullPath = path.join(process.cwd(), "public", relativePath);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
-      // console.log("🗑️ Deleted:", fullPath);
+      console.log("🗑️ Deleted:", fullPath);
     } else {
       console.log("⚠️ File not found for deletion:", fullPath);
     }

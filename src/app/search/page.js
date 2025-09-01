@@ -11,7 +11,7 @@ import SearchBox from "@/componets/home/SearchBox";
 export default function page() {
   
 let hotels= data?.map((hotel)=> hotel)
-console.log(hotels,"new");
+// console.log(hotels,"new");
 
    
   const [filters, setFilters] = useState({

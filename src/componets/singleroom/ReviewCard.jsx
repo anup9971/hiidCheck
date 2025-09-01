@@ -14,7 +14,7 @@ export default function ReviewCard() {
       try {
         let res = await fetch("/api/review", { method: "GET" });
         res = await res.json();
-        console.log("Fetched Reviews:", res);
+        // console.log("Fetched Reviews:", res);
         if (res.success) {
           setReviews(res.data);
         }

@@ -18,7 +18,7 @@ export default function RegisterForm() {
       return;
     }
     // Handle register API call here
-    console.log({ name, email, password });
+    // console.log({ name, email, password });
   };
 
   return (

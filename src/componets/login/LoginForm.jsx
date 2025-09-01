@@ -11,7 +11,7 @@ export default function LoginForm() {
   const handleLogin = (e) => {
     e.preventDefault();
     // Handle login API call here
-    console.log({ email, password });
+    // console.log({ email, password });
   };
 
   return (
