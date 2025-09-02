@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState } from 'react'
-import Formvalidators from '../Formvalidators copy'
+import FormValidator from '../FormValidator'
+
 
 export default function FromData() {
 let [data, setData]=useState({
@@ -19,7 +20,7 @@ let [errorMessage, setErrorMessage]= useState({
     setErrorMessage((x)=>{
         return {
             ...x ,
-            [name]:Formvalidators(e)
+            [name]:FormValidator(e)
         }
     })
     setData((x)=>{

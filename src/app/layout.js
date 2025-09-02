@@ -3,6 +3,7 @@ import { SearchProvider } from "@/app/context/SearchContext";
 import "./globals.css";
 import Navbar from "@/componets/Navbar";
 import Footer from "@/componets/Footer";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,6 +69,7 @@ export default function RootLayout({ children }) {
         <SearchProvider>
 
         {children}
+        <Toaster position="top-right" reverseOrder={false} />
         </SearchProvider>
         <Footer />
       </body>
