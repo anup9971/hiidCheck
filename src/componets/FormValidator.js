@@ -18,9 +18,12 @@ schema
     switch(name){
         case "name":
         case "username":
+        case "PropertyGST":
+        case "propertyName":
+         
             if(!value || value.length ===0)
                 return name + " Field Is Required"
-            else if( value.length <3 || value. length >50)
+            else if( value.length <3 || value. length >70)
                 return  name+ "Field Length must be 3-50"
             else  return ""
         
