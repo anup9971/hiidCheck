@@ -75,7 +75,7 @@ const handlepostData = async (e) => {
     // example: save token in localStorage
     localStorage.setItem("token", result.token);
     toast.success("Registration successfully!")
-    router.push("/login")
+    router.push("/owner-login")
   } catch (error) {
     console.error("❌ Error in handlepostData:", error);
   }
@@ -202,7 +202,7 @@ const handlepostData = async (e) => {
 
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-600 hover:underline">
+          <Link href="/owner-login" className="text-blue-600 hover:underline">
             Login
           </Link>
         </div>

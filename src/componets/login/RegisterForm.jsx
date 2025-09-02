@@ -72,7 +72,7 @@ const handlepostData = async (e) => {
     // example: save token in localStorage
     localStorage.setItem("token", result.token);
     toast.success("Registration successfully!")
-    router.push("/login")
+    router.push("/userlogin")
   } catch (error) {
     console.error("❌ Error in handlepostData:", error);
   }
