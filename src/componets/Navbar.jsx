@@ -81,7 +81,7 @@ const Navbar = () => {
                 className="flex items-center border p-2 rounded gap-2 text-white hover:text-gray-200"
               >
                 <FaRegCircleUser className="text-xl" />
-                {isLoggedIn ? `Hi, Ankit` : "Login/Signup"}
+                {isLoggedIn ? `Hi, ${localStorage.getItem("name")}` : "Login/Signup"}
               </button>
 
               {loginDropdown && (

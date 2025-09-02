@@ -50,7 +50,7 @@ const postDataHandler = async (e) => {
       body: JSON.stringify(data),
     });
 
-    if (!res.ok) {
+    if (res.result!=="Done") {
       throw new Error(`Failed: ${res.status}`);
     }
 

@@ -17,6 +17,7 @@ schema
      var {name, value}= e.target;
     switch(name){
         case "name":
+        case "username":
             if(!value || value.length ===0)
                 return name + " Field Is Required"
             else if( value.length <3 || value. length >50)
@@ -24,7 +25,7 @@ schema
             else  return ""
         
         case "phone":
-            if(!value || value.length ===0)
+            if(!value || value.length === 0)
                 return name + "Field Is Requried "
             else if (value.length !== 10) 
                  return name + "Field Length Must Be 1-10";
