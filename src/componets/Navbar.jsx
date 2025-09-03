@@ -160,29 +160,38 @@ console.log(role=="Owner");
                         <>
                           <li>
                             <Link
-                              href="/owner/properties"
+                              href="/owner-all-property"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
-                              My Properties
+                              All Properties
                             </Link>
                           </li>
                           <li>
                             <Link
-                              href="/owner/add-property"
+                              href="/owner-add-property"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
-                              Add Property
+                              Add New Property
                             </Link>
                           </li>
                           <li>
                             <Link
-                              href="/owner/profile"
+                              href="/owner-all-booking"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
-                              Owner Profile
+                              Booking
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/owner-profile"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                             Profile
                             </Link>
                           </li>
                         </>
