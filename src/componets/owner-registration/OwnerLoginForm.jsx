@@ -50,6 +50,7 @@ const handleLogin = async (e) => {
       if (result.result == "Done") {
         // ✅ save token and role
         localStorage.setItem("token", result.token);
+        localStorage.setItem("login", true);
         localStorage.setItem("role", result.data?.role);
         localStorage.setItem("name", result.data?.name);
         localStorage.setItem("PropertyGST", result.data?.PropertyGST);
@@ -59,7 +60,7 @@ const handleLogin = async (e) => {
         toast.success("Login successful!");
       //  return 
         // ✅ redirect by role
-        if (result.user?.role === "Owner") {
+        if (result.data?.role === "Owner") {
           router.push("/owner-profile");
         } else {
           router.push("/user-profile");

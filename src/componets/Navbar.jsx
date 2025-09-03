@@ -6,25 +6,29 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginDropdown, setLoginDropdown] = useState(false);
+  const [role, setRole] = useState(null); // role state
   const dropdownRef = useRef(null);
 
+  // Load login and role from localStorage
   useEffect(() => {
     const login = localStorage.getItem("login");
+    const storedRole = localStorage.getItem("role");
     if (login) setIsLoggedIn(true);
+    if (storedRole) setRole(storedRole);
   }, []);
+console.log(role=="Owner");
 
-  // Outside click pe dropdown close
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setLoginDropdown(false);
       }
     };
@@ -34,8 +38,15 @@ const Navbar = () => {
     };
   }, []);
 
-  const toggleMenu = () => {
-    setMobileOpen(!mobileOpen);
+  const toggleMenu = () => setMobileOpen(!mobileOpen);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    setRole(null);
+    setLoginDropdown(false);
+    setMobileOpen(false);
+    router.push("/");
   };
 
   return (
@@ -81,18 +92,20 @@ const Navbar = () => {
                 className="flex items-center border p-2 rounded gap-2 text-white hover:text-gray-200"
               >
                 <FaRegCircleUser className="text-xl" />
-                {isLoggedIn ? `Hi, ${localStorage.getItem("name")}` : "Login/Signup"}
+                {isLoggedIn
+                  ? `Hi, ${localStorage.getItem("name")}`
+                  : "Login/Signup"}
               </button>
 
               {loginDropdown && (
-                <ul className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg">
+                <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg">
                   {!isLoggedIn ? (
                     <>
                       <li>
                         <Link
                           href="/login"
                           onClick={() => setLoginDropdown(false)}
-                          className="block px-4   py-2 hover:bg-gray-100"
+                          className="block px-4 py-2 hover:bg-gray-100"
                         >
                           Login
                         </Link>
@@ -109,40 +122,109 @@ const Navbar = () => {
                     </>
                   ) : (
                     <>
-                      <li>
-                        <Link
-                          href="/mybooking"
-                          onClick={() => setLoginDropdown(false)}
-                          className="block px-4 py-2 hover:bg-gray-100"
-                        >
-                          My Booking
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/offer"
-                          onClick={() => setLoginDropdown(false)}
-                          className="block px-4 py-2 hover:bg-gray-100"
-                        >
-                          Offers
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/profile"
-                          onClick={() => setLoginDropdown(false)}
-                          className="block px-4 py-2 hover:bg-gray-100"
-                        >
-                          View Profile
-                        </Link>
-                      </li>
+                      {/* User Links */}
+                      {role == "User" && (
+                        <>
+                          <li>
+                            <Link
+                              href="/mybooking"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              My Booking
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/offer"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Offers
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/profile"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Profile
+                            </Link>
+                          </li>
+                        </>
+                      )}
+
+                      {/* Owner Links */}
+                      {role == "Owner" && (
+                        <>
+                          <li>
+                            <Link
+                              href="/owner/properties"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              My Properties
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/owner/add-property"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Add Property
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/owner/profile"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Owner Profile
+                            </Link>
+                          </li>
+                        </>
+                      )}
+
+                      {/* Admin Links */}
+                      {role == "Admin" && (
+                        <>
+                          <li>
+                            <Link
+                              href="/admin/dashboard"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Admin Dashboard
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/admin/users"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Manage Users
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/admin/reports"
+                              onClick={() => setLoginDropdown(false)}
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Reports
+                            </Link>
+                          </li>
+                        </>
+                      )}
+
+                      {/* Logout */}
                       <li>
                         <button
-                          onClick={() => {
-                            localStorage.removeItem("login");
-                            setIsLoggedIn(false);
-                            setLoginDropdown(false);
-                          }}
+                          onClick={handleLogout}
                           className="flex gap-1 text-left px-4 py-2 bg-red-500 rounded-2xl m-auto mb-2 mt-1 w-[110px] text-white hover:bg-red-700"
                         >
                           <RiLogoutCircleRLine className="text-xl" />
@@ -170,7 +252,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden  bg-white shadow-md px-4 pb-4 pt-2 space-y-3">
+        <div className="md:hidden bg-white shadow-md px-4 pb-4 pt-2 space-y-3">
           <Link
             href="/corporate"
             onClick={() => setMobileOpen(false)}
@@ -195,61 +277,120 @@ const Navbar = () => {
 
           {/* Mobile Login Dropdown */}
           <div>
-  {!isLoggedIn ? (
-    <div className="flex gap-3">
-      <Link
-        href="/login"
-        onClick={() => setMobileOpen(false)}
-        className="px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-[#477562]"
-      >
-        Login
-      </Link>
-      <Link
-        href="/register"
-        onClick={() => setMobileOpen(false)}
-        className="px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-[#477562]"
-      >
-        Register
-      </Link>
-    </div>
-  ) : (
-    <div className="flex gap-3 items-center flex-wrap">
-      <Link
-        href="/mybooking"
-        onClick={() => setMobileOpen(false)}
-        className="px-4 py-2 text-black hover:bg-gray-100 rounded"
-      >
-        My Booking
-      </Link>
-      <Link
-        href="/offer"
-        onClick={() => setMobileOpen(false)}
-        className="px-4 py-2 text-black hover:bg-gray-100 rounded"
-      >
-        Offers
-      </Link>
-      <Link
-        href="/profile"
-        onClick={() => setMobileOpen(false)}
-        className="px-4 py-2 text-black hover:bg-gray-100 rounded"
-      >
-        View Profile
-      </Link>
-      <button
-        onClick={() => {
-          localStorage.removeItem("login");
-          setIsLoggedIn(false);
-          setMobileOpen(false);
-        }}
-        className="flex items-center gap-1 px-4 py-2 bg-red-500 rounded-2xl text-white hover:bg-red-700"
-      >
-        <RiLogoutCircleRLine className="text-xl" />
-        Logout
-      </button>
-    </div>
-  )}
-</div>
+            {!isLoggedIn ? (
+              <div className="flex gap-3">
+                <Link
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-[#477562]"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setMobileOpen(false)}
+                  className="px-4 py-2 bg-[#5f8575] text-white rounded hover:bg-[#477562]"
+                >
+                  Register
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {/* User Links */}
+                {role == "User" && (
+                  <>
+                    <Link
+                      href="/mybooking"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      My Booking
+                    </Link>
+                    <Link
+                      href="/offer"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Offers
+                    </Link>
+                    <Link
+                      href="/profile"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Profile
+                    </Link>
+                  </>
+                )}
 
+                {/* Owner Links */}
+                {role == "Owner" && (
+                  <>
+                    <Link
+                      href="/owner/properties"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      My Properties
+                    </Link>
+                    <Link
+                      href="/owner/add-property"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Add Property
+                    </Link>
+                    <Link
+                      href="/owner/profile"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Owner Profile
+                    </Link>
+                  </>
+                )}
+
+                {/* Admin Links */}
+                {role == "Admin" && (
+                  <>
+                    <Link
+                      href="/admin/dashboard"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Admin Dashboard
+                    </Link>
+                    <Link
+                      href="/admin/users"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Manage Users
+                    </Link>
+                    <Link
+                      href="/admin/reports"
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-2 text-black hover:bg-gray-100 rounded"
+                    >
+                      Reports
+                    </Link>
+                  </>
+                )}
+
+                {/* Logout */}
+                <button
+                  onClick={handleLogout}
+                  
+                  className="flex items-center gap-1 px-4 py-2 bg-red-500 rounded-2xl text-white hover:bg-red-700"
+                >
+                  
+                  <RiLogoutCircleRLine className="text-xl" />
+                  Logout
+                  
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </nav>
