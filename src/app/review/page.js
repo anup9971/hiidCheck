@@ -1,5 +1,6 @@
 "use client"
-import Formvalidators from "@/componets/Formvalidators";
+
+import FormValidator from "@/componets/FormValidator";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
@@ -39,7 +40,7 @@ export default function ReviewForm() {
 
     setErrorMessage((prev) => ({
       ...prev,
-      [name]: Formvalidators(e), // run validator
+      [name]: FormValidator(e), // run validator
     }));
 
     setFormData((prev) => ({
