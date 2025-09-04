@@ -224,7 +224,7 @@ export default function AdminRoomsPage() {
                   <div className="flex justify-end gap-3 mt-4">
                     <button
                       onClick={() => handleEdit(room)}
-                      className="flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                      className="flex items-center gap-1 px-3 py-1 bg-[#5f8575] text-white rounded hover:bg-[#4b816a]"
                     >
                       <FaEdit /> Edit
                     </button>

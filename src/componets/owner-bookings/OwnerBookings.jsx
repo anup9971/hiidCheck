@@ -175,7 +175,7 @@ export default function OwnerBookings() {
                     <td className="p-2 border flex gap-2">
                       <button
                         onClick={() => handleEdit(booking)}
-                        className="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1"
+                        className="bg-[#5f8575] text-white px-2 py-1 rounded flex items-center gap-1"
                       >
                         <FaEdit /> Edit
                       </button>
