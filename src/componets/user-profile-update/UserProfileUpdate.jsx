@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import UserProfileSideBar from "../user-profile/UserProfileSideBar";
+import { BiSolidOffer } from "react-icons/bi";
 
 export default function UserUpdateProfile() {
   const [formData, setFormData] = useState({
@@ -26,13 +28,32 @@ export default function UserUpdateProfile() {
     console.log("Updated Data:", formData);
     alert("Profile updated successfully!");
   };
-
+  const user = {
+    name: "Ankit Kumar",
+    email: "ankit@example.com",
+    phone: "+91 98765 6335",
+    avatar: "https://i.pravatar.cc/150?img=12",
+    memberSince: "Jan 2023",
+  };
   return (
-    <div className="min-h-screen mt-[-4px] pb-12 pt-8 text-black bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 md:p-8">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">
-          Update Profile
-        </h1>
+   <>
+     <div className="min-h-screen bg-gray-50  mt-[-4px] pt-20 pb-25 text-black p-4 md:p-8">
+         <div className="max-w-6xl mx-auto">
+           {/* Header */}
+           <div className="flex items-center justify-between mb-6">
+             <h1 className="text-2xl md:text-3xl font-semibold">My Profile</h1>
+           </div>
+   
+           {/* Layout */}
+           <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6">
+             {/* Sidebar */}
+               <UserProfileSideBar user={user} />
+             {/* Main Content */}
+             <div className="col-span-3 bg-white shadow rounded-lg p-6 md:p-8">
+               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                  Update Profile
+               </h2>
+       
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
@@ -93,13 +114,13 @@ export default function UserUpdateProfile() {
               name="image"
               accept="image/*"
               onChange={handleChange}
-              className="w-full mt-1"
+              className="w-full mt-1 rounded-lg  px-3  py-2 border" 
             />
             {formData.image && (
               <img
                 src={URL.createObjectURL(formData.image)}
                 alt="Preview"
-                className="mt-3 w-24 h-24 object-cover rounded-full border"
+                className="mt-3 w-24 h-24 object-cover  rounded-full border"
               />
             )}
           </div>
@@ -147,6 +168,13 @@ export default function UserUpdateProfile() {
           </div>
         </form>
       </div>
-    </div>
+           </div>
+         </div>
+       </div>
+
+
+
+   
+   </>
   );
 }

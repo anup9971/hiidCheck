@@ -9,8 +9,8 @@ export default function UserProfileSideBar({user}) {
   const pathname = usePathname(); 
   return (
     <>
-         <aside className="w-full col-span-1 bg-white rounded-lg shadow p-4 md:p-6">
-              <div className="flex items-center gap-4">
+         <aside className="w-full col-span-1 pb-10 md:h-100 bg-white rounded-lg shadow p-4 md:p-6">
+              <div className="flex items-center pt-3 gap-4">
                 <img
                   src={user.avatar}
                   alt="avatar"
