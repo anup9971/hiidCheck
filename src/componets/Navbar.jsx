@@ -103,7 +103,7 @@ console.log(role=="Owner");
                     <>
                       <li>
                         <Link
-                          href="/login"
+                          href="/userlogin"
                           onClick={() => setLoginDropdown(false)}
                           className="block px-4 py-2 hover:bg-gray-100"
                         >
@@ -127,7 +127,7 @@ console.log(role=="Owner");
                         <>
                           <li>
                             <Link
-                              href="/mybooking"
+                              href="/user-booking"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
@@ -136,7 +136,7 @@ console.log(role=="Owner");
                           </li>
                           <li>
                             <Link
-                              href="/offer"
+                              href="/user-offers"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
@@ -145,7 +145,7 @@ console.log(role=="Owner");
                           </li>
                           <li>
                             <Link
-                              href="/profile"
+                              href="/user-profile"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
