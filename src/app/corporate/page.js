@@ -1,9 +1,11 @@
+import CorporateSection from '@/componets/corporatepage/CorporateSection'
+import CorporatePage from '@/componets/home/CorporatePage'
 import React from 'react'
 
 export default function page() {
   return (
     <>
-    <h1>Corporate Page </h1>
+      <CorporateSection/>
     </>
   )
 }

@@ -1,16 +1,20 @@
+"use client"
 import { LucideBriefcaseBusiness } from "lucide-react";
+
+import { useRouter } from "next/navigation"; 
 import { IoBusinessSharp } from "react-icons/io5";
 import { MdOutlineCall } from "react-icons/md";
 
 
 export default function CorporatePage() {
+    const router = useRouter();
   return (
     <main className="text-gray-800">
       {/* Hero */}
       <section className="bg-[url('/hotel/corporate.jpg')] bg-cover bg-center  text-white py-20 px-4 text-center">
         <h1 className="text-4xl md:text-6xl text-gray-800 font-bold mb-4">Corporate Bookings</h1>
         <p className="text-lg md:text-xl  text-gray-600  max-w-3xl mx-auto">Elevate your corporate stays with our premium hospitality and business-friendly services.</p>
-        <button className="mt-6 bg-white border text-black px-6 py-3 rounded-md hover:text-white hover:bg-gray-900 transition">Book Now</button>
+        <button className="mt-6 bg-white border text-black px-6 py-3 rounded-md hover:text-white hover:bg-gray-900 transition" onClick={()=>router.push("/corporate")} >Book Now</button>
       </section>
 
       {/* About */}
