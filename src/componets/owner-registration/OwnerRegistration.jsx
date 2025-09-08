@@ -1,4 +1,3 @@
-// components/RegisterForm.js
 "use client";
 
 import { useState } from "react";
@@ -7,205 +6,223 @@ import FormValidator from "../FormValidator";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-
-
 export default function OwnerRegistration() {
-  let [regData,setRegData]= useState({
-    name:"", email:"", username:"", phone:"", password:"", PropertyGST:"",propertyName:""
-  })
-let router = useRouter()
+  const [regData, setRegData] = useState({
+    name: "",
+    email: "",
+    username: "",
+    phone: "",
+    password: "",
+    PropertyGST: "",
+    propertyName: "",
+    roomQuantity: "",
+    startingPrice: "",
+    address: "",
+  });
 
-  let [show,setShow]= useState(false)
-  let [errorMessage, setErrorMessage]= useState({
-    name:"Name Field Is Required",
-    email:"Email Field Is Required",
-    phone:"Phone Field Is Required",
-    password :"Password Field Is Required",
-    username:"Username Field Is Required",
-    PropertyGST:"Property GST Field Is Required",
-    propertyName:"property Name Field Is Required",
-
-  })
-
+  const router = useRouter();
+  const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    name: "Name Field Is Required",
+    email: "Email Field Is Required",
+    phone: "Phone Field Is Required",
+    password: "Password Field Is Required",
+    username: "Username Field Is Required",
+    PropertyGST: "Property GST Field Is Required",
+    propertyName: "Property Name Field Is Required",
+    roomQuantity: "Room Quantity Field Is Required",
+    startingPrice: "Room Starting Price Field Is Required",
+    address: "Address Field Is Required",
+  });
 
   const handleInputData = (e) => {
-     let {name , value }= e.target;
-     setErrorMessage((x)=>{
-            return{
-              ...x,
-              [name]:FormValidator(e)
-            }
-     })
-     setRegData((y)=>{
-  return{
-    ...y, 
-    [name]:value
-
-  }
-})
+    let { name, value } = e.target;
+    setErrorMessage((x) => ({
+      ...x,
+      [name]: FormValidator(e),
+    }));
+    setRegData((y) => ({
+      ...y,
+      [name]: value,
+    }));
   };
 
+  const handlepostData = async (e) => {
+    e.preventDefault();
+    try {
+      let error = Object.values(errorMessage).find((a) => a !== "");
+      if (error) {
+        setShow(true);
+        return;
+      }
 
+      let res = await fetch("http://localhost:8000/api/owner", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(regData),
+      });
 
-const handlepostData = async (e) => {
-  e.preventDefault();
-  try {
-    let error = Object.values(errorMessage).find((a) => a !== "");
-    if (error) {
-      setShow(true);
-      console.log(error);
-      return;
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || `Failed: ${res.status}`);
+
+      localStorage.setItem("token", result.token);
+      toast.success("Registration successful!");
+      router.push("/owner-login");
+    } catch (error) {
+      console.error("❌ Error:", error);
     }
-
-    let res = await fetch("http://localhost:8000/api/owner", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(regData),
-    });
-
-    // parse backend JSON response
-    const result = await res.json();
-
-    if (!res.ok) {
-      throw new Error(result.message || `Failed: ${res.status}`);
-    }
-    console.log("✅ Server Response:", result);
-    // example: save token in localStorage
-    localStorage.setItem("token", result.token);
-    toast.success("Registration successfully!")
-    router.push("/owner-login")
-  } catch (error) {
-    console.error("❌ Error in handlepostData:", error);
-  }
-};
-
-
+  };
 
   return (
-    <div className="flex text-black items-center md:pt-20 mt-[-10px] pb-15 justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
-        <form  onSubmit={handlepostData} className="space-y-4">
+    <div className="flex items-center justify-center mt-[-4px] pt-20 text-black pb-25  min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+      <div className="bg-white p-10 rounded-2xl shadow-lg w-full max-w-5xl">
+        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
+          Owner Registration
+        </h2>
+
+        <form
+          onSubmit={handlepostData}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {/* Left Column */}
           <div>
-            <label className="block mb-1 font-medium">Full Name <span className="text-red-500">*</span></label>
+            <label className="block mb-1 font-medium">Full Name *</label>
             <input
               type="text"
               name="name"
-              placeholder="full Name"
-             
-                onChange={handleInputData}        
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter full name"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
             />
-            {show && errorMessage.name?<p className="text-red-500 text-sm uppercase ">{errorMessage.name}</p>:""}
+            {show && errorMessage.name && (
+              <p className="text-red-500 text-sm">{errorMessage.name}</p>
+            )}
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">UserName <span className="text-red-500">*</span></label>
+            <label className="block mb-1 font-medium">Username *</label>
             <input
-              name="username"
               type="text"
-              placeholder="username"
-              
-              onChange={handleInputData}          
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="username"
+              placeholder="Enter username"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
             />
-            {show && errorMessage.username?<p className="text-red-500 text-sm uppercase ">{errorMessage.username}</p>:""}
-
+            {show && errorMessage.username && (
+              <p className="text-red-500 text-sm">{errorMessage.username}</p>
+            )}
           </div>
+
           <div>
-            <label className="block mb-1 font-medium">Email <span className="text-red-500">*</span></label>
+            <label className="block mb-1 font-medium">Email *</label>
             <input
-              name="email"
               type="email"
-              placeholder="email"
-           
-                onChange={handleInputData}      
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="email"
+              placeholder="Enter email"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
             />
-            {show && errorMessage.email?<p className="text-red-500 text-sm uppercase ">{errorMessage.email}</p>:""}
-
+            {show && errorMessage.email && (
+              <p className="text-red-500 text-sm">{errorMessage.email}</p>
+            )}
           </div>
-           <div>
-            <label className="block mb-1 font-medium">Phone <span className="text-red-500">*</span></label>
+
+          <div>
+            <label className="block mb-1 font-medium">Phone *</label>
             <input
               type="number"
-              placeholder="phone"
               name="phone"
-           
-                onChange={handleInputData}        
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter phone number"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
             />
-            {show && errorMessage.phone?<p className="text-red-500 text-sm uppercase ">{errorMessage.phone}</p>:""}
-
+            {show && errorMessage.phone && (
+              <p className="text-red-500 text-sm">{errorMessage.phone}</p>
+            )}
           </div>
 
-           <div>
-            <label className="block mb-1 font-medium">Your Property Name <span className="text-red-500">*</span></label>
-            <input
-              type="text"
-              placeholder="Your Property Name *"
-              name="propertyName"
-           
-                onChange={handleInputData}        
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {show && errorMessage.propertyName?<p className="text-red-500 text-sm uppercase ">{errorMessage.propertyName}</p>:""}
-
-          </div>
-
-           <div>
-            <label className="block mb-1 font-medium">Property GST Number <span className="text-red-500">*</span></label>
-            <input
-              type="text"
-              placeholder="Property GST Number*"
-              name="PropertyGST"
-           
-                onChange={handleInputData}        
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {show && errorMessage.PropertyGST?<p className="text-red-500 text-sm uppercase ">{errorMessage.PropertyGST}</p>:""}
-
-          </div>
           <div>
-            <label className="block mb-1 font-medium">Password <span className="text-red-500">*</span> </label>
+            <label className="block mb-1 font-medium">Room Quantity *</label>
             <input
-              placeholder="password"
+              type="text"
+              name="roomQuantity"
+              placeholder="Enter room quantity"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Starting Price *</label>
+            <input
+              type="text"
+              name="startingPrice"
+              placeholder="Enter starting price"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Property Name *</label>
+            <input
+              type="text"
+              name="propertyName"
+              placeholder="Enter property name"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Address *</label>
+            <input
+              type="text"
+              name="address"
+              placeholder="Enter address"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Property GST *</label>
+            <input
+              type="text"
+              name="PropertyGST"
+              placeholder="Enter GST number"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Password *</label>
+            <input
               type="password"
               name="password"
-              
-                onChange={handleInputData}        
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter password"
+              onChange={handleInputData}
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#5f8575]"
             />
-            {show && errorMessage.password?<p className="text-red-500 text-sm uppercase ">{errorMessage.password}</p>:""}
-
           </div>
-          {/* <div>
-            <label className="block mb-1 font-medium">Confirm Password*</label>
-            <input
-              placeholder="Confirm Password"
-               name="" 
-              type="password"
-              value={confirmPassword}
-                onChange={handleInputData}        
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div> */}
-          <button
-            type="submit"
-            className="w-full bg-white text-black border  hover:text-white py-2 rounded-md hover:bg-black transition"
-          >
-           Owner Register
-          </button>
+
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              className="w-full  text-white py-3 rounded-lg  bg-[#5f8575] hover:bg-[#4d886f] transition font-medium shadow-md"
+            >
+              Register
+            </button>
+          </div>
         </form>
 
-        <div className="mt-4 text-center text-sm">
+        <p className="mt-6 text-center text-sm">
           Already have an account?{" "}
           <Link href="/owner-login" className="text-blue-600 hover:underline">
             Login
           </Link>
-        </div>
+        </p>
       </div>
     </div>
   );
