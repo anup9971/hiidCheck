@@ -5,7 +5,7 @@ import React from "react";
 import { FaUser, FaPlus, FaHotel, FaClipboardList, FaSignOutAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 
-const AdminProfile = () => {
+const OwnerProfile = () => {
   const profile = {
     name: "Ankit Kumar",
     email: "akumarrai45@gmail.com",
@@ -95,4 +95,4 @@ const AdminProfile = () => {
   );
 };
 
-export default AdminProfile;
+export default OwnerProfile;
