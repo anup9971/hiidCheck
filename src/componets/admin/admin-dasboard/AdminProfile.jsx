@@ -34,7 +34,7 @@ const AdminProfile = () => {
             <div className="col-span-3 md:h-[380px] bg-white shadow rounded-lg p-8 mt-6 lg:mt-0">
               <h2 className="text-xl font-semibold mb-6">
                 Admin Information
-                <Link href="/user-update-profile">
+                <Link href="/admin/update-profile">
                   <span className="float-end text-blue-500 hover:text-blue-700 hover:bg-gray-100">
                     <FiEdit />
                   </span>

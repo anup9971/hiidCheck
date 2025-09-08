@@ -2,7 +2,11 @@ import Link from 'next/link'
 import React from 'react'
 import { FiEdit } from "react-icons/fi";
 import { BiSolidOffer } from "react-icons/bi";
-import { FaClipboardList, FaSignOutAlt, FaRegUser } from "react-icons/fa";
+import { FaSignOutAlt, FaRegUser, FaHotel } from "react-icons/fa";
+import { MdCorporateFare } from "react-icons/md";
+import { LiaBookSolid } from "react-icons/lia";
+import { BsBuildingsFill } from "react-icons/bs";
+
 import { usePathname } from 'next/navigation';
 
 export default function AdminProfileSideBar({ user,className }) {
@@ -54,7 +58,7 @@ export default function AdminProfileSideBar({ user,className }) {
                 ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
-            <FaClipboardList className="text-[17px]" /> All Hotels
+            <MdCorporateFare  className="text-[17px]" /> All Hotels
           </Link>
 
           <Link
@@ -64,7 +68,7 @@ export default function AdminProfileSideBar({ user,className }) {
                 ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
-            <BiSolidOffer className="text-[18px]" /> All Corporates
+            <FaHotel className="text-[18px]" /> All Corporates
           </Link>
 
           <Link
@@ -74,7 +78,7 @@ export default function AdminProfileSideBar({ user,className }) {
                 ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
-            <BiSolidOffer className="text-[18px]" /> Totol Bookings
+            <LiaBookSolid   className="text-[18px]" /> Totol Bookings
           </Link>
 
            <Link
@@ -84,13 +88,13 @@ export default function AdminProfileSideBar({ user,className }) {
                 ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
-            <BiSolidOffer className="text-[18px]" /> All Property 
+            <BsBuildingsFill  className="text-[18px]" /> All Property 
           </Link>
 
           <Link
-            href="/user-update-profile"
+            href="/admin/update-profile"
             className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
-              ${pathname === "/user-update-profile"
+              ${pathname === "/admin/update-profile"
                 ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
