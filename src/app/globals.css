@@ -32,3 +32,29 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+
+
+/* corprorate page slider css */
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+  background-color: #5f8575 !important;
+  padding: 20px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Arrows icon ka size */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px !important; /* 👈 Increase / decrease here */
+}
+
+/* Hover effect */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #4e6b60 !important;
+}
