@@ -3,6 +3,9 @@ import React from 'react';
 import { FiEdit } from "react-icons/fi";
 import { FaClipboardList, FaSignOutAlt, FaRegUser, FaPlus } from "react-icons/fa";
 import { usePathname } from 'next/navigation';
+import { BsBuildings } from "react-icons/bs";
+import { RiMessage2Line } from "react-icons/ri";
+
 
 export default function OwnerProfileSideBar({ user }) {
   const pathname = usePathname();
@@ -12,7 +15,8 @@ export default function OwnerProfileSideBar({ user }) {
     { href: "/owner-all-booking", icon: <FaClipboardList />, label: "Booking" },
     { href: "/owner-add-property", icon: <FaPlus />, label: "Add New Property" },
     { href: "/owner-add-corporate", icon: <FaPlus />, label: "Add New Corporate" },
-    { href: "/owner-all-property", icon: <FaPlus />, label: "All Properties" },
+    { href: "/owner-all-property", icon: <BsBuildings />, label: "All Properties" },
+    { href: "/owner-all-reviews", icon: <RiMessage2Line/>, label: "All Reviews" },
     { href: "/owner-update-profile", icon: <FiEdit />, label: "Edit Profile" },
   ];
 
