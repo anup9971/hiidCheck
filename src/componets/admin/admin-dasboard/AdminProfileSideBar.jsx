@@ -103,6 +103,27 @@ export default function AdminProfileSideBar({ user,className }) {
             <FaUserLock   className="text-[18px]" /> All Clients Access 
           </Link>
 
+            {/* <Link
+            href="/admin/admin-corporate-access"
+            className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
+              ${pathname === "/admin/admin-corporate-access"
+                ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
+                : "text-black bg-gray-100 hover:bg-gray-200"}`}
+          >
+            <FaUserLock   className="text-[18px]" /> All Corporate Access 
+          </Link> */}
+
+
+              <Link
+            href="/admin/admin-corporate-alluser"
+            className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
+              ${pathname === "/admin/admin-corporate-alluser"
+                ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
+                : "text-black bg-gray-100 hover:bg-gray-200"}`}
+          >
+            <PiUsersFourThin   className="text-[18px]" /> All Corporate User 
+          </Link>
+
           <Link
             href="/admin/update-profile"
             className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
