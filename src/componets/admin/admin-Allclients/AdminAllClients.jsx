@@ -163,13 +163,13 @@ export default function AdminAllClients() {
                     </td>
                     <td className="py-4 text-right">
                       <div className="inline-flex items-center gap-2">
-                        <button
+                        {/* <button
                           title="Edit"
                           onClick={() => handleEdit(c.id)}
                           className="p-2 rounded hover:bg-gray-100"
                         >
                           <FiEdit />
-                        </button>
+                        </button> */}
                         <button
                           title="Delete"
                           onClick={() => handleDelete(c.id)}

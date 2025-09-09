@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
 import { FiEdit } from "react-icons/fi";
-import { BiSolidOffer } from "react-icons/bi";
+
 import { FaSignOutAlt, FaRegUser, FaHotel } from "react-icons/fa";
 import { MdCorporateFare } from "react-icons/md";
 import { LiaBookSolid } from "react-icons/lia";
 import { PiUsersFourThin } from "react-icons/pi";
+import { FaUserLock } from "react-icons/fa";
 
 import { usePathname } from 'next/navigation';
 
@@ -15,6 +16,7 @@ export default function AdminProfileSideBar({ user,className }) {
   return (
     <>
       <aside className={`w-full text-black col-span-1 pb-10 ${className} bg-white rounded-lg shadow p-4 md:p-6`}>
+       
         <div className="flex  items-center pt-3 gap-4">
           <img
             src={user.avatar}
@@ -89,6 +91,16 @@ export default function AdminProfileSideBar({ user,className }) {
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
             <PiUsersFourThin  className="text-[18px]" /> All Clients
+          </Link>
+
+             <Link
+            href="/admin/allclients-access"
+            className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
+              ${pathname === "/admin/allclients-access"
+                ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
+                : "text-black bg-gray-100 hover:bg-gray-200"}`}
+          >
+            <FaUserLock   className="text-[18px]" /> All Clients Access 
           </Link>
 
           <Link

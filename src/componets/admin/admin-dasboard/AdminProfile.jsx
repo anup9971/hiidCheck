@@ -28,7 +28,7 @@ const AdminProfile = () => {
           {/* Responsive Layout */}
           <div className="flex  flex-col lg:grid lg:grid-cols-4 gap-6">
             {/* Sidebar */}
-     
+                
               <AdminProfileSideBar user={user} className="self-start md:h-[600px]" />
             {/* Main Content */}
             <div className="col-span-3 md:h-[380px] bg-white shadow rounded-lg p-8 mt-6 lg:mt-0">
