@@ -94,113 +94,146 @@ export default function CorparateDetailsPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-gray-100 py-16 px-6">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-[#5f8575]">
-            Contact Us
-          </h2>
-          <div className="grid md:grid-cols-2 gap-10">
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <p className="text-gray-700">
-                We’d love to hear from you! Reach out for bookings, conferences,
-                or collaborations.
-              </p>
-              <p className="flex items-center text-gray-700">
-                <MapPin className="mr-2 text-[#5f8575]" /> New Delhi, India
-              </p>
-              <p className="flex items-center text-gray-700">
-                <Phone className="mr-2 text-[#5f8575]" /> +91 9876543210
-              </p>
-              <p className="flex items-center text-gray-700">
-                <Mail className="mr-2 text-[#5f8575]" /> info@luxuryhotel.com
-              </p>
-            </div>
+  <section className="bg-gray-100 py-16 px-6">
+  <div className="max-w-5xl mx-auto">
+    <h2 className="text-3xl font-bold mb-8 text-center text-[#5f8575]">
+      Contact Us
+    </h2>
+    <div className="grid md:grid-cols-2 gap-10">
+      {/* Contact Info */}
+      <div className="space-y-4">
+        <p className="text-gray-700">
+          We’d love to hear from you! Reach out for bookings, conferences,
+          or collaborations.
+        </p>
+        <p className="flex items-center text-gray-700">
+          <MapPin className="mr-2 text-[#5f8575]" /> New Delhi, India
+        </p>
+        <p className="flex items-center text-gray-700">
+          <Phone className="mr-2 text-[#5f8575]" /> +91 9876543210
+        </p>
+        <p className="flex items-center text-gray-700">
+          <Mail className="mr-2 text-[#5f8575]" /> info@luxuryhotel.com
+        </p>
+      </div>
 
-            {/* Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white p-8 text-black rounded-2xl shadow-lg space-y-4"
-            >
-              <div className="grid md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  className="border p-3 rounded-lg w-full"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  className="border p-3 rounded-lg w-full"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="Your Phone"
-                  className="border p-3 rounded-lg w-full"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="organization"
-                  placeholder="Organization"
-                  className="border p-3 rounded-lg w-full"
-                  value={formData.organization}
-                  onChange={handleChange}
-                />
-                <input
-                  type="date"
-                  name="checkin"
-                  className="border p-3 rounded-lg w-full"
-                  value={formData.checkin}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="date"
-                  name="checkout"
-                  className="border p-3 rounded-lg w-full"
-                  value={formData.checkout}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <input
-                type="text"
-                name="room"
-                placeholder="Room Type (Optional)"
-                className="border p-3 rounded-lg w-full"
-                value={formData.room}
-                onChange={handleChange}
-              />
-              <textarea
-                name="details"
-                placeholder="Details / Message"
-                rows="4"
-                className="border p-3 rounded-lg w-full"
-                value={formData.details}
-                onChange={handleChange}
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full bg-[#5f8575] text-white px-6 py-3 rounded-lg hover:bg-[#4e6b60] transition"
-              >
-                Submit Inquiry
-              </button>
-            </form>
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 text-black rounded-2xl shadow-lg space-y-4"
+      >
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-gray-600 mb-1">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              className="border p-3 rounded-lg w-full"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1">Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              className="border p-3 rounded-lg w-full"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1">Phone</label>
+            <input
+              type="text"
+              name="phone"
+              placeholder="Enter your phone number"
+              className="border p-3 rounded-lg w-full"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1">Organization</label>
+            <input
+              type="text"
+              name="organization"
+              placeholder="Enter your organization"
+              className="border p-3 rounded-lg w-full"
+              value={formData.organization}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1">Check-In</label>
+            <input
+              type="date"
+              name="checkin"
+              className="border p-3 rounded-lg w-full"
+              value={formData.checkin}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 mb-1">Check-Out</label>
+            <input
+              type="date"
+              name="checkout"
+              className="border p-3 rounded-lg w-full"
+              value={formData.checkout}
+              onChange={handleChange}
+              required
+            />
           </div>
         </div>
-      </section>
+
+        <div>
+          <label className="block text-gray-600 mb-1">Room Type</label>
+          <input
+            type="text"
+            name="room"
+            placeholder="Room type (optional)"
+            className="border p-3 rounded-lg w-full"
+            value={formData.room}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label className="block text-gray-600 mb-1">Message / Details</label>
+          <textarea
+            name="details"
+            placeholder="Write your message here"
+            rows="4"
+            className="border p-3 rounded-lg w-full"
+            value={formData.details}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-[#5f8575] text-white px-6 py-3 rounded-lg hover:bg-[#4e6b60] transition"
+        >
+          Submit Inquiry
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
     </div>
   );
 }

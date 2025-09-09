@@ -1,0 +1,73 @@
+import Link from 'next/link';
+import React from 'react';
+import { FiEdit } from "react-icons/fi";
+import { FaClipboardList, FaSignOutAlt, FaRegUser, FaPlus } from "react-icons/fa";
+import { usePathname } from 'next/navigation';
+
+export default function OwnerProfileSideBar({ user }) {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/owner-profile", icon: <FaRegUser />, label: "Profile" },
+    { href: "/owner-all-booking", icon: <FaClipboardList />, label: "Booking" },
+    { href: "/owner-add-property", icon: <FaPlus />, label: "Add New Property" },
+    { href: "/owner-add-corporate", icon: <FaPlus />, label: "Add New Corporate" },
+    { href: "/owner-all-property", icon: <FaPlus />, label: "All Properties" },
+    { href: "/owner-update-profile", icon: <FiEdit />, label: "Edit Profile" },
+  ];
+
+  return (
+    <aside className="w-full pb-10 md:h-auto bg-white rounded-lg shadow p-4 md:p-6">
+      {/* User info */}
+      <div className="flex items-center pt-3 gap-4">
+        <img
+          src={user.avatar}
+          alt="avatar"
+          className="w-16 h-16 rounded-full object-cover"
+        />
+        <div>
+          <h2 className="font-medium text-lg">{user.name}</h2>
+          <p className="text-sm text-gray-500">{user.email}</p>
+          <p className="text-sm text-gray-500">{user.phone}</p>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="mt-6 text-sm text-gray-600 space-y-2">
+        <p>
+          <span className="font-medium">Member since: </span>
+          {user.memberSince}
+        </p>
+        <p>
+          <span className="font-medium">Total bookings: </span>
+          2
+        </p>
+      </div>
+
+      {/* Navigation Links */}
+      <div className="mt-6 flex flex-col gap-2">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className={`w-full flex items-center gap-2 px-4 py-2 rounded text-sm font-medium
+              ${pathname === link.href
+                ? "bg-[#5f8575] text-white hover:bg-[#5f9675]"
+                : "bg-gray-100 text-black hover:bg-gray-200"}`
+            }
+          >
+            {link.icon} {link.label}
+          </Link>
+        ))}
+      </div>
+
+      {/* Logout */}
+      <Link
+        href="/"
+        className="w-full mt-4 flex justify-center items-center gap-2 px-4 py-2 bg-gray-100 rounded text-sm font-medium hover:bg-gray-200"
+      >
+        <FaSignOutAlt /> Logout
+      </Link>
+    </aside>
+  );
+}

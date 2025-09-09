@@ -54,7 +54,7 @@ export const metadata = {
 export default function Home() {
   return (
    <>
-    <div className="bg-white">
+    <div className="bg-white mt-[-4px]">
 
     <Hero/>
     <SearchBox/>
