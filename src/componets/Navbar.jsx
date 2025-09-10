@@ -211,20 +211,20 @@ console.log(role=="Owner");
                           </li>
                           <li>
                             <Link
-                              href="/admin/users"
+                              href="/admin/allhotels"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
-                              Manage Users
+                              All Hotels
                             </Link>
                           </li>
                           <li>
                             <Link
-                              href="/admin/reports"
+                              href="/admin/allclients"
                               onClick={() => setLoginDropdown(false)}
                               className="block px-4 py-2 hover:bg-gray-100"
                             >
-                              Reports
+                              All Clients 
                             </Link>
                           </li>
                         </>

@@ -96,7 +96,7 @@ export default function AdminCorporatesPage() {
   };
 
   return (
-    <div className="min-h-screen pt-15 pb-20 md:pb-40 mt-[-4px] text-black bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen pt-15 md:mt-20 pb-20 md:pb-40 mt-[-4px] text-black bg-white p-4 md:p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-6">
         {/* Sidebar */}
         <aside className="lg:col-span-2">

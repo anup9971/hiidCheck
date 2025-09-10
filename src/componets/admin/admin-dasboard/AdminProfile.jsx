@@ -18,7 +18,9 @@ const AdminProfile = () => {
 
   return (
     <>
-      <div className="min-h-screen mt-[-4px] pb-20 pt-10 bg-gray-50 text-black p-4 md:p-8">
+      
+
+      <div className="min-h-screen mt-[-4px]  pt-15 pb-20 md:pt-20 md:mb-20 bg-white text-black p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">

@@ -41,9 +41,11 @@ export default function AdminAllClientsAccess() {
   };
 
   return (
-    <div className="min-h-screen mt-[-4px] pt-20 pb-15 md:pb-25 text-black bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen mt-[-4px] md:pt-20 pt-20 pb-15 md:pb-25 text-black bg-gray-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-6">
         <aside className="lg:col-span-2">
+          <p className="text-black font-bold text-3xl mt-2 pb-2 ">Admin Profile</p>
+          
           <AdminProfileSideBar user={{ name: "Admin" }} />
         </aside>
 

@@ -6,8 +6,6 @@ import {
   FiEdit,
   FiSearch,
   FiTrash2,
-  FiEye,
-  FiPlusSquare,
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi";
@@ -142,7 +140,7 @@ export default function AdminHotelsPage() {
   // responsive: table on lg and grid cards on smaller screens
   return (
     <>
-     <div className="min-h-screen pt-15  pb-20 md:pb-40 mt-[-4px] text-black bg-gray-50 p-4 md:p-8">
+     <div className="min-h-screen md:pt-20 pt-15  pb-20 md:pb-40 mt-[-4px] text-black bg-gray-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-6">
         {/* Sidebar */}
         <aside className="lg:col-span-2"> 
