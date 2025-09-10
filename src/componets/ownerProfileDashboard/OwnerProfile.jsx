@@ -16,7 +16,7 @@ const OwnerProfile = () => {
   };
 
   return (
-    <div className="min-h-screen flex text-black mt-[-4px] pt-15 pb-20 md:pb-25  flex-col md:flex-row bg-gray-100 p-4 md:p-6 gap-6">
+    <div className="min-h-screen flex md:pt-20 text-black mt-[-4px]  pb-20 md:pb-25  flex-col md:flex-row bg-gray-100 p-4 md:p-6 gap-6">
       
       {/* Sidebar */}
       <aside className="w-full md:w-84 p-2 md:p-2 flex-shrink-0">

@@ -89,6 +89,7 @@ function useFilteredSorted(hotels, { q, status, sortBy }) {
 }
 
 export default function AdminHotelsPage() {
+  
   const [hotels, setHotels] = useState(initialHotels);
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("all");
@@ -120,7 +121,7 @@ export default function AdminHotelsPage() {
     );
   };
 
-  const goEdit = (id) => router.push(`/admin/update-hotel/${id}`);
+
 
   return (
     <div className="min-h-screen  mt-[-4px] pt-15 pb-20 md:pt-20 md:pb-25  text-black bg-gray-50 p-4 md:p-8">
@@ -234,7 +235,7 @@ export default function AdminHotelsPage() {
                       </button> */}
                       <button
                         title="Edit"
-                        onClick={() => goEdit(h.id)}
+                        onClick={() => router.push(`owner-update-property/${h.id}`)}
                         className="p-2 rounded hover:bg-gray-100"
                       >
                         <FiEdit />
@@ -282,7 +283,7 @@ export default function AdminHotelsPage() {
                   </div>
                   <div className="flex justify-between mt-3">
                     <button
-                      onClick={() => goEdit(h.id)}
+                      onClick={() => router.push(`owner-update-property/${h.id}`)}
                       className="px-3 py-1 bg-gray-100 rounded text-sm"
                     >
                       Edit
