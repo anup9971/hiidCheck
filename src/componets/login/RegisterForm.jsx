@@ -171,7 +171,7 @@ const handlepostData = async (e) => {
 
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-600 hover:underline">
+          <Link href="/userlogin" className="text-blue-600 hover:underline">
             Login
           </Link>
         </div>

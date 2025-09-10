@@ -2,35 +2,33 @@ import { NextResponse } from "next/server";
 
 export function middleware(request) {
   const { pathname } = request.nextUrl;
-
-  // ✅ Role cookie se nikalna
   const role = request.cookies.get("role")?.value;
 
-  // --- ADMIN GUARD ---
+  // --- ADMIN ROUTES ---
   if (pathname.startsWith("/admin")) {
-    if (role !== "admin") {
+    if (role !== "Admin") {
       return NextResponse.redirect(new URL("/not-authorized", request.url));
     }
   }
 
-  // --- OWNER GUARD ---
-  if (pathname.startsWith("/owner")) {
-    if (role !== "owner") {
+  // --- OWNER ROUTES (prefix owner-) ---
+  if (pathname.startsWith("/owner-")) {
+    if (role !== "Owner" && role !== "Admin") {
       return NextResponse.redirect(new URL("/not-authorized", request.url));
     }
   }
 
-  // --- USER GUARD ---
+  // --- USER ROUTES ---
   if (pathname.startsWith("/user")) {
-    if (role !== "user") {
+    if (role !== "User" && role !== "Admin") {
       return NextResponse.redirect(new URL("/not-authorized", request.url));
     }
   }
 
+  // ✅ baaki sab public
   return NextResponse.next();
 }
 
-// ✅ Middleware sirf in routes pe chalega
 export const config = {
-  matcher: ["/admin/:path*", "/owner/:path*", "/user/:path*"],
+  matcher: ["/admin/:path*", "/owner-:path*", "/user/:path*"],
 };

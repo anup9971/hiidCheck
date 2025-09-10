@@ -67,7 +67,7 @@ export default function OwnerRegistration() {
 
       localStorage.setItem("token", result.token);
       toast.success("Registration successful!");
-      router.push("/owner-login");
+      router.push("/login-owner");
     } catch (error) {
       console.error("❌ Error:", error);
     }
@@ -219,7 +219,7 @@ export default function OwnerRegistration() {
 
         <p className="mt-6 text-center text-sm">
           Already have an account?{" "}
-          <Link href="/owner-login" className="text-blue-600 hover:underline">
+          <Link href="/login-owner" className="text-blue-600 hover:underline">
             Login
           </Link>
         </p>
