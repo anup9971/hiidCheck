@@ -123,6 +123,15 @@ export default function AdminProfileSideBar({ user,className }) {
           >
             <PiUsersFourThin   className="text-[18px]" /> All Corporate User 
           </Link>
+              <Link
+            href="/admin/admin-allusers"
+            className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
+              ${pathname === "/admin/admin-allusers"
+                ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
+                : "text-black bg-gray-100 hover:bg-gray-200"}`}
+          >
+            <PiUsersFourThin   className="text-[18px]" /> Total Users
+          </Link>
 
           <Link
             href="/admin/update-profile"

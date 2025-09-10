@@ -135,9 +135,9 @@ const postDataHandler = async (e) => {
     />
   </div>
 
-  <button type='submit' className="w-full bg-white border text-black hover:bg-black hover:text-white py-3 rounded text-lg">
+  {/* <button type='submit' className="w-full bg-white border text-black hover:bg-black hover:text-white py-3 rounded text-lg">
     Book Now
-  </button>
+  </button> */}
               </form>
     </>
   )

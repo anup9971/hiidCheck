@@ -9,6 +9,8 @@ import {
   FiEye,
 } from "react-icons/fi";
 import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
+import { CiEdit } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 
 // Dummy bookings data
 const initialBookings = [
@@ -59,6 +61,7 @@ const initialBookings = [
 ];
 
 function useFilteredSorted(bookings, { q, status, sortBy }) {
+  let router =useRouter()
   return useMemo(() => {
     let list = [...bookings];
 
@@ -88,6 +91,7 @@ function useFilteredSorted(bookings, { q, status, sortBy }) {
 }
 
 export default function AdminBookingsPage() {
+    let router =useRouter()
   const [bookings, setBookings] = useState(initialBookings);
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("all");
@@ -188,8 +192,9 @@ export default function AdminBookingsPage() {
         <th className="py-3 w-100">Check-Out</th>
         <th className="py-3 ">Guests</th>
         <th className="py-3 w-20">Amount</th>
-        <th className="py-3 w-40">Status</th>
-        <th className="py-3 w-40">Payment</th>
+        <th className="py-3 w-20">Payment Id</th>
+        <th className="py-3 w-80">Status</th>
+        <th className="py-3 w-80">Payment</th>
         <th className="py-3 text-right">Actions</th>
       </tr>
     </thead>
@@ -202,8 +207,9 @@ export default function AdminBookingsPage() {
           <td className="py-4">{b.checkIn}</td>
           <td className="py-4">{b.checkOut}</td>
           <td className="py-4 w-80">{b.guests}</td>
-          <td className="py-4">₹{b.amount}</td>
-          <td className="py-4">
+          <td className="py-4 w-80 ">₹{b.amount}</td>
+          <td className="py-4 w-120">id748754f5sdf</td>
+          <td className="py-4 w-80">
             <span className={`px-3 py-1 rounded-full text-sm ${
               b.status === "confirmed" ? "bg-green-100 text-green-700" :
               b.status === "pending" ? "bg-yellow-100 text-yellow-700" :
@@ -219,7 +225,7 @@ export default function AdminBookingsPage() {
           </td>
           <td className="py-4 text-right">
             <div className="inline-flex items-center gap-2">
-              {/* <button title="View" className="p-2 rounded hover:bg-gray-100"><FiEye /></button> */}
+              <button onClick={()=> router.push("/admin/update-bookings")}  title="Update" className="p-2 rounded hover:bg-gray-100"><CiEdit /></button>
               <button onClick={() => handleDelete(b.id)} className="p-2 rounded hover:bg-red-50 text-red-500"><FiTrash2 /></button>
             </div>
           </td>
@@ -228,7 +234,6 @@ export default function AdminBookingsPage() {
     </tbody>
   </table>
 </div>
-
           </div>
 
           {/* CARD grid (Mobile + Tablet) */}
@@ -270,8 +275,8 @@ export default function AdminBookingsPage() {
                   </span>
                 </div>
                 <div className="flex justify-end items-center gap-2 mt-3">
-                  <button className="px-2 py-1 rounded bg-gray-100 text-sm">
-                    View
+                  <button onClick={()=> router.push("/admin/update-bookings")}   className="px-2 py-1 rounded bg-gray-100 text-sm">
+                  Edit
                   </button>
                   <button
                     onClick={() => handleDelete(b.id)}
