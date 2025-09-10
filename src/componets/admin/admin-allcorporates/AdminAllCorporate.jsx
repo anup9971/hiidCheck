@@ -9,6 +9,7 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
+import { useRouter } from "next/navigation";
 
 // Dummy Corporates data
 const initialCorporates = [
@@ -66,6 +67,7 @@ function useFilteredSorted(corporates, { q, status, sortBy }) {
 }
 
 export default function AdminCorporatesPage() {
+  let router = useRouter()
   const [corporates, setCorporates] = useState(initialCorporates);
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("all");
@@ -200,7 +202,7 @@ export default function AdminCorporatesPage() {
                       <div className="inline-flex items-center gap-2">
                         <button
                           title="Edit"
-                          onClick={() => alert("Edit " + c.id)}
+                          onClick={() => router.push(`update-corporate/${c.id}`) }
                           className="p-2 rounded hover:bg-gray-100"
                         >
                           <FiEdit />
@@ -257,7 +259,7 @@ export default function AdminCorporatesPage() {
                     </span>
                     <div className="flex gap-2">
                       <button
-                        onClick={() => alert("Edit " + c.id)}
+                        onClick={() => router.push(`update-corporate/${c.id}`) }
                         className="px-3 py-1 bg-gray-100 rounded text-sm"
                       >
                         Edit

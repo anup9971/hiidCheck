@@ -80,7 +80,7 @@ export default function AdminProfileSideBar({ user,className }) {
                 ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
                 : "text-black bg-gray-100 hover:bg-gray-200"}`}
           >
-            <LiaBookSolid   className="text-[18px]" /> Totol Bookings
+            <LiaBookSolid   className="text-[18px]" /> Total Bookings
           </Link>
 
            <Link

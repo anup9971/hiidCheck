@@ -87,10 +87,10 @@ export default function AdminUpadateHotel() {
   };
 
   return (
-    <div className="mt-[-4px]">
+    <div className="mt-[-4px] bg-white">
       <div className="grid grid-cols-1 text-black pt-10 md:grid-cols-4 gap-6 p-4">
         {/* Sidebar Section */}
-        <div className="p-4 md:col-span-1">
+        <div className="md:p-4 p-2 md:col-span-1">
           <h2 className="text-2xl pb-4 font-semibold">Admin Dashboard</h2>
           <AdminProfileSideBar user={user} />
         </div>
