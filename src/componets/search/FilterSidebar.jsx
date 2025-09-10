@@ -9,6 +9,9 @@ export default function FilterSidebar({ filters, setFilters }) {
     // Filters are already applied with setFilters
   };
 
+
+
+  
   const handleCancel = () => {
     setMobileOpen(false);
   };
