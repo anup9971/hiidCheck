@@ -64,7 +64,7 @@ export async function POST(req) {
   } = body;
 
   // Check required fields
-  if (!name || !email || !password || !PropertyGST || !propertyName || !roomQuantity || !startingPrice) {
+  if (!name || !email || !password ) {
     return NextResponse.json({ message: "All required fields must be provided" }, { status: 400 });
   }
 

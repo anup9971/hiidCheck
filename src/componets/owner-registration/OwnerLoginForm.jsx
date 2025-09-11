@@ -266,7 +266,7 @@ export default function OwnerLoginForm({ roleType = "owner" }) {
         </form>
 
         <div className="flex justify-between mt-4 text-sm">
-          <Link href="/forgot-password" className="text-blue-600 hover:underline">
+          <Link href="/format-password-owner" className="text-blue-600 hover:underline">
             Forgot Password?
           </Link>
           <Link href="/owner-registration" className="text-blue-600 hover:underline">

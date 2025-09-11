@@ -12,22 +12,21 @@ const OwnerSchema = new mongoose.Schema({
   },
   PropertyGST:{
     type:String,
-    required: [true, "PropertyGST is mandatory"],
+  
      
   },
    propertyName:{
     type: String,
-    required: [true, "propertyName is mandatory"],
 
    },
    roomQuantity:{
        type:Number,
-       required: [true, "roomQuantity is mandatory"],
+      
 
    },
    startingPrice:{
     type:Number,
-    required: [true, "startingPrice is mandatory"],
+  
     
    }
    ,
