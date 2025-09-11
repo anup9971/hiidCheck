@@ -149,7 +149,7 @@ export default function LoginForm({ roleType = "user" }) {
 
   // API URLs
   const apiUrls = {
-    user: "http://localhost:8000/api/user/login",
+    user: "/api/user/login",
    
   };
 

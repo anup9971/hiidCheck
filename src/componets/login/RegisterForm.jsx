@@ -54,7 +54,7 @@ const handlepostData = async (e) => {
       return;
     }
 
-    let res = await fetch("http://localhost:8000/api/user", {
+    let res = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
