@@ -181,12 +181,12 @@ export default function RoomImageGrid(roomData) {
             </div>
 
             {/* ✅ Show calculated total */}
-            {nights > 0 && (
+            {/* {nights > 0 && (
               <p className="text-gray-800">
                 <span className="font-semibold">Total Price: </span>₹{" "}
                 {totalPrice.totalPrice?.toFixed(2)}
               </p>
-            )}
+            )} */}
           </div>
         </div>
 
