@@ -150,7 +150,7 @@ export default function OwnerLoginForm({ roleType = "owner" }) {
 
   // API URLs
   const apiUrls = {
-    owner: "http://localhost:8000/api/owner/login",
+    owner: "/api/owner/login",
   };
 
   const handleInputData = (e) => {

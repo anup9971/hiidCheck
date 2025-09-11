@@ -1,11 +1,11 @@
 import db_connect from "@/app/lib/db_connect";
-import User from "@/app/model/User";
+import Owner from "@/app/model/Owner";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 // GET single user by ID
 export async function GET(req, { params }) {
   await db_connect()
-  const user = await User.findById(params.id);
+  const user = await Owner.findById(params.id);
   if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
   return NextResponse.json(user);
 }
@@ -14,7 +14,7 @@ export async function GET(req, { params }) {
 // export async function PUT(req, { params }) {
 //   await db_connect()
 //   const body = await req.json();
-//   const user = await User.findById(params.id);
+//   const user = await Owner.findById(params.id);
 //   if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
 
 //   const fields = ["name","username","email","phone","address","city","state","pin","active"];
@@ -27,7 +27,7 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   await db_connect();
   const body = await req.json();
-  const user = await User.findById(params.id);
+  const user = await Owner.findById(params.id);
 
   if (!user) 
     return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -49,13 +49,12 @@ export async function PUT(req, { params }) {
   return NextResponse.json({ message: "User updated successfully", user });
 }
 
-
 // DELETE - delete user by ID
 export async function DELETE(req, { params }) {
   await db_connect()
-  const user = await User.findById(params.id);
+  const user = await Owner.findById(params.id);
   if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
 
-  await User.findByIdAndDelete(params.id);
+  await Owner.findByIdAndDelete(params.id);
   return NextResponse.json({ message: "User deleted successfully" });
 }

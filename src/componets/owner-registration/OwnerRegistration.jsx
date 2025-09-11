@@ -56,7 +56,7 @@ export default function OwnerRegistration() {
         return;
       }
 
-      let res = await fetch("http://localhost:8000/api/owner", {
+      let res = await fetch("/api/owner", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(regData),
