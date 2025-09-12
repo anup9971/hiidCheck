@@ -1,48 +1,62 @@
-// components/ForgotPasswordFormRePassword.js
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { validateFormData } from "../FormValidator";
 
 export default function ForgotPasswordFormRePassword() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Live field validation
+    const fieldErrors = validateFormData({ ...formData, [name]: value });
+    setErrors(fieldErrors);
+  }
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("❌ Password and Confirm Password do not match");
+    // validate full form before submit
+    const validationErrors = validateFormData(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
     setLoading(true);
 
     try {
-      const usernameOrEmail = localStorage.getItem("resetUser"); // 👈 step 1 se save kiya tha
+      const usernameOrEmail = localStorage.getItem("resetUser");
       if (!usernameOrEmail) {
         alert("⚠️ Something went wrong. Please restart the process.");
         return;
       }
 
-      const res = await fetch("/api/forgetpassword//update", {
+      const res = await fetch("/api/forgetpassword/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          role: "User", // "User" | "Admin" | "Owner"
+          role: "User", // or "Admin" | "Owner"
           username: usernameOrEmail,
-          password,
+          password: formData.password,
         }),
       });
 
       const data = await res.json();
 
       if (data.result === "Done") {
-         toast.success("Your password has been reset successfully!")
-        localStorage.removeItem("resetUser"); // clean up
+        toast.success("Your password has been reset successfully!");
+        localStorage.removeItem("resetUser");
         router.push("/");
       } else {
         alert(`❌ Failed: ${data.reason}`);
@@ -65,22 +79,38 @@ export default function ForgotPasswordFormRePassword() {
             <input
               type="password"
               placeholder="Enter new password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={`w-full border rounded-md p-2 focus:outline-none focus:ring-2 ${
+                errors.password
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:ring-blue-500"
+              }`}
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
           </div>
           <div>
             <label className="block mb-1 font-medium">Confirm Password*</label>
             <input
               type="password"
               placeholder="Confirm new password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={`w-full border rounded-md p-2 focus:outline-none focus:ring-2 ${
+                errors.confirmPassword
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:ring-blue-500"
+              }`}
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.confirmPassword}
+              </p>
+            )}
           </div>
           <button
             type="submit"

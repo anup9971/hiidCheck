@@ -128,16 +128,17 @@
 
 
 
+
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import FormValidator from "../FormValidator";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import FormValidator from "../FormValidator"; // agar validator use karna ho
 
-export default function LoginForm({ roleType = "user" }) {
+export default function UserLoginForm() {
   const router = useRouter();
 
   const [loginData, setLoginData] = useState({ username: "", password: "" });
@@ -147,11 +148,8 @@ export default function LoginForm({ roleType = "user" }) {
     password: "Password Field Is Required",
   });
 
-  // API URLs
-  const apiUrls = {
-    user: "/api/user/login",
-   
-  };
+  // ✅ Only user login API
+  const apiUrl = "/api/user/login";
 
   const handleInputData = (e) => {
     const { name, value } = e.target;
@@ -167,64 +165,55 @@ export default function LoginForm({ roleType = "user" }) {
     }));
   };
 
- const handleLogin = async (e) => {
-  e.preventDefault();
-  setShowErrors(true);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setShowErrors(true);
 
-  if (!loginData.username || !loginData.password) return;
+    if (!loginData.username || !loginData.password) return;
 
-  try {
-    const res = await fetch(apiUrls[roleType], {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginData),
-    });
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData),
+      });
 
-    if (!res.ok) {
-      const errData = await res.json();
-      throw new Error(errData.reason || "Login failed");
-    }
-
-    const result = await res.json();
-    console.log("API Response:", result);
-
-    if (result.result === "Done") {
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("login", true);
-      localStorage.setItem("role", result.data?.role);
-      localStorage.setItem("name", result.data?.name);
-
-      Cookies.set("role", result.data?.role, { path: "/" });
-      console.log("Role in middleware:", result.data?.role);
-
-      toast.success("Login successful!");
-
-      switch (result.data?.role) {
-        case "admin":
-          router.push("/admin-profile");
-          break;
-        case "owner":
-          router.push("/owner-profile");
-          break;
-        default:
-          router.push("/user-profile");
-          break;
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.reason || "Login failed");
       }
-    } else {
-      toast.error(result.reason || "Invalid username or password");
+
+      const result = await res.json();
+      console.log("API Response:", result);
+
+      if (result.result === "Done") {
+        // Save tokens & data
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("login", true);
+        localStorage.setItem("role", "User"); // fixed role
+        localStorage.setItem("name", result.data?.name);
+
+        Cookies.set("role", "User", { path: "/" });
+
+        toast.success("Login successful!");
+
+        // ✅ Redirect to user profile & refresh
+        setTimeout(() => {
+          window.location.href = "/user-profile";
+        }, 800);
+      } else {
+        toast.error(result.reason || "Invalid username or password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error(error.message || "Something went wrong!");
     }
-  } catch (error) {
-    console.error("Login error:", error);
-    toast.error(error.message || "Something went wrong!");
-  }
-};
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {roleType.charAt(0).toUpperCase() + roleType.slice(1)} Login
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">User Login</h2>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
@@ -240,7 +229,9 @@ export default function LoginForm({ roleType = "user" }) {
               className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {showErrors && errorMessage.username && (
-              <p className="text-red-500 uppercase text-sm">{errorMessage.username}</p>
+              <p className="text-red-500 uppercase text-sm">
+                {errorMessage.username}
+              </p>
             )}
           </div>
 
@@ -257,7 +248,9 @@ export default function LoginForm({ roleType = "user" }) {
               className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {showErrors && errorMessage.password && (
-              <p className="text-red-500 uppercase text-sm">{errorMessage.password}</p>
+              <p className="text-red-500 uppercase text-sm">
+                {errorMessage.password}
+              </p>
             )}
           </div>
 

@@ -1,55 +1,84 @@
-// components/ForgotPasswordFormRePassword.js
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import FormValidator from "../FormValidator";
 
 export default function ForgotPasswordOwnerRePassword() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  let [data, setData] = useState({
+    confirmPassword: "",
+    password: "",
+  });
+
+  let [errorMessage, setErrorMessage] = useState({});
+  let [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  function getInputData(e) {
+    const { name, value } = e.target;
+
+    setData((old) => ({
+      ...old,
+      [name]: value,
+    }));
+
+    setErrorMessage((old) => ({
+      ...old,
+      [name]: FormValidator(e, { ...data, [name]: value }),
+    }));
+  }
+
   const handleForgotPassword = async (e) => {
     e.preventDefault();
+    setShow(true);
 
-    if (password !== confirmPassword) {
-      alert("❌ Password and Confirm Password do not match");
+    // ✅ Validate all fields before submit
+    let errors = {
+      password: FormValidator({ target: { name: "password", value: data.password } }, data),
+      confirmPassword: FormValidator({ target: { name: "confirmPassword", value: data.confirmPassword } }, data),
+    };
+
+    setErrorMessage(errors);
+
+    // अगर कोई भी error है तो stop करो
+    if (errors.password || errors.confirmPassword) {
+      toast.error("⚠️ Please fix the errors before submitting.");
       return;
     }
-   let role = localStorage.getItem("resetRole")
+
+    let role = localStorage.getItem("resetRole");
     setLoading(true);
     try {
-      const usernameOrEmail = localStorage.getItem("resetUser"); // 👈 step 1 se save kiya tha
+      const usernameOrEmail = localStorage.getItem("resetUser");
       if (!usernameOrEmail) {
-        alert("⚠️ Something went wrong. Please restart the process.");
+        toast.error("⚠️ Something went wrong. Please restart the process.");
         return;
       }
-      
 
       const res = await fetch("/api/forgetpassword/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-           role,
+          role,
           username: usernameOrEmail,
-          password,
+          password: data.password,
         }),
       });
 
-      const data = await res.json();
+      const result = await res.json();
 
-      if (data.result === "Done") {
-         toast.success("Your password has been reset successfully!")
-        localStorage.removeItem("resetUser"); // clean up
+      if (result.result === "Done") {
+        localStorage.removeItem("resetUser");
+        toast.success(" Your password has been reset successfully!");
         router.push("/");
       } else {
-        alert(`❌ Failed: ${data.reason}`);
+        toast.error(`❌ Failed: ${result.reason}`);
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("⚠️ Something went wrong, please try again later.");
+      toast.error("⚠️ Something went wrong, please try again later.");
     } finally {
       setLoading(false);
     }
@@ -65,23 +94,31 @@ export default function ForgotPasswordOwnerRePassword() {
             <input
               type="password"
               placeholder="Enter new password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              name="password"
+              value={data.password}
+              onChange={getInputData}
               className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {show && errorMessage.password && (
+              <p className="text-red-500 text-sm">{errorMessage.password}</p>
+            )}
           </div>
+
           <div>
             <label className="block mb-1 font-medium">Confirm Password*</label>
             <input
               type="password"
               placeholder="Confirm new password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
+              name="confirmPassword"
+              value={data.confirmPassword}
+              onChange={getInputData}
               className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {show && errorMessage.confirmPassword && (
+              <p className="text-red-500 text-sm">{errorMessage.confirmPassword}</p>
+            )}
           </div>
+
           <button
             type="submit"
             disabled={loading}

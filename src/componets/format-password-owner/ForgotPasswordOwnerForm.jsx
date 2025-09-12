@@ -49,7 +49,7 @@ export default function ForgotPasswordOwnerForm() {
         <h2 className="text-2xl font-bold mb-6 text-center">Forgot Password</h2>
         <form onSubmit={handleForgotPassword} className="space-y-4">
           {/* Role Toggle */}
-          <div className="flex items-center justify-between p-2 rounded-lg">
+          {/* <div className="flex items-center justify-between p-2 rounded-lg">
             <div
               onClick={() => setRole(role === "Owner" ? "Admin" : "Owner")}
               className="flex items-center gap-2 cursor-pointer bg-gray-200 rounded-full px-3 py-1 transition"
@@ -66,7 +66,7 @@ export default function ForgotPasswordOwnerForm() {
                 </>
               )}
             </div>
-          </div>
+          </div> */}
 
           {/* Username / Email */}
           <div>
@@ -107,7 +107,7 @@ export default function ForgotPasswordOwnerForm() {
 
         <div className="mt-4 text-center text-sm">
           Remember your password?{" "}
-          <Link href="/login" className="text-blue-600 hover:underline">
+          <Link href="/login-owner" className="text-blue-600 hover:underline">
             Login
           </Link>
         </div>
