@@ -2,87 +2,96 @@
 
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-
+import { useRouter, useParams } from "next/navigation";
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
 
-export default function OwnerProfileUpdate({ ownerId }) {
-  const [owner, setOwner] = useState({
+export default function OwnerProfileUpdate() {
+  const router = useRouter();
+  const { id } = useParams();
+
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
-    username: "",
     phone: "",
-    password: "",
-    PropertyGST: "",
     propertyName: "",
-    city: "",
+    PropertyGST: "",
     address: "",
+    pic: null,
   });
 
-  const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({
-    name: "Name Field Is Required",
-    email: "Email Field Is Required",
-    phone: "Phone Field Is Required",
-    password: "Password Field Is Required",
-    username: "Username Field Is Required",
-    PropertyGST: "Property GST Field Is Required",
-    propertyName: "Property Name Field Is Required",
-    city: "City Field Is Required",
-    address: "Address Field Is Required",
-  });
+  const [owner, setOwner] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
-
+  // Fetch Owner Data
   useEffect(() => {
     const fetchOwner = async () => {
+      if (!id) return;
       try {
-        const res = await fetch(`http://localhost:8000/api/owner/${ownerId}`);
+        const res = await fetch(`/api/owner/${id}`);
         const data = await res.json();
-        setOwner(data);
+
+        if (data && data._id) {
+          setOwner(data);
+          setFormData({
+            name: data.name || "",
+            email: data.email || "",
+            phone: data.phone || "",
+            propertyName: data.propertyName || "",
+            PropertyGST: data.PropertyGST || "",
+            address: data.address || "",
+            pic: null,
+          });
+        }
       } catch (err) {
-        console.error("Error fetching owner data:", err);
+        console.error("❌ Failed to fetch user:", err.message);
       }
     };
-    if (ownerId) fetchOwner();
-  }, [ownerId]);
 
+    fetchOwner();
+  }, [id]);
+
+  // Handle Input Change
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    setErrorMessage((prev) => ({
-      ...prev,
-      [name]: value.trim() === "" ? `${name} is required` : "",
-    }));
-
-    setOwner((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
+    if (name === "pic") {
+      setFormData({ ...formData, pic: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
+  // Handle Update
   const handleUpdate = async (e) => {
     e.preventDefault();
-
-    const hasError = Object.values(errorMessage).some((msg) => msg !== "");
-    if (hasError) {
-      setShowError(true);
-      return;
-    }
+    setLoading(true);
 
     try {
-      const res = await fetch(`http://localhost:8000/api/owner/${ownerId}`, {
+      const form = new FormData();
+      form.append("name", formData.name);
+      form.append("phone", formData.phone);
+      form.append("propertyName", formData.propertyName);
+      form.append("PropertyGST", formData.PropertyGST);
+      form.append("address", formData.address);
+
+      if (formData.pic) form.append("pic", formData.pic);
+
+      const res = await fetch(`/api/owner/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(owner),
+        body: form,
       });
+
       const result = await res.json();
       if (!res.ok) throw new Error(result.message || "Update failed");
+
       toast.success("Profile updated successfully!");
-      router.refresh();
+      setOwner(result); // API से updated owner वापस लो
+      setFormData({ ...formData, pic: null }); // reset pic
+      router.push("/"); // redirect
     } catch (err) {
       console.error("Error updating profile:", err);
       toast.error("Failed to update profile");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +101,7 @@ export default function OwnerProfileUpdate({ ownerId }) {
         {/* Sidebar */}
         <aside className="lg:col-span-2 order-1 lg:order-1">
           <p className="pb-5 font-bold text-3xl">Owner Profile</p>
-          <OwnerProfileSideBar user={owner}/>
+          <OwnerProfileSideBar owner={owner} />
         </aside>
 
         {/* Main Content */}
@@ -114,15 +123,10 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="text"
                   name="name"
-                  value={owner.name}
+                  value={formData.name}
                   onChange={handleInputChange}
                   className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 />
-                {showError && errorMessage.name && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.name}
-                  </p>
-                )}
               </div>
 
               {/* Username */}
@@ -133,15 +137,10 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="text"
                   name="username"
-                  value={owner.username}
-                  onChange={handleInputChange}
-                  className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                  disabled
+                  value={owner?.username || ""}
+                  className="p-3 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed"
                 />
-                {showError && errorMessage.username && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.username}
-                  </p>
-                )}
               </div>
 
               {/* Email */}
@@ -150,15 +149,10 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="email"
                   name="email"
-                  value={owner.email}
-                  onChange={handleInputChange}
-                  className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                  disabled
+                  value={formData.email}
+                  className="p-3 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed"
                 />
-                {showError && errorMessage.email && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.email}
-                  </p>
-                )}
               </div>
 
               {/* Phone */}
@@ -167,15 +161,10 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="tel"
                   name="phone"
-                  value={owner.phone}
+                  value={formData.phone}
                   onChange={handleInputChange}
                   className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 />
-                {showError && errorMessage.phone && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.phone}
-                  </p>
-                )}
               </div>
 
               {/* Property Name */}
@@ -186,15 +175,10 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="text"
                   name="propertyName"
-                  value={owner.propertyName}
+                  value={formData.propertyName}
                   onChange={handleInputChange}
                   className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 />
-                {showError && errorMessage.propertyName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.propertyName}
-                  </p>
-                )}
               </div>
 
               {/* Property GST */}
@@ -205,32 +189,24 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="text"
                   name="PropertyGST"
-                  value={owner.PropertyGST}
+                  value={formData.PropertyGST}
                   onChange={handleInputChange}
                   className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 />
-                {showError && errorMessage.PropertyGST && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.PropertyGST}
-                  </p>
-                )}
               </div>
 
-              {/* City */}
+              {/* Profile Picture */}
               <div className="flex flex-col">
-                <label className="text-gray-700 font-semibold mb-1">City</label>
+                <label className="text-gray-700 font-semibold mb-1">
+                  Profile Picture
+                </label>
                 <input
-                  type="text"
-                  name="city"
-                  value={owner.city}
+                  type="file"
+                  name="pic"
+                  accept="image/*"
                   onChange={handleInputChange}
                   className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 />
-                {showError && errorMessage.city && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.city}
-                  </p>
-                )}
               </div>
 
               {/* Address */}
@@ -241,42 +217,19 @@ export default function OwnerProfileUpdate({ ownerId }) {
                 <input
                   type="text"
                   name="address"
-                  value={owner.address}
+                  value={formData.address}
                   onChange={handleInputChange}
                   className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
                 />
-                {showError && errorMessage.address && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.address}
-                  </p>
-                )}
               </div>
 
-              {/* Password */}
-              <div className="flex flex-col md:col-span-2">
-                <label className="text-gray-700 font-semibold mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  value={owner.password}
-                  onChange={handleInputChange}
-                  placeholder="Enter new password"
-                  className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-                />
-                {showError && errorMessage.password && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errorMessage.password}
-                  </p>
-                )}
-              </div>
-
+              {/* Submit */}
               <button
                 type="submit"
-                className="md:col-span-2 w-full bg-[#5f8575] text-white py-3 rounded-xl text-lg font-semibold hover:bg-[#3b8d6b] transition"
+                disabled={loading}
+                className="md:col-span-2 w-full bg-[#5f8575] text-white py-3 rounded-xl text-lg font-semibold hover:bg-[#3b8d6b] transition disabled:opacity-50"
               >
-                Update Profile
+                {loading ? "Updating..." : "Update Profile"}
               </button>
             </form>
           </div>

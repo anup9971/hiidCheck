@@ -59,43 +59,14 @@ const handleLogin = async (e) => {
     const result = await res.json();
     
 
-//    if (result.result === "Done") {
-//   localStorage.setItem("token", result.token);
-//   localStorage.setItem("login", true);
-//   localStorage.setItem("role", result.data?.role);
-//   localStorage.setItem("name", result.data?.name);
 
-//   Cookies.set("role", result.data?.role, { path: "/" });
-
-//   toast.success("Login successful!");
-
-//   // ✅ Redirect based on role
-//   setTimeout(() => {
-//     switch (result.data?.role) {
-//       case "Owner":
-//         router.push("/owner-profile");
-//         break;
-//       case "Admin":
-//         router.push("/admin/dashboard");
-//         break;
-//       default:
-//         router.push("/");
-//     }
-
-//     // ✅ Refresh after redirect
-//     setTimeout(() => {
-//       window.location.reload();
-//     }, 500);
-//   }, 500);
-// } else {
-//   toast.error(result.reason || "Invalid username or password");
-// }
 
 if (result.result === "Done") {
   localStorage.setItem("token", result.token);
   localStorage.setItem("login", true);
   localStorage.setItem("role", result.data?.role);
   localStorage.setItem("name", result.data?.name);
+  localStorage.setItem("owner_id", result?.data?._id)
 
   Cookies.set("role", result.data?.role, { path: "/" });
 

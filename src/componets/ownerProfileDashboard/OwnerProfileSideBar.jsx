@@ -8,7 +8,7 @@ import { RiMessage2Line } from "react-icons/ri";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
 
-export default function OwnerProfileSideBar({ user }) {
+export default function OwnerProfileSideBar({ owner, formatDate }) {
   const pathname = usePathname();
 
   const links = [
@@ -19,7 +19,7 @@ export default function OwnerProfileSideBar({ user }) {
     { href: "/owner-all-property", icon: <BsBuildings />, label: "All Properties" },
     { href: "/owner-all-corporate", icon: <HiOutlineBuildingOffice2 />, label: "All Corporates" },
     { href: "/owner-all-reviews", icon: <RiMessage2Line/>, label: "All Reviews" },
-    { href: "/owner-update-profile", icon: <FiEdit />, label: "Edit Profile" },
+    { href: `/owner-update-profile/${owner?._id}`, icon: <FiEdit />, label: "Edit Profile" },
   ];
 
   return (
@@ -27,14 +27,14 @@ export default function OwnerProfileSideBar({ user }) {
       {/* User info */}
       <div className="flex items-center pt-3 gap-4">
         <img
-          src={user.avatar}
+          src={`http://localhost:3000${owner?.pic}`}
           alt="avatar"
           className="w-16 h-16 rounded-full object-cover"
         />
         <div>
-          <h2 className="font-medium text-lg">{user.name}</h2>
-          <p className="text-sm text-gray-500">{user.email}</p>
-          <p className="text-sm text-gray-500">{user.phone}</p>
+          <h2 className="font-medium uppercase text-lg">{owner?.name}</h2>
+          {/* <p className="text-sm text-gray-500">{owner?.email}</p> */}
+          <p className="text-sm text-gray-500">{owner?.phone}</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ export default function OwnerProfileSideBar({ user }) {
       <div className="mt-6 text-sm text-gray-600 space-y-2">
         <p>
           <span className="font-medium">Member since: </span>
-          {user.memberSince}
+          {owner?.createdAt ? formatDate(owner?.createdAt):"N/A"}
         </p>
         <p>
           <span className="font-medium">Total bookings: </span>

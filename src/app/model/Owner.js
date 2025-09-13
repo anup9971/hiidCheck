@@ -74,6 +74,8 @@ const OwnerSchema = new mongoose.Schema({
     type: Boolean,
     default: true, // enable by default
   },
-});
+},
+{ timestamps: true }
+);
 
 export default mongoose.models.Owner || mongoose.model("Owner", OwnerSchema);

@@ -1,7 +1,8 @@
 import db_connect from "@/app/lib/db_connect";
 import Owner from "@/app/model/Owner";
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
+import path from "path";
+import fs from "fs/promises"
 // GET single user by ID
 export async function GET(req, { params }) {
   await db_connect()
@@ -10,51 +11,128 @@ export async function GET(req, { params }) {
   return NextResponse.json(user);
 }
 
-// PUT - update user by ID
+async function deleteImage(picPath) {
+  const fullPath = path.join(process.cwd(), "public", picPath.replace(/^\/+/, ""));
+  try {
+    await fs.access(fullPath);
+    await fs.unlink(fullPath);
+    console.log("✅ Deleted:", fullPath);
+  } catch (err) {
+    console.log("⚠️ Could not delete:", fullPath, "-", err.message);
+  }
+}
+
+export async function PUT(req, { params }) {
+  try {
+      const userId = params.id; 
+    // const userId = params?.id;
+
+    await db_connect();
+    console.log("✅ MongoDB Connected");
+
+    const formData = await req.formData();
+
+    // Find user
+    const user = await Owner.findById(userId);
+    if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
+
+    // Delete old pic(s) automatically
+    const file = formData.get("pic");
+    if (user.pic) {
+      if (Array.isArray(user.pic)) {
+        for (const picPath of user.pic) await deleteImage(picPath);
+      } else if (typeof user.pic === "string") {
+        await deleteImage(user.pic);
+      }
+      user.pic = "";
+    }
+
+    // Upload new pic if exists
+    if (file && typeof file === "object") {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const uploadDir = path.join(process.cwd(), "public/uploads/owner");
+      await fs.mkdir(uploadDir, { recursive: true });
+
+      const filename = `${Date.now()}-${file.name}`;
+      const filepath = path.join(uploadDir, filename);
+      await fs.writeFile(filepath, buffer);
+
+      user.pic = `/uploads/owner/${filename}`;
+      console.log("✅ New pic uploaded:", user.pic);
+    }
+
+    // ✅ Update all other form fields dynamically
+    for (const [key, value] of formData.entries()) {
+      if (key !== "pic") {          // skip file field
+        user[key] = value;          // dynamically assign all fields
+      }
+    }
+
+    await user.save();
+
+    return NextResponse.json({
+      success: true,
+      message: "User updated successfully",
+      data: user,
+    });
+  } catch (error) {
+    console.error("❌ Error updating user:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
 // export async function PUT(req, { params }) {
-//   await db_connect()
+//   await db_connect();
 //   const body = await req.json();
 //   const user = await Owner.findById(params.id);
-//   if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
 
+//   if (!user) 
+//     return NextResponse.json({ message: "User not found" }, { status: 404 });
+
+//   // normal fields update
 //   const fields = ["name","username","email","phone","address","city","state","pin","active"];
-//   fields.forEach(f => { if (body[f] !== undefined) user[f] = body[f]; });
+//   fields.forEach(f => { 
+//     if (body[f] !== undefined) user[f] = body[f]; 
+//   });
+
+//   // ✅ password update
+//   if (body.password) {
+//     const hashedPassword = await bcrypt.hash(body.password, 10);
+//     user.password = hashedPassword;
+//   }
 
 //   await user.save();
+
 //   return NextResponse.json({ message: "User updated successfully", user });
 // }
 
-export async function PUT(req, { params }) {
-  await db_connect();
-  const body = await req.json();
-  const user = await Owner.findById(params.id);
-
-  if (!user) 
-    return NextResponse.json({ message: "User not found" }, { status: 404 });
-
-  // normal fields update
-  const fields = ["name","username","email","phone","address","city","state","pin","active"];
-  fields.forEach(f => { 
-    if (body[f] !== undefined) user[f] = body[f]; 
-  });
-
-  // ✅ password update
-  if (body.password) {
-    const hashedPassword = await bcrypt.hash(body.password, 10);
-    user.password = hashedPassword;
-  }
-
-  await user.save();
-
-  return NextResponse.json({ message: "User updated successfully", user });
-}
-
 // DELETE - delete user by ID
 export async function DELETE(req, { params }) {
-  await db_connect()
-  const user = await Owner.findById(params.id);
-  if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
+  await db_connect();
+  const userId = params.id;
 
-  await Owner.findByIdAndDelete(params.id);
-  return NextResponse.json({ message: "User deleted successfully" });
+  try {
+    const user = await Owner.findById(userId);
+    if (!user) {
+      return NextResponse.json({ success: false, msg: "User not found" }, { status: 404 });
+    }
+
+    // ✅ Use helper here
+    if (user.pic) {
+      if (Array.isArray(user.pic)) {
+        for (const picPath of user.pic) {
+          await deleteImage(picPath);
+        }
+      } else if (typeof user.pic === "string") {
+        await deleteImage(user.pic);
+      }
+    }
+
+    await Owner.findByIdAndDelete(userId);
+
+    return NextResponse.json({ success: true, msg: "User & pic deleted" });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ success: false, msg: "Error deleting user" }, { status: 500 });
+  }
 }
