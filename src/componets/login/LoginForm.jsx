@@ -188,6 +188,7 @@ export default function UserLoginForm() {
 
       if (result.result === "Done") {
         // Save tokens & data
+        localStorage.setItem("user_id", result?.data?._id)
         localStorage.setItem("token", result.token);
         localStorage.setItem("login", true);
         localStorage.setItem("role", "User"); // fixed role

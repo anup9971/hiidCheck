@@ -1,20 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { FiEdit } from "react-icons/fi";
 import UserProfileSideBar from "./UserProfileSideBar";
 
 const UserProfile = () => {
-  const user = {
-    name: "Ankit Kumar",
-    email: "ankit@example.com",
-    phone: "+91 98765 6335",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    memberSince: "Jan 2023",
-    role: "User",
+  let user_id = typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
+  const [user, setUser] = useState(null)
+    const formatDate = (isoDate) => {
+  const date = new Date(isoDate);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-based
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+    }
+
+useEffect(() => {
+  const getUserData = async () => {
+    try {
+      let res = await fetch(`/api/user/${user_id}`, {
+        method: "GET",
+      });
+      let data = await res.json();
+      console.log(data);
+
+      if (data?.success) {
+        setUser(data.data);
+        console.log(data.data.pic); // ✅ yaha user.data.img ki jagah data.data.pic
+      } else {
+        console.error("Failed to fetch user:", data.error || data.message);
+      }
+    } catch (error) {
+      console.error("❌ Error fetching user:", error.message);
+    }
   };
+
+  getUserData();
+}, [user_id]);
+
 
   return (
     <>
@@ -33,7 +58,7 @@ const UserProfile = () => {
             <div className="col-span-3 bg-white shadow rounded-lg p-8 mt-6 lg:mt-0">
               <h2 className="text-xl font-semibold mb-6">
                 User Information
-                <Link href="/user-update-profile">
+                <Link href={`/user-update-profile/${user?._id}`}>
                   <span className="float-end text-blue-500 hover:text-blue-700 hover:bg-gray-100">
                     <FiEdit />
                   </span>
@@ -42,23 +67,23 @@ const UserProfile = () => {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Name:</span>
-                  <span>{user.name}</span>
+                  <span>{user?.name}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Email:</span>
-                  <span>{user.email}</span>
+                  <span>{user?.email}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Role:</span>
-                  <span>{user.role}</span>
+                  <span>{user?.role}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Phone:</span>
-                  <span>{user.phone}</span>
+                  <span>{user?.phone}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium text-gray-600">Joined:</span>
-                  <span>{user.memberSince}</span>
+                  <span>{formatDate(user?.createdAt)}</span>
                 </div>
               </div>
             </div>

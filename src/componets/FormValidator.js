@@ -131,11 +131,15 @@ export default function FormValidator(e, formData = {}) {
       else return "Invalid Email Address";
 
     case "password":
-      if (!value || value.length === 0) return "Password is Required";
-      else if (!schema.validate(value))
-        return "Password must contain at least 1 uppercase, 1 lowercase, 1 digit, no spaces and be 8–100 characters long";
-      else return "";
-
+  if (!value || value.length === 0) {
+    return "Password is Required";
+  } else if (!schema.validate(value)) {
+    return "Password must contain at least 1 uppercase, 1 lowercase, 1 digit, no spaces and be 8–100 characters long";
+  } else if (/^\d+$/.test(value)) {
+    return "Password cannot be only numbers";
+  } else {
+    return "";
+  }
     case "confirmPassword":
       if (!value || value.length === 0) return "Confirm Password is Required";
       else if (formData.password && value !== formData.password)
