@@ -1,41 +1,98 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminProfileSideBar from "../admin/admin-dasboard/AdminProfileSideBar";
+import { useParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 
 
 
 export default function AdminUpdateProfile() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    city: "",
-    address: "",
-    image: null,
-  });
+        let {id} = useParams() 
+        let router =useRouter()
+        const [loading, setLoading] = useState(false);
+        const [formData, setFormData] = useState({
+          name: "",
+          email: "",
+          phone: "",
+          address: "",
+          pic: null,
+        });
+        const [owner, setOwner] = useState(null)
+        const formatDate = (isoDate) => {
+        const date = new Date(isoDate);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-based
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+          }
+
+        useEffect(() => {
+          const fetchOwner = async () => {
+            try {
+              const res = await fetch(`/api/owner/${id}`);
+              const data = await res.json();
+               if (data && data._id) {
+                 setOwner(data)
+                  setFormData({
+                    name: data.name || "",
+                    email: data.email || "",
+                    phone: data.phone || "",
+                    address: data.address || "",
+                    pic: null,
+                  });
+               }
+               
+            } catch (err) {
+               console.error("❌ Failed to fetch user:", err.message);
+
+            }
+          };
+          if (id) fetchOwner();
+        }, [id]);
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "image") {
-      setFormData({ ...formData, image: files[0] });
+    if (name === "pic") {
+      setFormData({ ...formData, pic: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Updated Data:", formData);
-    alert("Profile updated successfully!");
+     try {
+      const form = new FormData();
+      form.append("name", formData.name);
+      form.append("email", formData.email);
+      form.append("phone", formData.phone);
+      form.append("address", formData.address);
+
+      if (formData.pic) form.append("pic", formData.pic);
+
+      const res = await fetch(`/api/owner/${id}`, {
+        method: "PUT",
+        body: form,
+      });
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || "Update failed");
+
+      toast.success("Profile updated successfully!");
+      setOwner(result); // API से updated owner वापस लो
+      setFormData({ ...formData, pic: null }); // reset pic
+      router.push("/admin/dashboard"); // redirect
+    } catch (err) {
+      console.error("Error updating profile:", err);
+      toast.error("Failed to update profile");
+    } finally {
+      setLoading(false);
+    }
   };
-  const user = {
-    name: "Ankit Kumar",
-    email: "ankit@example.com",
-    phone: "+91 98765 6335",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    memberSince: "Jan 2023",
-  };
+ 
   return (
    <>
      <div className="min-h-screen bg-gray-50  mt-[-4px] pt-20 pb-25 text-black p-4 md:p-8">
@@ -48,7 +105,7 @@ export default function AdminUpdateProfile() {
            {/* Layout */}
            <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6">
              {/* Sidebar */}
-               <AdminProfileSideBar user={user} />
+               <AdminProfileSideBar owner={owner} formatDate={formatDate} />
              {/* Main Content */}
              <div className="col-span-3 bg-white shadow rounded-lg p-6 md:p-8">
                <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
@@ -112,22 +169,15 @@ export default function AdminUpdateProfile() {
             </label>
             <input
               type="file"
-              name="image"
+              name="pic"
               accept="image/*"
               onChange={handleChange}
               className="w-full mt-1 rounded-lg  px-3  py-2 border" 
             />
-            {formData.image && (
-              <img
-                src={URL.createObjectURL(formData.image)}
-                alt="Preview"
-                className="mt-3 w-24 h-24 object-cover  rounded-full border"
-              />
-            )}
           </div>
 
           {/* City */}
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700">
               City
             </label>
@@ -140,7 +190,7 @@ export default function AdminUpdateProfile() {
               className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
               required
             />
-          </div>
+          </div> */}
 
           {/* Address */}
           <div>

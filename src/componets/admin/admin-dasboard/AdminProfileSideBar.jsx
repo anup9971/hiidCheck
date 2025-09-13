@@ -10,30 +10,31 @@ import { FaUserLock } from "react-icons/fa";
 
 import { usePathname } from 'next/navigation';
 
-export default function AdminProfileSideBar({ user,className }) {
+export default function AdminProfileSideBar({ owner,className,  formatDate}) {
   const pathname = usePathname();
-
+  //  console.log(owner._id,"jhdfj");
+   
   return (
     <>
       <aside className={`w-full text-black col-span-1 pb-10 ${className} bg-white rounded-lg shadow p-4 md:p-6`}>
        
         <div className="flex  items-center pt-3 gap-4">
           <img
-            src={user.avatar}
+             src={owner?.pic ? `http://localhost:3000${owner.pic}` : "/user-img.png"}
             alt="avatar"
             className="w-16 h-16 rounded-full object-cover"
           />
           <div>
-            <h2 className="font-medium text-lg">{user.name}</h2>
-            <p className="text-sm text-gray-500">{user.email}</p>
-            <p className="text-sm text-gray-500">{user.phone}</p>
+            <h2 className="font-medium uppercase text-lg">{owner?.name}</h2>
+            {/* <p className="text-sm text-gray-500">{owner?.email}</p> */}
+            <p className="text-sm text-gray-500">{owner?.phone}</p>
           </div>
         </div>
 
         <div className="mt-6 text-sm text-gray-600 space-y-2">
           <p>
             <span className="font-medium">Member since: </span>
-            {user.memberSince}
+            {owner?.createdAt ? formatDate(owner?.createdAt):"N/A"}
           </p>
           <p>
             <span className="font-medium">Total bookings: </span>
@@ -133,15 +134,15 @@ export default function AdminProfileSideBar({ user,className }) {
             <PiUsersFourThin   className="text-[18px]" /> Total Users
           </Link>
 
-          <Link
-            href="/admin/update-profile"
-            className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
-              ${pathname === "/admin/update-profile"
-                ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
-                : "text-black bg-gray-100 hover:bg-gray-200"}`}
-          >
-            <FiEdit className="text-[17px]" /> Edit
-          </Link>
+        <Link
+  href={owner?._id ? `/admin/update-profile/${owner._id}` : "#"}
+  className={`w-full px-3 flex gap-2 items-center text-[15px] py-2 rounded text-sm
+    ${pathname === `/admin/update-profile/${owner?._id}`
+      ? "text-white bg-[#5f8575] hover:bg-[#5f9675]"
+      : "text-black bg-gray-100 hover:bg-gray-200"}`}
+>
+  <FiEdit className="text-[17px]" /> Edit
+</Link>
         </div>
 
         <Link
