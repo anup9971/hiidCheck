@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 
 export default function AdminProfileSideBar({ owner,className,  formatDate}) {
   const pathname = usePathname();
-  //  console.log(owner._id,"jhdfj");
+  
    
   return (
     <>

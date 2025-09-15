@@ -9,17 +9,8 @@ import {
 } from "react-icons/fi";
 import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
 import toast from "react-hot-toast";
-
-// Dummy clients data
-
-// const initialClients = [
-//   { id: 1, name: "Rahul Sharma", email: "rahul@example.com", phone: "9876543210", property: "Hotel Delhi Airport", status: "active" },
-//   { id: 2, name: "Priya Verma", email: "priya@example.com", phone: "9998887777", property: "Goa Beach Resort", status: "active" },
-//   { id: 3, name: "Aman Gupta", email: "aman@example.com", phone: "8765432109", property: "Mumbai Business Inn", status: "active" },
-//   { id: 4, name: "Neha Singh", email: "neha@example.com", phone: "9988776655", property: "Jaipur Heritage Stay", status: "active" },
-//   { id: 5, name: "Ankit Kumar", email: "ankit@example.com", phone: "9123456789", property: "Goa Ocean View", status: "active" },
-//   { id: 6, name: "Rohit Yadav", email: "rohit@example.com", phone: "7890654321", property: "Shimla Hill Top", status: "active" },
-// ];
+import { formatDate } from "@/app/untils/formatDate";
+import ownerFechData from "@/app/admin/ownerFetchData";
 
 function useFilteredSorted(clients, { q, status, sortBy }) {
   return useMemo(() => {
@@ -49,6 +40,7 @@ function useFilteredSorted(clients, { q, status, sortBy }) {
 }
 
 export default function AdminAllClients() {
+  let {owner}= ownerFechData()
 useEffect(() => {
   const getClients = async () => {
     try {
@@ -111,12 +103,10 @@ const handleDelete = async (_id) => {
     console.error("Delete error:", error);
     alert("Something went wrong while deleting!");
   }
+  // console.log(ownerFechData);
+  
 };
 
-
-  // const handleEdit = (id) => {
-  //   alert("Edit client: " + id);
-  // };
 
   return (
     <div className="min-h-screen pt-15 pb-20 md:pt-20  md:pb-40 mt-[-4px] bg-gray-50 p-4 md:p-8">
@@ -125,7 +115,7 @@ const handleDelete = async (_id) => {
         <aside className="lg:col-span-2">
           <p className="text-black font-bold text-3xl mt-2 pb-2 ">Admin Profile</p>
 
-          <AdminProfileSideBar user={{ name: "Admin" }} />
+          <AdminProfileSideBar owner={owner} formatDate={formatDate} />
         </aside>
 
         {/* Clients Content */}

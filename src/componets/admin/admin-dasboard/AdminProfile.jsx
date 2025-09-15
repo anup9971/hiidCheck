@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-
+import React from "react";
+import ownerFechData from "@/app/admin/ownerFetchData";
 import { FiEdit } from "react-icons/fi";
 import AdminProfileSideBar from "./AdminProfileSideBar";
-
+import { formatDate } from "@/app/untils/formatDate";
 const AdminProfile = () => {
+   const { owner} = ownerFechData();
+   
+    
   // const user = {
   //   name: "Ankit Kumar",
   //   email: "ankit@example.com",
@@ -16,28 +19,28 @@ const AdminProfile = () => {
   //   role: "User",
   // };
 
-   let owner_id = typeof window !== "undefined" ? localStorage.getItem("owner_id") : null;
-      const [owner, setOwner] = useState(null)
-      const formatDate = (isoDate) => {
-      const date = new Date(isoDate);
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-based
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-        }
-      useEffect(() => {
-        const fetchOwner = async () => {
-          try {
-            const res = await fetch(`/api/owner/${owner_id}`);
-            const data = await res.json();
-            console.log(data);
-            setOwner(data)
-          } catch (err) {
-            console.error("Error fetching owner data:", err);
-          }
-        };
-        if (owner_id) fetchOwner();
-      }, [owner_id]);
+  //  let owner_id = typeof window !== "undefined" ? localStorage.getItem("owner_id") : null;
+  //     const [owner, setOwner] = useState(null)
+  //     const formatDate = (isoDate) => {
+  //     const date = new Date(isoDate);
+  //     const day = String(date.getDate()).padStart(2, "0");
+  //     const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-based
+  //     const year = date.getFullYear();
+  //     return `${day}-${month}-${year}`;
+  //       }
+  //     useEffect(() => {
+  //       const fetchOwner = async () => {
+  //         try {
+  //           const res = await fetch(`/api/owner/${owner_id}`);
+  //           const data = await res.json();
+  //           console.log(data);
+  //           setOwner(data)
+  //         } catch (err) {
+  //           console.error("Error fetching owner data:", err);
+  //         }
+  //       };
+  //       if (owner_id) fetchOwner();
+  //     }, [owner_id]);
 
   return (
     <>

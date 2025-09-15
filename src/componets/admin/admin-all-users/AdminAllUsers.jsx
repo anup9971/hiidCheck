@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FiSearch, FiTrash2, FiChevronLeft, FiChevronRight, FiEye } from "react-icons/fi";
 import { CiEdit } from "react-icons/ci";
 import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
 import { useRouter } from "next/navigation";
-
+import ownerFechData from "@/app/admin/ownerFetchData";
+import toast from "react-hot-toast";
 // Dummy users data
 const initialUsers = [
   { id: "u1", name: "Rahul Sharma", email: "rahul@example.com", role: "user", status: "active", joined: "2025-07-15" },
@@ -39,8 +40,11 @@ function useFilteredSorted(users, { q, role, sortBy }) {
 }
 
 export default function AdminAllUsers() {
+  let {owner}= ownerFechData()
+
+  
   const router = useRouter();
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState([]);
   const [q, setQ] = useState("");
   const [role, setRole] = useState("all");
   const [sortBy, setSortBy] = useState("joined");
@@ -51,13 +55,47 @@ export default function AdminAllUsers() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const pageItems = filtered.slice((page - 1) * perPage, page * perPage);
 
-  const handleDelete = (id) => {
-    const user = users.find((u) => u.id === id);
-    if (!user) return;
-    const ok = confirm(`Delete user "${user.name}" (${user.email}) ?`);
-    if (!ok) return;
-    setUsers((prev) => prev.filter((u) => u.id !== id));
-  };
+ const handleDelete = async (_id) => {
+  const user = users.find((u) => u._id === _id);
+  if (!user) return;
+
+  const ok = confirm(`Are you sure you want to delete user "${user.name}"?`);
+  if (!ok) return;
+
+  try {
+    const res = await fetch(`/api/user/${_id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      alert(`Error: ${err.message || "Failed to delete user"}`);
+      return;
+    }
+    toast.success(" User Delete Successfully !")
+    setUsers((prev) => prev.filter((u) => u._id !== _id));
+  } catch (error) {
+    console.error("Delete error:", error);
+    alert("Something went wrong while deleting!");
+  }
+};
+
+
+//  ---------------------- get USer all data  -------------------------------------
+
+useEffect(()=>{
+    const getUserAllData = async ()=>{
+        let res = await fetch("/api/user",{
+          method:"GET"
+        })
+        let data =  await res.json()
+         if( data && data.success){
+          setUsers(data.data)
+         }
+    }
+    getUserAllData()
+},[])
+
 
   return (
     <div className="min-h-screen pt-10 pb-15 mt-[-4px] md:pt-20 md:pb-20 text-black bg-gray-50 p-4 md:p-8">
@@ -65,7 +103,7 @@ export default function AdminAllUsers() {
         {/* Sidebar */}
         <aside className="lg:col-span-2">
           <p className="text-black font-bold text-3xl mt-2 pb-2">Admin Profile</p>
-          <AdminProfileSideBar user={{ name: "Admin" }} />
+          <AdminProfileSideBar owner={owner} />
         </aside>
 
         {/* Content */}
@@ -126,9 +164,9 @@ export default function AdminAllUsers() {
               <table className="w-full min-w-[900px] table-auto">
                 <thead>
                   <tr className="text-left text-sm text-gray-500 border-b">
-                    <th className="py-3 w-20">ID</th>
-                    <th className="py-3 w-40">Name</th>
-                    <th className="py-3 w-60">Email</th>
+                    <th className="py-3 w-40">ID</th>
+                    <th className="py-3 w-60">Name</th>
+                    <th className="py-3 w-100">Email</th>
                     <th className="py-3 w-60">Phone</th>
                     <th className="py-3 w-30">Role</th>
                     {/* <th className="py-3 w-30">Status</th> */}
@@ -139,7 +177,7 @@ export default function AdminAllUsers() {
                 <tbody>
                   {pageItems.map((u) => (
                     <tr key={u.id} className="border-b last:border-b-0">
-                      <td className="py-4">{u.id}</td>
+                      <td className="py-4">{u._id ? u._id.slice(-8) : ""}</td>
                       <td className="py-4 font-medium">{u.name}</td>
                       <td className="py-4">{u.email}</td>
                       <td className="py-4">+91 8974563210</td>
@@ -164,7 +202,7 @@ export default function AdminAllUsers() {
                           {/* <button onClick={() => router.push(`/admin/update-user/${u.id}`)} title="Edit" className="p-2 rounded hover:bg-gray-100">
                             <CiEdit />
                           </button> */}
-                          <button onClick={() => handleDelete(u.id)} className="p-2 rounded hover:bg-red-50 text-red-500">
+                          <button onClick={() => handleDelete(u._id)} className="p-2 rounded hover:bg-red-50 text-red-500">
                             <FiTrash2 />
                           </button>
                         </div>
