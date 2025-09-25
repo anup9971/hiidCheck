@@ -33,68 +33,7 @@ export default function OwnerLoginForm({ roleType = "owner" }) {
     }));
   };
 
-  // ✅ Handle Login
- // ✅ Handle Login
-// const handleLogin = async (e) => {
-//   e.preventDefault();
-//   setShowErrors(true);
-
-//   if (errorMessage.username || errorMessage.password) return;
-
-//   try {
-//     const apiUrl =
-//       roleType === "admin" ? "/api/owner/login" : "/api/owner/login";
-
-//     const res = await fetch(apiUrl, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(loginData),
-//     });
-
-//     if (!res.ok) {
-//       const errData = await res.json();
-//       throw new Error(errData.reason || "Login failed");
-//     }
-
-//     const result = await res.json();
-    
-
-
-
-// if (result.result === "Done") {
-//   localStorage.setItem("token", result.token);
-//   localStorage.setItem("login", true);
-//   localStorage.setItem("role", result.data?.role);
-//   localStorage.setItem("name", result.data?.name);
-//   localStorage.setItem("owner_id", result?.data?._id)
-
-//   Cookies.set("role", result.data?.role, { path: "/" });
-
-//   toast.success("Login successful!");
-
-//   // ✅ Redirect & refresh together
-//   setTimeout(() => {
-//     switch (result.data?.role) {
-//       case "Owner":
-//         window.location.href = "/owner-profile";
-//         break;
-//       case "Admin":
-//         window.location.href = "/admin/dashboard";
-//         break;
-//       default:
-//         window.location.href = "/";
-//     }
-//   }, 800); // thoda delay taaki toast dikhe
-// } else {
-//   toast.error(result.reason || "Invalid username or password");
-// }
-
-
-//   } catch (error) {
-//     console.error("Login error:", error);
-//     toast.error(error.message || "Something went wrong!");
-//   }
-// };
+ 
 
 const handleLogin = async (e) => {
   e.preventDefault();
@@ -162,7 +101,7 @@ const handleLogin = async (e) => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center mt-[-4px] text-black justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">
           {roleType === "admin" ? "Admin Login" : "Owner Login"}
