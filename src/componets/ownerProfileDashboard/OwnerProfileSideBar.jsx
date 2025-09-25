@@ -27,7 +27,7 @@ export default function OwnerProfileSideBar({ owner, formatDate }) {
       {/* User info */}
       <div className="flex items-center pt-3 gap-4">
         <img
-          src={`http://localhost:3000${owner?.pic}`}
+          src={`${owner?.pic}`}
           alt="avatar"
           className="w-16 h-16 rounded-full object-cover"
         />

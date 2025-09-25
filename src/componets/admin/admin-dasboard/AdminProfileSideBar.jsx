@@ -20,7 +20,7 @@ export default function AdminProfileSideBar({ owner,className,  formatDate}) {
        
         <div className="flex  items-center pt-3 gap-4">
           <img
-             src={owner?.pic ? `http://localhost:3000${owner.pic}` : "/user-img.png"}
+             src={owner?.pic ? `${owner.pic}` : "/user-img.png"}
             alt="avatar"
             className="w-16 h-16 rounded-full object-cover"
           />

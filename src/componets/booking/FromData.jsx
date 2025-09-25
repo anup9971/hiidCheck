@@ -42,7 +42,7 @@ const postDataHandler = async (e) => {
       return; // stop execution
     }
 
-    const res = await fetch("http://localhost:8000/api/contactus", {
+    const res = await fetch("/api/contactus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

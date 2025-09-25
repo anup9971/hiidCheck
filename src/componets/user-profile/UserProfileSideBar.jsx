@@ -21,7 +21,7 @@ export default function UserProfileSideBar({user}) {
          <aside className="w-full col-span-1 pb-10 md:h-100 bg-white rounded-lg shadow p-4 md:p-6">
               <div className="flex items-center pt-3 gap-4">
                 <img
-                  src={`http://localhost:3000/${user?.pic}`}
+                  src={`${user?.pic}`}
                   alt="avatar"
                   className="w-16 h-16 rounded-full object-cover"
                 />
