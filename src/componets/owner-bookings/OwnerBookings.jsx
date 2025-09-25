@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
+import { formatDate } from "@/app/untils/formatDate";
 
+import ownerFechData from "@/app/admin/ownerFetchData";
 export default function OwnerBookings() {
-  // Dummy bookings data
+   let {owner}= ownerFechData()
   const initialBookings = [
     {
       _id: "b1",
@@ -63,11 +65,11 @@ export default function OwnerBookings() {
       {/* Desktop / Tablet Layout */}
       <div className="hidden md:flex min-h-screen p-5 gap-6">
         {/* Sidebar */}
-        <aside className="w-84 flex-shrink-0  p-4">
+        <aside className="w-84 md:w-95 flex-shrink-0  p-4">
           <p className="text-black text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">
             Owner Profile
           </p>
-          <OwnerProfileSideBar user={profile} />
+          <OwnerProfileSideBar owner={owner}  formatDate={formatDate} />
         </aside>
 
         {/* Main Content */}

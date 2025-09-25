@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   FiEdit,
   FiSearch,
@@ -9,7 +9,10 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi";
+
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
+import ownerFechData from "@/app/admin/ownerFetchData";
+import { formatDate } from "@/app/untils/formatDate";
 // import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
 
 // Dummy hotel data
@@ -89,6 +92,8 @@ function useFilteredSorted(hotels, { q, status, sortBy }) {
 }
 
 export default function AdminHotelsPage() {
+  let {owner} =ownerFechData()
+  console.log(owner?._id);
   
   const [hotels, setHotels] = useState(initialHotels);
   const [q, setQ] = useState("");
@@ -122,14 +127,38 @@ export default function AdminHotelsPage() {
   };
 
 
+   useEffect(() => {
+    if (owner?._id) return; // Wait until owner is loaded
+     
+     
+    const getHotelData = async () => {
+      try {
+        const res = await fetch("/api/hotels", { method: "GET" });
+        const data = await res.json();
+        console.log(data);
+        
+        if (data?.data) {
+          const filterData = data.data.filter((hotel) => hotel.ownerId === owner._id);
+          setOwnerHotels(filterData);
+          console.log("Filtered Hotels:", filterData);
+        }
+      } catch (err) {
+        console.error("Error fetching hotels:", err);
+      }
+    };
+
+    getHotelData();
+  }, [owner]);
+
+
 
   return (
     <div className="min-h-screen  mt-[-4px] pt-15 pb-20 md:pt-20 md:pb-25  text-black bg-gray-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-6">
         {/* Sidebar */}
-        <aside className="order-1 lg:col-span-2 lg:order-1 mb-6 lg:mb-0">
+        <aside className="order-1 md:w-95 lg:col-span-2 lg:order-1 mb-6 lg:mb-0">
           <p className="pb-5 font-bold text-3xl">Owner Profile</p>
-          <OwnerProfileSideBar user={user}/>
+          <OwnerProfileSideBar owner={owner} formatDate={formatDate}/>
         </aside>
 
         {/* Main Content */}

@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
+import ownerFechData from "@/app/admin/ownerFetchData";
+import { formatDate } from "@/app/untils/formatDate";
 
 export default function OwnerAddCorporate() {
+  let {owner} = ownerFechData()
   const [formData, setFormData] = useState({
     hotelName: "",
     title: "",
@@ -50,10 +53,10 @@ export default function OwnerAddCorporate() {
   return (
     <div className="flex flex-col text-black mt-[-4px] pb-25 md:pt-15px pt-15 md:mt-[-4px] md:flex-row min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-full md:w-[350px] p-6">
+      <aside className="w-full md:w-95 p-6">
         {/* Replace with your Sidebar component */}
-        <h2 className="text-2xl font-bold ] mb-4">Owner Profile</h2>
-        <OwnerProfileSideBar user={formData} />
+        <h2 className="text-2xl font-bold  mb-4">Owner Profile</h2>
+        <OwnerProfileSideBar owner={owner} formatDate={formData} />
       </aside>
 
       {/* Form Section */}

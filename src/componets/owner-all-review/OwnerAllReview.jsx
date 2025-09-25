@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
+import ownerFechData from "@/app/admin/ownerFetchData";
+import { formatDate } from "@/app/untils/formatDate";
 
 export default function OwnerReviews() {
   const router = useRouter();
-
+ let {owner} = ownerFechData()
   // Dummy review data
   const initialReviews = [
     {
@@ -52,11 +54,11 @@ export default function OwnerReviews() {
     <div className="min-h-screen mt-[-4px] pt-10 md:pb-25 pb-15 bg-gray-100 p-4 md:p-6 text-black">
       <div className="flex flex-col md:flex-row gap-6">
         {/* Sidebar */}
-        <aside className="w-full md:w-80 p-2 md:p-4">
+        <aside className="w-full md:w-95 p-2 md:p-4">
           <p className="text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">
             Owner Reviews
           </p>
-          <OwnerProfileSideBar user={profile} />
+          <OwnerProfileSideBar owner={owner} formatDate={formatDate} />
         </aside>
 
         {/* Main Content */}

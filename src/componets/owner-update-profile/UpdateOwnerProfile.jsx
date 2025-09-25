@@ -99,7 +99,7 @@ export default function OwnerProfileUpdate() {
     <div className="min-h-screen mt-[-4px] text-black bg-gray-50 pt-16 pb-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-6">
         {/* Sidebar */}
-        <aside className="lg:col-span-2 order-1 lg:order-1">
+        <aside className="lg:col-span-2 md:w-95 order-1 lg:order-1">
           <p className="pb-5 font-bold text-3xl">Owner Profile</p>
           <OwnerProfileSideBar owner={owner} />
         </aside>

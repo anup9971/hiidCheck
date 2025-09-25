@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
+import ownerFechData from "@/app/admin/ownerFetchData";
+import { formatDate } from "@/app/untils/formatDate";
 
-const initialOwners = [
-  { id: "o1", name: "Rahul Sharma", email: "rahul@gmail.com", isEnabled: true },
-  { id: "o2", name: "Anita Verma", email: "anita@gmail.com", isEnabled: false },
-];
+// const initialOwners = [
+//   { id: "o1", name: "Rahul Sharma", email: "rahul@gmail.com", isEnabled: true },
+//   { id: "o2", name: "Anita Verma", email: "anita@gmail.com", isEnabled: false },
+// ];
 
 const initialRooms = [
   { id: "r1", name: "Room 101", ownerId: "o1", price: 2000, isEnabled: true },
@@ -14,22 +16,73 @@ const initialRooms = [
 ];
 
 export default function AdminAllClientsAccess() {
+  let {owner}= ownerFechData()
   const [tab, setTab] = useState("owners");
-  const [owners, setOwners] = useState(initialOwners);
+  const [owners, setOwners] = useState([]);
   const [rooms, setRooms] = useState(initialRooms);
 
-  const toggleOwner = (ownerId) => {
+  // const toggleOwner = (_id) => {
+  //   alert(_id)
+  //   setOwners((prev) =>
+  //     prev.map((o) => (o.id === _id ? { ...o, isEnabled: !o.isEnabled } : o))
+  //   );
+
+  //   const owner = owners.find((o) => o._id === _id);
+  //   if (owner && owner.isEnabled) {
+  //     setRooms((prev) =>
+  //       prev.map((r) => (r.ownerId === _id ? { ...r, isEnabled: false } : r))
+  //     );
+  //   }
+  // };
+
+
+
+const toggleOwner = async (_id) => {
+  try {
+    // ✅ Find owner first
+    const owner = owners.find((o) => o._id === _id);
+    if (!owner) return;
+
+    // ✅ Toggle local state immediately (optimistic update)
     setOwners((prev) =>
-      prev.map((o) => (o.id === ownerId ? { ...o, isEnabled: !o.isEnabled } : o))
+      prev.map((o) =>
+        o._id === _id ? { ...o, isEnabled: !o.isEnabled, active: !o.active } : o
+      )
     );
 
-    const owner = owners.find((o) => o.id === ownerId);
-    if (owner && owner.isEnabled) {
+    // ✅ API call to update active field in DB
+    const res = await fetch(`/api/owner/${_id}`, {
+      method: "PUT",
+      body: (() => {
+        const formData = new FormData();
+        formData.append("active", !owner.active); // send new active status
+        return formData;
+      })(),
+    });
+
+    const data = await res.json();
+    if (!data.success) {
+      throw new Error(data.error || "Failed to update owner");
+    }
+
+    console.log("✅ Owner updated in DB:", data);
+
+    // ✅ If owner is disabled, also disable rooms
+    if (owner.active) {
       setRooms((prev) =>
-        prev.map((r) => (r.ownerId === ownerId ? { ...r, isEnabled: false } : r))
+        prev.map((r) =>
+          r.ownerId === _id ? { ...r, isEnabled: false } : r
+        )
       );
     }
-  };
+  } catch (error) {
+    console.error("❌ Error toggling owner:", error);
+  }
+};
+
+
+
+
 
   const toggleRoom = (roomId) => {
     const room = rooms.find((r) => r.id === roomId);
@@ -40,13 +93,29 @@ export default function AdminAllClientsAccess() {
     );
   };
 
+  // -------------------- get all Clients ----------------------------------
+   useEffect(()=>{
+      const getAllClients = async()=>{
+           let res = await fetch ("/api/owner",{
+            method:"GET",
+           })
+           let data = await res.json()
+
+           if(data && data.success){
+            setOwners(data.data)
+           }
+      }
+      getAllClients()
+
+   },[])
+
   return (
     <div className="min-h-screen mt-[-4px] md:pt-20 pt-20 pb-15 md:pb-25 text-black bg-gray-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-6">
         <aside className="lg:col-span-2">
           <p className="text-black font-bold text-3xl mt-2 pb-2 ">Admin Profile</p>
           
-          <AdminProfileSideBar user={{ name: "Admin" }} />
+          <AdminProfileSideBar owner={owner} formatDate={formatDate} />
         </aside>
 
         <main className="lg:col-span-4">
@@ -71,7 +140,8 @@ export default function AdminAllClientsAccess() {
                 <table className="w-full table-auto">
                   <thead>
                     <tr className="text-left text-sm text-gray-500 border-b">
-                      <th className="py-2">Name</th>
+                      <th className="py-2">Id</th>
+                      <th className="py-2 w-150">Name</th>
                       <th className="py-2">Email</th>
                       <th className="py-2">Status</th>
                       <th className="py-2">Action</th>
@@ -79,13 +149,14 @@ export default function AdminAllClientsAccess() {
                   </thead>
                   <tbody>
                     {owners.map((o) => (
-                      <tr key={o.id} className="border-b text-center">
-                        <td className="py-2">{o.name}</td>
-                        <td className="py-2">{o.email}</td>
-                        <td className="py-2">{o.isEnabled ? "Enabled" : "Disabled"}</td>
+                      <tr key={o.id} className="border-b ">
+                        <td className="py-2 w-60">{o._id? o._id.slice(-8):""}</td>
+                        <td className="py-2 w-80">{o.name}</td>
+                        <td className="py-2 w-110">{o.email}</td>
+                        <td className="py-2 w-60">{o.isEnabled ? "Enabled" : "Disabled"}</td>
                         <td className="py-2">
                           <button
-                            onClick={() => toggleOwner(o.id)}
+                            onClick={() => toggleOwner(o._id)}
                             className={`px-3 py-1 rounded text-white ${
                               o.isEnabled ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"
                             }`}
@@ -107,7 +178,7 @@ export default function AdminAllClientsAccess() {
                     <p className="text-sm">{o.email}</p>
                     <p className="text-sm mt-1">Status: {o.isEnabled ? "Enabled" : "Disabled"}</p>
                     <button
-                      onClick={() => toggleOwner(o.id)}
+                      onClick={() => toggleOwner(o._id)}
                       className={`mt-2 px-3 py-1 rounded text-white w-full ${
                         o.isEnabled ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"
                       }`}

@@ -35,6 +35,67 @@ export default function OwnerLoginForm({ roleType = "owner" }) {
 
   // ✅ Handle Login
  // ✅ Handle Login
+// const handleLogin = async (e) => {
+//   e.preventDefault();
+//   setShowErrors(true);
+
+//   if (errorMessage.username || errorMessage.password) return;
+
+//   try {
+//     const apiUrl =
+//       roleType === "admin" ? "/api/owner/login" : "/api/owner/login";
+
+//     const res = await fetch(apiUrl, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(loginData),
+//     });
+
+//     if (!res.ok) {
+//       const errData = await res.json();
+//       throw new Error(errData.reason || "Login failed");
+//     }
+
+//     const result = await res.json();
+    
+
+
+
+// if (result.result === "Done") {
+//   localStorage.setItem("token", result.token);
+//   localStorage.setItem("login", true);
+//   localStorage.setItem("role", result.data?.role);
+//   localStorage.setItem("name", result.data?.name);
+//   localStorage.setItem("owner_id", result?.data?._id)
+
+//   Cookies.set("role", result.data?.role, { path: "/" });
+
+//   toast.success("Login successful!");
+
+//   // ✅ Redirect & refresh together
+//   setTimeout(() => {
+//     switch (result.data?.role) {
+//       case "Owner":
+//         window.location.href = "/owner-profile";
+//         break;
+//       case "Admin":
+//         window.location.href = "/admin/dashboard";
+//         break;
+//       default:
+//         window.location.href = "/";
+//     }
+//   }, 800); // thoda delay taaki toast dikhe
+// } else {
+//   toast.error(result.reason || "Invalid username or password");
+// }
+
+
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     toast.error(error.message || "Something went wrong!");
+//   }
+// };
+
 const handleLogin = async (e) => {
   e.preventDefault();
   setShowErrors(true);
@@ -57,44 +118,47 @@ const handleLogin = async (e) => {
     }
 
     const result = await res.json();
-    
 
+    if (result.result === "Done") {
+      // ✅ Check active status
+      if (!result.data?.active) {
+        toast.error("Your account is disabled. Please contact admin.");
+        return; // stop login
+      }
 
+      // ✅ If active = true → allow login
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("login", true);
+      localStorage.setItem("role", result.data?.role);
+      localStorage.setItem("name", result.data?.name);
+      localStorage.setItem("owner_id", result?.data?._id);
 
-if (result.result === "Done") {
-  localStorage.setItem("token", result.token);
-  localStorage.setItem("login", true);
-  localStorage.setItem("role", result.data?.role);
-  localStorage.setItem("name", result.data?.name);
-  localStorage.setItem("owner_id", result?.data?._id)
+      Cookies.set("role", result.data?.role, { path: "/" });
 
-  Cookies.set("role", result.data?.role, { path: "/" });
+      toast.success("Login successful!");
 
-  toast.success("Login successful!");
-
-  // ✅ Redirect & refresh together
-  setTimeout(() => {
-    switch (result.data?.role) {
-      case "Owner":
-        window.location.href = "/owner-profile";
-        break;
-      case "Admin":
-        window.location.href = "/admin/dashboard";
-        break;
-      default:
-        window.location.href = "/";
+      // ✅ Redirect & refresh together
+      setTimeout(() => {
+        switch (result.data?.role) {
+          case "Owner":
+            window.location.href = "/owner-profile";
+            break;
+          case "Admin":
+            window.location.href = "/admin/dashboard";
+            break;
+          default:
+            window.location.href = "/";
+        }
+      }, 800);
+    } else {
+      toast.error(result.reason || "Invalid username or password");
     }
-  }, 800); // thoda delay taaki toast dikhe
-} else {
-  toast.error(result.reason || "Invalid username or password");
-}
-
-
   } catch (error) {
     console.error("Login error:", error);
     toast.error(error.message || "Something went wrong!");
   }
 };
+
 
 
   return (

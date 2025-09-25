@@ -4,15 +4,13 @@ import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
 import { useRouter } from "next/navigation";
+import ownerFechData from "@/app/admin/ownerFetchData";
+import { formatDate } from "@/app/untils/formatDate";
 
 export default function OwnerAllCorporateCards() {
+  let {owner} = ownerFechData()
+
     let router = useRouter()
-  const profile = {
-    name: "Admin User",
-    email: "admin@example.com",
-    phone: "1234567890",
-    memberSince: "2022-01-01",
-  };
 
   const initialCorporates = [
     {
@@ -72,9 +70,9 @@ export default function OwnerAllCorporateCards() {
   return (
     <div className="min-h-screen text-black mt-[-4px] pt-20 pb-25 bg-gray-100 flex flex-col md:flex-row">
       {/* Sidebar */}
-      <aside className="w-full md:w-84 p-4">
+      <aside className="w-full md:w-95 p-4">
         <p className="text-2xl font-bold mb-6 text-center md:text-left">Owner Profile</p>
-        <OwnerProfileSideBar user={profile} />
+        <OwnerProfileSideBar owner={owner} />
       </aside>
 
       {/* Main Content */}

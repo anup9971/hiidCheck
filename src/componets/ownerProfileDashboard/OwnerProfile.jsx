@@ -42,7 +42,7 @@ const OwnerProfile = () => {
     <div className="min-h-screen flex md:pt-20 text-black mt-[-4px]  pb-20 md:pb-25  flex-col md:flex-row bg-gray-100 p-4 md:p-6 gap-6">
       
       {/* Sidebar */}
-      <aside className="w-full md:w-84 p-2 md:p-2 flex-shrink-0">
+      <aside className="w-full md:w-95 p-2 md:p-2 flex-shrink-0">
         <p className="text-black text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">
           Owner Profile
         </p>

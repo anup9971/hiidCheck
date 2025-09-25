@@ -14,9 +14,9 @@ export default function OwnerProfileSideBar({ owner, formatDate }) {
   const links = [
     { href: "/owner-profile", icon: <FaRegUser />, label: "Profile" },
     { href: "/owner-all-booking", icon: <FaClipboardList />, label: "Booking" },
-    { href: "/owner-add-property", icon: <FaPlus />, label: "Add New Property" },
+    { href: "/owner-add-hotel", icon: <FaPlus />, label: "Add New Hotel" },
     { href: "/owner-add-corporate", icon: <FaPlus />, label: "Add New Corporate" },
-    { href: "/owner-all-property", icon: <BsBuildings />, label: "All Properties" },
+    { href: "/owner-all-hotels", icon: <BsBuildings />, label: "All Hotel" },
     { href: "/owner-all-corporate", icon: <HiOutlineBuildingOffice2 />, label: "All Corporates" },
     { href: "/owner-all-reviews", icon: <RiMessage2Line/>, label: "All Reviews" },
     { href: `/owner-update-profile/${owner?._id}`, icon: <FiEdit />, label: "Edit Profile" },
