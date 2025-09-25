@@ -1,13 +1,15 @@
-import dbConnect from "../../lib/dbConnect";
-import Room from "../../models/Room";
+
+
 import Owner from "../../models/Owner";
 import nodemailer from "nodemailer";
+import db_connect from "@/app/lib/db_connect";
+import Room from "@/app/model/Room";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ message: "Method not allowed" });
 
   const { roomId, customerName, customerEmail } = req.body;
-  await dbConnect();
+  await db_connect();
 
   const room = await Room.findById(roomId);
   if (!room) return res.status(404).json({ message: "Room not found" });

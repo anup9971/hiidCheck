@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Formvalidators from "./Formvalidators";
+
+import Formvalidator from "@/componets/FormValidator";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -22,7 +23,7 @@ let [show,setShow]=useState(false)
       setErrorMessage((x)=>{
         return{
           ...x,
-          [name]:Formvalidators(e)
+          [name]:Formvalidator(e)
         }
       })
 

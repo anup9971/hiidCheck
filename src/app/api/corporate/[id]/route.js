@@ -1,9 +1,9 @@
-import dbConnect from "../../../lib/dbConnect";
-import Room from "../../../models/Room";
+import db_connect from "@/app/lib/db_connect";
+import Room from "@/app/model/Room";
 
 export default async function handler(req, res) {
   const { id } = req.query;
-  await dbConnect();
+  await db_connect();
 
   if (req.method === "GET") {
     const room = await Room.findById(id);
