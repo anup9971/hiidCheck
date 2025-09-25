@@ -250,7 +250,8 @@ export default function OwnerRegistration() {
     roomQuantity: "",
     startingPrice: "",
     address: "",
-    pic: null, // image file
+    pic: null,
+    active:true // image file
   });
 
   const router = useRouter();

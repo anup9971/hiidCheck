@@ -13,59 +13,60 @@ import {
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
 import ownerFechData from "@/app/admin/ownerFetchData";
 import { formatDate } from "@/app/untils/formatDate";
+import toast from "react-hot-toast";
 // import AdminProfileSideBar from "../admin-dasboard/AdminProfileSideBar";
-
+  
 // Dummy hotel data
-const initialHotels = [
-  {
-    id: "h1",
-    name: "The Grand Plaza",
-    location: "New Delhi, India",
-    capacity: 200,
-    rooms: 120,
-    rating: 4.6,
-    status: "published",
-    pricePerNight: 7500,
-    image: "/hotel/hotel1.jpg",
-    amenities: ["Wi-Fi", "Pool", "Restaurant", "Parking"],
-  },
-  {
-    id: "h2",
-    name: "Oceanview Resort",
-    location: "Goa, India",
-    capacity: 150,
-    rooms: 80,
-    rating: 4.2,
-    status: "published",
-    pricePerNight: 5800,
-    image: "/hotel/hotel2.jpg",
-    amenities: ["Beach Access", "Spa", "Bar"],
-  },
-  {
-    id: "h3",
-    name: "Business Inn",
-    location: "Mumbai, India",
-    capacity: 300,
-    rooms: 200,
-    rating: 4.7,
-    status: "published",
-    pricePerNight: 9200,
-    image: "/hotel/hotel3.jpg",
-    amenities: ["Conference Hall", "Wi-Fi", "Gym"],
-  },
-  {
-    id: "h4",
-    name: "Heritage Stay",
-    location: "Jaipur, India",
-    capacity: 80,
-    rooms: 40,
-    rating: 4.1,
-    status: "published",
-    pricePerNight: 4200,
-    image: "/hotel/hotel4.jpg",
-    amenities: ["Heritage tours", "Restaurant"],
-  },
-];
+// const initialHotels = [
+//   {
+//     id: "h1",
+//     name: "The Grand Plaza",
+//     location: "New Delhi, India",
+//     capacity: 200,
+//     rooms: 120,
+//     rating: 4.6,
+//     status: "published",
+//     pricePerNight: 7500,
+//     image: "/hotel/hotel1.jpg",
+//     amenities: ["Wi-Fi", "Pool", "Restaurant", "Parking"],
+//   },
+//   {
+//     id: "h2",
+//     name: "Oceanview Resort",
+//     location: "Goa, India",
+//     capacity: 150,
+//     rooms: 80,
+//     rating: 4.2,
+//     status: "published",
+//     pricePerNight: 5800,
+//     image: "/hotel/hotel2.jpg",
+//     amenities: ["Beach Access", "Spa", "Bar"],
+//   },
+//   {
+//     id: "h3",
+//     name: "Business Inn",
+//     location: "Mumbai, India",
+//     capacity: 300,
+//     rooms: 200,
+//     rating: 4.7,
+//     status: "published",
+//     pricePerNight: 9200,
+//     image: "/hotel/hotel3.jpg",
+//     amenities: ["Conference Hall", "Wi-Fi", "Gym"],
+//   },
+//   {
+//     id: "h4",
+//     name: "Heritage Stay",
+//     location: "Jaipur, India",
+//     capacity: 80,
+//     rooms: 40,
+//     rating: 4.1,
+//     status: "published",
+//     pricePerNight: 4200,
+//     image: "/hotel/hotel4.jpg",
+//     amenities: ["Heritage tours", "Restaurant"],
+//   },
+// ];
 
 function useFilteredSorted(hotels, { q, status, sortBy }) {
   return useMemo(() => {
@@ -75,17 +76,17 @@ function useFilteredSorted(hotels, { q, status, sortBy }) {
       const term = q.trim().toLowerCase();
       list = list.filter(
         (h) =>
-          h.name.toLowerCase().includes(term) ||
-          h.location.toLowerCase().includes(term)
+          h.hotel_name.toLowerCase().includes(term) ||
+          h.hotel_address.toLowerCase().includes(term)
       );
     }
 
     if (status && status !== "all") {
-      list = list.filter((h) => h.status === status);
+      list = list.filter((h) => h.active === status);
     }
 
-    if (sortBy === "name") list.sort((a, b) => a.name.localeCompare(b.name));
-    if (sortBy === "price") list.sort((a, b) => a.pricePerNight - b.pricePerNight);
+    if (sortBy === "name") list.sort((a, b) => a?.hotel_name.localeCompare(b.hotel_name));
+    if (sortBy === "price") list.sort((a, b) => a?.starting_price - b.starting_price);
 
     return list;
   }, [hotels, q, status, sortBy]);
@@ -95,7 +96,7 @@ export default function AdminHotelsPage() {
   let {owner} =ownerFechData()
   console.log(owner?._id);
   
-  const [hotels, setHotels] = useState(initialHotels);
+  const [hotels, setHotels] = useState([]);
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("all");
   const [sortBy, setSortBy] = useState("name");
@@ -108,47 +109,66 @@ export default function AdminHotelsPage() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const pageItems = filtered.slice((page - 1) * perPage, page * perPage);
 
-  const handleDelete = (id) => {
-    const hotel = hotels.find((h) => h.id === id);
+ const handleDelete = async (_id) => {
+  try {
+    // Find hotel to delete
+    const hotel = hotels.find((h) => h._id === _id);
     if (!hotel) return;
-    const ok = confirm(`Delete "${hotel.name}"? This action cannot be undone.`);
+
+    // Confirm deletion
+    const ok = confirm(`Delete "${hotel.hotel_name}"? This action cannot be undone.`);
     if (!ok) return;
-    setHotels((prev) => prev.filter((h) => h.id !== id));
-  };
 
-  const handleToggleStatus = (id) => {
-    setHotels((prev) =>
-      prev.map((h) =>
-        h.id === id
-          ? { ...h, status: h.status === "published" ? "draft" : "published" }
-          : h
-      )
-    );
-  };
+    // Call API to delete
+    const res = await fetch(`/api/hotels/${_id}`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Failed to delete hotel");
+    }
+
+    // Optional: Remove deleted hotel from local state if you're displaying a list
+    setHotels((prev) => prev.filter((h) => h._id !== _id));
+
+    toast.success("Hotel deleted successfully!");
+  } catch (error) {
+    console.error("Error deleting hotel:", error);
+    toast.error("Failed to delete hotel");
+  }
+};
 
 
-   useEffect(() => {
-    if (owner?._id) return; // Wait until owner is loaded
-     
-     
-    const getHotelData = async () => {
-      try {
-        const res = await fetch("/api/hotels", { method: "GET" });
-        const data = await res.json();
-        console.log(data);
-        
-        if (data?.data) {
-          const filterData = data.data.filter((hotel) => hotel.ownerId === owner._id);
-          setOwnerHotels(filterData);
-          console.log("Filtered Hotels:", filterData);
-        }
-      } catch (err) {
-        console.error("Error fetching hotels:", err);
+useEffect(() => {
+  if (!owner?._id) return;
+
+  const getHotelData = async () => {
+    try {
+      const res = await fetch("/api/hotels");
+      const data = await res.json();
+
+      if (Array.isArray(data)) {  // check if it's an array
+        const filterData = data.filter((hotel) => {
+          return (
+            hotel.ownerId == owner?._id 
+           
+          );
+        });
+       console.log(filterData);
+            
+        setHotels(filterData);
+        console.log("Filtered Hotels:", filterData);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching hotels:", err);
+    }
+  };
 
-    getHotelData();
-  }, [owner]);
+  getHotelData();
+}, [owner]);
+
 
 
 
@@ -189,7 +209,7 @@ export default function AdminHotelsPage() {
                 />
               </div>
 
-              <select
+              {/* <select
                 value={status}
                 onChange={(e) => {
                   setStatus(e.target.value);
@@ -200,7 +220,7 @@ export default function AdminHotelsPage() {
                 <option value="all">All status</option>
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
-              </select>
+              </select> */}
 
               <select
                 value={sortBy}
@@ -220,36 +240,36 @@ export default function AdminHotelsPage() {
                 <tr className="text-left text-sm text-gray-500 border-b">
                   <th className="py-3">Hotel</th>
                   <th className="py-3">Location</th>
-                  <th className="py-3">Rooms</th>
-                  <th className="py-3">Price / night</th>
+                  <th className="py-3">Rating</th>
+                  <th className="py-3">Price </th>
                   <th className="py-3">Status</th>
                   <th className="py-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {pageItems.map((h) => (
-                  <tr key={h.id} className="border-b last:border-b-0">
+                  <tr key={h._id} className="border-b last:border-b-0">
                     <td className="py-4 flex items-center gap-3">
                       <img
-                        src={h.image}
-                        alt={h.name}
+                        src={h.hotelImage[0]}
+                        alt={h.hotel_name}
                         className="w-16 h-12 rounded object-cover"
                       />
-                      <span className="font-medium">{h.name}</span>
+                      <span className="font-medium">{h?.hotel_name}</span>
                     </td>
-                    <td className="py-4">{h.location}</td>
-                    <td className="py-4">{h.rooms}</td>
-                    <td className="py-4">₹{h.pricePerNight}</td>
+                    <td className="py-4">{h?.hotel_address}</td>
+                    <td className="py-4">{h?.rating}</td>
+                    <td className="py-4">₹{h?.starting_price}</td>
                     <td className="py-4">
                       <span
-                        className={`px-3 py-1 rounded-full text-sm ${
-                          h.status === "published"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-yellow-100 text-yellow-700"
-                        }`}
-                      >
-                        {h.status}
-                      </span>
+                         className={`px-3 py-1 rounded-full text-sm ${
+                           h.isActive === true || h.isActive === "true"
+                             ? "bg-green-100 text-green-700"
+                             : "bg-yellow-100 text-yellow-700"
+                         }`}
+                       >
+                         {h.isActive === true || h.isActive === "true" ? "Published" : "Draft"}
+                       </span>
                     </td>
                     <td className="py-4 text-right flex justify-end gap-2">
                       {/* <button
@@ -264,14 +284,14 @@ export default function AdminHotelsPage() {
                       </button> */}
                       <button
                         title="Edit"
-                        onClick={() => router.push(`owner-update-property/${h.id}`)}
+                        onClick={() => router.push(`owner-update-hotel/${h._id}`)}
                         className="p-2 rounded hover:bg-gray-100"
                       >
                         <FiEdit />
                       </button>
                       <button
                         title="Delete"
-                        onClick={() => handleDelete(h.id)}
+                        onClick={() => handleDelete(h._id)}
                         className="p-2 rounded hover:bg-red-50 text-red-500"
                       >
                         <FiTrash2 />
@@ -295,30 +315,30 @@ export default function AdminHotelsPage() {
           <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
             {pageItems.map((h) => (
               <article
-                key={h.id}
+                key={h?._id}
                 className="bg-white border rounded-lg shadow-sm overflow-hidden"
               >
                 <img
-                  src={h.image}
-                  alt={h.name}
+                  src={h?.hotelImage[0]}
+                  alt={h?.hotel_name}
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-3">
-                  <h3 className="font-semibold">{h.name}</h3>
+                  <h3 className="font-semibold">{h.hotel_name}</h3>
                   <p className="text-sm text-gray-500">{h.location}</p>
                   <div className="flex justify-between mt-2 text-sm text-gray-700">
-                    <span>Rooms: {h.rooms}</span>
-                    <span>₹{h.pricePerNight}</span>
+                    <span>Rating: {h?.rating}</span>
+                    <span>₹{h?.starting_price}</span>
                   </div>
                   <div className="flex justify-between mt-3">
                     <button
-                      onClick={() => router.push(`owner-update-property/${h.id}`)}
+                      onClick={() => router.push(`owner-update-hotel/${h._id}`)}
                       className="px-3 py-1 bg-gray-100 rounded text-sm"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(h.id)}
+                      onClick={() => handleDelete(h._id)}
                       className="px-3 py-1 bg-red-100 text-red-500 rounded text-sm"
                     >
                       Delete

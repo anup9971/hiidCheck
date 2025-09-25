@@ -72,7 +72,7 @@ const OwnerSchema = new mongoose.Schema({
   },
   active: {
     type: Boolean,
-    default: true, // enable by default
+    default: true,  // enable by default
   },
 },
 { timestamps: true }

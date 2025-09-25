@@ -23,7 +23,7 @@ export default function OwnerProfileSideBar({ owner, formatDate }) {
   ];
 
   return (
-    <aside className="w-full pb-10 md:h-auto bg-white rounded-lg shadow p-4 md:p-6">
+    <aside className="w-full pb-10 md:h-auto bg-white shadow-md rounded-md p-4 md:p-6">
       {/* User info */}
       <div className="flex items-center pt-3 gap-4">
         <img

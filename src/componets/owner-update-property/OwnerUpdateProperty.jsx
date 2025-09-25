@@ -1,353 +1,258 @@
 "use client";
-import Link from "next/link";
+
 import { useState, useEffect } from "react";
-import { FaBackward } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { useRouter, useParams } from "next/navigation";
 import OwnerProfileSideBar from "../ownerProfileDashboard/OwnerProfileSideBar";
+import FormValidator from "@/componets/FormValidator";
+import ownerFechData from "@/app/admin/ownerFetchData";
+import { formatDate } from "@/app/untils/formatDate";
 
-export default function OwnerUpdateProperty() {
-  let [user, setUser] = useState([]);
+export default function OwnerUpdateHotel() {
+  const { owner } = ownerFechData();
+  const router = useRouter();
+  const { id } = useParams();
 
-  // ✅ Static Dummy Data (Update Mode)
-  const dummyHotel = {
-    name: "Hotel Siam International",
-    price: "2500",
-    rating: "4",
-    location: "Karol Bagh, New Delhi",
-    hotelImage: ["hotel1.jpg", "hotel2.jpg"],
-    roomProperty: [
-      {
-        roomName: "Deluxe Room",
-        roomPrice: "1800",
-        roomRating: "4",
-        roomQuantity: "10",
-        roomImage: ["room1.jpg"],
-        propertyType: "Hotel",
-        roomAmenities: ["Wi-fi", "AC"],
-        roomMap: "https://maps.google.com/xyz",
-        roomLocation: "1st Floor",
-        breakFast: "200",
-        dinner: "400",
-        facilities: "AC, TV, Free WiFi, Attached Bathroom",
-        description: "Spacious deluxe room with all modern facilities.",
-        features: {
-          parking: true,
-          restaurant: false,
-        },
-      },
-    ],
-  };
+  const [hotel, setHotel] = useState({
+    hotel_name: "",
+    starting_price: "",
+    rating: "",
+    hotel_Description: "",
+    hotel_address: "",
+    hotelImage: [], // New uploads
+    oldImages: [],  // Existing images
+  });
 
-  const [hotel, setHotel] = useState(null);
+  const [errorMessage, setErrorMessage] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  // Load dummy data
+  // Fetch hotel data
   useEffect(() => {
-    setHotel(dummyHotel);
-  }, []);
+    if (!id) return;
 
-  if (!hotel) return <p className="text-center">Loading...</p>;
+    const fetchHotel = async () => {
+      try {
+        const res = await fetch(`/api/hotels/${id}`);
+        const data = await res.json();
 
-  // Hotel field change
+        if (data && data._id) {
+          setHotel({
+            hotel_name: data.hotel_name || "",
+            starting_price: data.starting_price || "",
+            rating: data.rating || "",
+            hotel_Description: data.hotel_Description || "",
+            hotel_address: data.hotel_address || "",
+            hotelImage: [],
+            oldImages: data.hotelImage || [],
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch hotel:", err);
+        toast.error("Failed to load hotel data");
+      }
+    };
+
+    fetchHotel();
+  }, [id]);
+
+  // Handle text input change
   const handleHotelChange = (e) => {
     const { name, value } = e.target;
-    setHotel({ ...hotel, [name]: value });
-  };
 
-  // Hotel images
-  const handleHotelImages = (e) => {
-    const files = Array.from(e.target.files).map((file) => file.name);
-    setHotel({ ...hotel, hotelImage: files });
-  };
-
-  // Room field change
-  const handleRoomChange = (index, e) => {
-    const { name, value, type, checked, files } = e.target;
-    const rooms = [...hotel.roomProperty];
-
-    if (type === "checkbox") {
-      let amenities = [...rooms[index].roomAmenities];
-      if (checked) amenities.push(value);
-      else amenities = amenities.filter((a) => a !== value);
-      rooms[index].roomAmenities = amenities;
-    } else if (type === "file") {
-      const fileArray = Array.from(files).map((file) => file.name);
-      rooms[index][name] = fileArray;
-    } else {
-      rooms[index][name] = value;
+    // Only validate string fields to avoid .trim() error
+    const stringFields = ["hotel_name", "hotel_address", "hotel_Description"];
+    let error = "";
+    if (stringFields.includes(name)) {
+      error = FormValidator({ target: { name, value } }, hotel);
     }
 
-    setHotel({ ...hotel, roomProperty: rooms });
+    setErrorMessage((prev) => ({ ...prev, [name]: error }));
+    setHotel((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit handler (only update)
-  const handleSubmit = async (e) => {
+  // Handle new image uploads
+  const handleHotelImages = (e) => {
+    const files = Array.from(e.target.files);
+    const fakeEvent = { target: { name: "hotelImage", files } };
+    const error = FormValidator(fakeEvent, hotel);
+
+    setErrorMessage((prev) => ({ ...prev, hotelImage: error }));
+
+    if (error) {
+      toast.error(error);
+      e.target.value = "";
+      return;
+    }
+
+    setHotel((prev) => ({ ...prev, hotelImage: files }));
+  };
+
+  // Handle update
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log("Updating Hotel Data:", hotel);
-    alert("Hotel Updated Successfully (dummy)");
+    setLoading(true);
+
+    try {
+      // Validate only text fields
+      const textFields = ["hotel_name", "hotel_address", "hotel_Description"];
+      const errors = {};
+      textFields.forEach((field) => {
+        if (hotel[field]) {
+          errors[field] = FormValidator({ target: { name: field, value: hotel[field] } }, hotel);
+        }
+      });
+
+      if (Object.values(errors).some((err) => err !== "")) {
+        setErrorMessage(errors);
+        setLoading(false);
+        return;
+      }
+
+      // Prepare FormData
+      const formData = new FormData();
+      formData.append("hotel_name", hotel.hotel_name || hotel.hotel_name);
+      formData.append("starting_price", hotel.starting_price || hotel.starting_price);
+      formData.append("rating", hotel.rating || hotel.rating);
+      formData.append("hotel_address", hotel.hotel_address || hotel.hotel_address);
+      formData.append("hotel_Description", hotel.hotel_Description || hotel.hotel_Description);
+      formData.append("oldImages", JSON.stringify(hotel.oldImages));
+
+      hotel.hotelImage.forEach((file) => formData.append("hotelImage", file));
+
+      const res = await fetch(`/api/hotels/${id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Update failed");
+
+      toast.success("Hotel updated successfully!");
+      router.push("/owner-profile");
+    } catch (err) {
+      console.error("Error updating hotel:", err);
+      toast.error("Failed to update hotel");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="mt-[-4px]">
-      <div className="grid grid-cols-1 text-black pt-10 md:grid-cols-4 gap-6 p-4">
-        {/* Sidebar Section */}
-        <div className="p-4 md:col-span-1">
-          <h2 className="text-2xl pb-4 font-semibold">Owner Profile</h2>
-          <OwnerProfileSideBar user={user} />
+    <div className="min-h-screen bg-gray-50 text-black py-10 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+        {/* Sidebar */}
+        <div className="md:col-span-1">
+          <div className="sticky top-20">
+            <h2 className="text-2xl pb-4 font-semibold">Owner Profile</h2>
+            <OwnerProfileSideBar owner={owner} formatDate={formatDate} />
+          </div>
         </div>
 
-        {/* Form Section */}
-        <div className="bg-white shadow-xl rounded-2xl p-6 md:col-span-3">
-          <h2 className="text-2xl font-bold font-serif mb-6 text-center">
-            Update Hotel{" "}
-            <span className="float-end">
-              <Link href="/owner-profile">
-                <FaBackward />
-              </Link>
-            </span>
-          </h2>
+        {/* Update Form */}
+        <div className="md:col-span-3">
+          <div className="bg-white shadow-xl rounded-2xl p-6">
+            <h2 className="text-2xl font-bold font-serif mb-6 text-center">Update Hotel</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Hotel Fields */}
-            <div>
-              <label className="block font-medium">Hotel Name</label>
-              <input
-                type="text"
-                name="name"
-                value={hotel.name}
-                onChange={handleHotelChange}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
+            <form onSubmit={handleUpdate} className="space-y-4">
+              {/* Hotel Name */}
+              <div>
+                <label className="block font-medium">Hotel Name</label>
+                <input
+                  type="text"
+                  name="hotel_name"
+                  value={hotel.hotel_name}
+                  onChange={handleHotelChange}
+                  className="w-full p-2 border rounded-lg"
+                />
+                <p className="text-red-500 text-sm">{errorMessage.hotel_name}</p>
+              </div>
 
-            <div>
-              <label className="block font-medium">Room Starting Price (₹)</label>
-              <input
-                type="number"
-                name="price"
-                value={hotel.price}
-                onChange={handleHotelChange}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
+              {/* Starting Price */}
+              <div>
+                <label className="block font-medium">Starting Price (₹)</label>
+                <input
+                  type="number"
+                  name="starting_price"
+                  value={hotel.starting_price}
+                  onChange={handleHotelChange}
+                  className="w-full p-2 border rounded-lg"
+                />
+                <p className="text-red-500 text-sm">{errorMessage.starting_price}</p>
+              </div>
 
-            <div>
-              <label className="block font-medium">Location</label>
-              <input
-                type="text"
-                name="location"
-                value={hotel.location}
-                onChange={handleHotelChange}
-                className="w-full p-2 border rounded-lg"
-              />
-            </div>
+              {/* Hotel Address */}
+              <div>
+                <label className="block font-medium">Hotel Address</label>
+                <input
+                  type="text"
+                  name="hotel_address"
+                  value={hotel.hotel_address}
+                  onChange={handleHotelChange}
+                  className="w-full p-2 border rounded-lg"
+                />
+                <p className="text-red-500 text-sm">{errorMessage.hotel_address}</p>
+              </div>
 
-            <div>
-              <label className="block font-medium">Hotel Rating (1-5)</label>
-              <select
-                name="rating"
-                value={hotel.rating}
-                onChange={handleHotelChange}
-                className="w-full p-2 border rounded-lg"
-              >
-                {[1, 2, 3, 4, 5].map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
-            </div>
+              {/* Rating */}
+              <div>
+                <label className="block font-medium">Rating</label>
+                <select
+                  name="rating"
+                  value={hotel.rating}
+                  onChange={handleHotelChange}
+                  className="w-full p-2 border rounded-lg"
+                >
+                  <option value="">Select rating</option>
+                  {[1, 2, 3, 4, 5].map((r) => (
+                    <option key={r} value={r}>{r}</option>
+                  ))}
+                </select>
+                <p className="text-red-500 text-sm">{errorMessage.rating}</p>
+              </div>
 
-            <div>
-              <label className="block font-medium">Hotel Images</label>
-              <input
-                type="file"
-                multiple
-                onChange={handleHotelImages}
-                className="w-full p-2 border rounded-lg"
-              />
-              <p className="text-sm text-gray-500">
-                Current: {hotel.hotelImage.join(", ")}
-              </p>
-            </div>
-
-            <hr className="my-6" />
-
-            {/* Room Section */}
-            {hotel.roomProperty.map((room, index) => (
-              <div
-                key={index}
-                className="border p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4"
-              >
-                <div>
-                  <label className="block font-medium">Room Name*</label>
-                  <input
-                    type="text"
-                    name="roomName"
-                    value={room.roomName}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Price (₹)*</label>
-                  <input
-                    type="number"
-                    name="roomPrice"
-                    value={room.roomPrice}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Location*</label>
-                  <input
-                    type="text"
-                    name="roomLocation"
-                    value={room.roomLocation}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Quantity*</label>
-                  <input
-                    type="number"
-                    name="roomQuantity"
-                    value={room.roomQuantity}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Map URL*</label>
-                  <input
-                    type="text"
-                    name="roomMap"
-                    value={room.roomMap}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Images*</label>
-                  <input
-                    type="file"
-                    multiple
-                    name="roomImage"
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                  <p className="text-sm text-gray-500">
-                    Current: {room.roomImage.join(", ")}
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Property Type*</label>
-                  <select
-                    name="propertyType"
-                    value={room.propertyType}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  >
-                    <option value="">select property type</option>
-                    <option value="Hotel">Hotel</option>
-                    <option value="Apartment">Apartment</option>
-                    <option value="Conference Hall">Conference Hall</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block font-medium">Room Rating*</label>
-                  <select
-                    name="roomRating"
-                    value={room.roomRating}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  >
-                    {[1, 2, 3, 4, 5].map((r) => (
-                      <option key={r} value={r}>
-                        {r}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block font-medium">BreakFast Price</label>
-                  <input
-                    type="text"
-                    name="breakFast"
-                    value={room.breakFast}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium">Dinner Price</label>
-                  <input
-                    type="text"
-                    name="dinner"
-                    value={room.dinner}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block font-medium mb-2">Room Amenities*</label>
-                  <div className="flex flex-wrap gap-4">
-                    {["Wi-fi", "AC", "Parking", "Breakfast"].map((a) => (
-                      <label key={a} className="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          value={a}
-                          checked={room.roomAmenities.includes(a)}
-                          onChange={(e) => handleRoomChange(index, e)}
-                          className="h-4 w-4 text-blue-600 border-gray-300 rounded"
-                        />
-                        <span>{a}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block font-medium">Facilities*</label>
-                  <textarea
-                    name="facilities"
-                    value={room.facilities}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                    rows="3"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block font-medium">Description*</label>
-                  <textarea
-                    name="description"
-                    value={room.description}
-                    onChange={(e) => handleRoomChange(index, e)}
-                    className="w-full p-2 border rounded-lg"
-                    rows="3"
-                  />
+              {/* Hotel Images */}
+              <div>
+                <label className="block font-medium">Hotel Images</label>
+                <input
+                  type="file"
+                  multiple
+                  name="hotelImage"
+                  onChange={handleHotelImages}
+                  className="w-full p-2 border rounded-lg"
+                />
+                <p className="text-red-500 text-sm">{errorMessage.hotelImage}</p>
+                <p className="text-sm text-gray-500">
+                  Upload new images to replace old ones. Old images will be preserved if not replaced.
+                </p>
+                <div className="flex gap-2 mt-2 flex-wrap">
+                  {hotel.oldImages.map((img, i) => (
+                    <img key={i} src={img} className="w-16 h-16 object-cover rounded" />
+                  ))}
                 </div>
               </div>
-            ))}
 
-            <button
-              type="submit"
-              className="w-full bg-[#5f8575] text-white py-2 rounded-lg hover:bg-[#318d67]"
-            >
-              Update Hotel
-            </button>
-          </form>
+              {/* Hotel Description */}
+              <div>
+                <label className="block font-medium">Hotel Description</label>
+                <textarea
+                  name="hotel_Description"
+                  value={hotel.hotel_Description}
+                  onChange={handleHotelChange}
+                  className="w-full p-2 border rounded-lg"
+                  rows={4}
+                />
+                <p className="text-red-500 text-sm">{errorMessage.hotel_Description}</p>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#5f8575] text-white py-2 rounded-lg hover:bg-[#318d67] disabled:opacity-50"
+              >
+                {loading ? "Updating..." : "Update Hotel"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

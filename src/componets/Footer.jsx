@@ -41,7 +41,7 @@ const Footer = () => {
             <li><Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">Booking</Link></li>
             <li><Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">Corporate Law</Link></li>
             <li><Link href="#" className="text-white hover:text-gray-300 hover:border-b-1">Family Law</Link></li>
-            <li><Link href="/registration-owner" className="text-white hover:text-gray-300 hover:border-b-1">Add Your Property</Link></li>
+            <li><Link href="/login-owner" className="text-white hover:text-gray-300 hover:border-b-1">Add Your Property</Link></li>
           </ul>
         </div>
 
