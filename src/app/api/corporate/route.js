@@ -1,9 +1,10 @@
 
 
-import Owner from "../../models/Owner";
+
 import nodemailer from "nodemailer";
 import db_connect from "@/app/lib/db_connect";
 import Room from "@/app/model/Room";
+import Owner from "@/app/model/Owner";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ message: "Method not allowed" });
